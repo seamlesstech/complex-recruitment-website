@@ -1,4 +1,4 @@
-import { LegalPage } from '../../components/LegalPage';
+import { LegalPage } from '../../components/legal/LegalPage';
 export default function PrivacyPage(){return <LegalPage kicker="PRIVACY POLICY" title="Privacy Policy" intro="How Complex Recruitment handles personal information across recruitment, staffing enquiries and website use." updated="DESIGN DRAFT" sections={[
 {title:'Overview',body:'Placeholder for Complex’s approved privacy-policy introduction, data-controller details and scope.'},
 {title:'Information we collect',body:['Placeholder for the categories of candidate, employer and website information Complex collects.','The final wording should reflect the actual fields used in job applications, registration of interest and staffing-request forms.']},

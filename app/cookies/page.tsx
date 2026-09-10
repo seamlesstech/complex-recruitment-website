@@ -1,4 +1,4 @@
-import { LegalPage } from '../../components/LegalPage';
+import { LegalPage } from '../../components/legal/LegalPage';
 export default function CookiesPage(){return <LegalPage kicker="COOKIE POLICY" title="Cookie Policy" intro="A clear explanation of the cookies and similar technologies used by the new Complex Recruitment website." updated="DESIGN DRAFT" sections={[
 {title:'What cookies are',body:'Placeholder for the approved explanation of cookies and similar browser technologies.'},
 {title:'Essential cookies',body:'Placeholder for cookies strictly necessary for security, forms, preferences or core website operation.'},

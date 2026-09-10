@@ -1,4 +1,4 @@
-import { LegalPage } from '../../components/LegalPage';
+import { LegalPage } from '../../components/legal/LegalPage';
 export default function TermsPage(){return <LegalPage kicker="WEBSITE TERMS" title="Website Terms" intro="Terms governing use of the Complex Recruitment website, vacancy information and information submitted through the site." updated="DESIGN DRAFT" sections={[
 {title:'Introduction',body:'The current Complex website contains a legacy terms template with unresolved placeholders for business name, registered address and company registration details. This redesign intentionally does not carry those placeholders forward as final legal copy.'},
 {title:'Information on this site',body:'Design-stage placeholder for approved wording about the accuracy, availability and updating of website and vacancy information.'},
