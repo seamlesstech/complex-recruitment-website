@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-red: #ec2125;
+  --color-brand-grey: #797f84;
+  --color-ink: #111214;
+  --color-ink-soft: #1a1c1f;
+  --color-surface: #f3f4f4;
+  --color-surface-strong: #eceeef;
+  --color-muted: #667178;
+  --color-steel: #a8acae;
+  --color-line: rgba(17, 18, 20, 0.15);
+  --color-complex-white: #ffffff;
+  --container-page: 87.5rem;
+  --text-label: 0.625rem;
+  --text-label--line-height: 1.2;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.7;
+  --text-display-lg: clamp(3rem, 5.2vw, 5.25rem);
+  --text-display-lg--line-height: 0.96;
+  --text-display-xl: clamp(3.625rem, 6.25vw, 6.5rem);
+  --text-display-xl--line-height: 0.88;
+  --ease-complex: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 :root{
   --ink:#111214; --ink-2:#1a1c1f; --paper:#f3f4f4; --paper-2:#eceeef;
   --accent:#ec2125; --brand-gray:#797f84; --steel:#a8acae; --line:rgba(17,18,20,.15); --white:#ffffff;
