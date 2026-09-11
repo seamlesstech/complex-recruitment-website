@@ -1,5 +1,6 @@
 import { Header } from '../../../components/Header';
 import { SectionLabel } from '../../../components/SectionLabel';
+import { Footer } from '../../../components/layout/Footer';
 
 export default function DriverAssessmentsPage(){
   return <main className="detailServicePage">
@@ -27,8 +28,6 @@ export default function DriverAssessmentsPage(){
     <section className="assessmentProcess whiteSurface"><div className="pageShell processHeader"><SectionLabel>HOW IT WORKS</SectionLabel><h2>Simple to arrange.<br/><em>Useful to act on.</em></h2></div><div className="pageShell processCards">{[['01','Brief us','Tell us the driver group, vehicle context and what you need to understand.'],['02','Assess','Complex carries out the agreed theory, practical and/or load-security assessment.'],['03','Report','Receive clear feedback and recommendations from the assessment.'],['04','Develop','Discuss refresher training, follow-up assessment or further support where needed.']].map(([n,t,c])=><article key={n}><span>{n}</span><h3>{t}</h3><p>{c}</p></article>)}</div></section>
 
     <section className="serviceEnquiry darkSurface" id="assessment-enquiry"><div className="pageShell serviceEnquiryGrid"><div><SectionLabel>START AN ASSESSMENT</SectionLabel><h2>Tell us what you<br/><em>need to understand.</em></h2></div><div className="enquiryCard"><span>DRIVER ASSESSMENT ENQUIRY</span><h3>Employer or individual driver?</h3><p>Share the type of assessment, approximate number of drivers and preferred timing. The Complex team can confirm the most suitable next step.</p><a className="button buttonAccent" href="/contact">Make an Enquiry <span>↗</span></a></div></div></section>
-    <Footer />
+    <Footer variant="training" />
   </main>
 }
-
-function Footer(){return <footer className="siteFooter"><img className="footerMark" src="/complex-mark.png" alt=""/><div className="pageShell footerLead"><div className="footerBrand"><img className="footerLogo" src="/complex-logo-white.png" alt="Complex Recruitment"/><p>Specialist workforce solutions across Driving, Industrial and Construction.</p></div><a className="footerCall" href="tel:02039237888"><span>CALL COMPLEX</span><strong>0203 923 7888</strong><i>↗</i></a></div><div className="pageShell footerNav"><div><h4>EMPLOYERS</h4><a href="/employers">Employer Solutions</a><a href="/request-staff">Request Staff</a></div><div><h4>CANDIDATES</h4><a href="/jobs">Find Jobs</a><a href="/candidates">Why Complex</a></div><div><h4>TRAINING</h4><a href="/training/driver-assessments">Driver Assessments</a><a href="/training/cpc">CPC Training</a></div><div><h4>COMPANY</h4><a href="/about">About</a><a href="/contact">Contact</a></div></div><div className="pageShell footerBottom"><span>© 2026 COMPLEX RECRUITMENT</span><nav><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a></nav></div></footer>}

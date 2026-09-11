@@ -1,5 +1,6 @@
 import { Header } from '../../../components/Header';
 import { SectionLabel } from '../../../components/SectionLabel';
+import { Footer } from '../../../components/layout/Footer';
 
 export default function CpcPage(){
   return <main className="detailServicePage">
@@ -19,7 +20,6 @@ export default function CpcPage(){
     <section className="cpcInstructor whiteSurface"><div className="pageShell cpcInstructorGrid"><div className="cpcInstructorImage"/><div><SectionLabel>INSTRUCTOR-LED</SectionLabel><h2>Knowledge that<br/><em>connects to practice.</em></h2><p>The current site states that NRI-registered LGV instructors with transport-logistics training experience support delivery. The new page keeps that credibility, but presents it in a clearer and less text-heavy way.</p><div className="inlineProof"><span>Professional driving</span><span>Transport logistics</span><span>Compliance awareness</span></div><a className="button buttonDark" href="#cpc-enquiry">Plan Your Training <span>↗</span></a></div></div></section>
 
     <section className="serviceEnquiry redSurface" id="cpc-enquiry"><div className="pageShell serviceEnquiryGrid"><div><SectionLabel>PLAN YOUR CPC</SectionLabel><h2>Training for one driver<br/><em>or a wider team.</em></h2></div><div className="enquiryCard light"><span>CPC TRAINING ENQUIRY</span><h3>Tell us what you need.</h3><p>Share whether you are enquiring as a driver or employer, approximate numbers and preferred timing. Complex can confirm available delivery options.</p><a className="button buttonDark" href="/contact">Make an Enquiry <span>↗</span></a></div></div></section>
-    <Footer />
+    <Footer variant="training" />
   </main>
 }
-function Footer(){return <footer className="siteFooter"><img className="footerMark" src="/complex-mark.png" alt=""/><div className="pageShell footerLead"><div className="footerBrand"><img className="footerLogo" src="/complex-logo-white.png" alt="Complex Recruitment"/><p>Specialist workforce solutions across Driving, Industrial and Construction.</p></div><a className="footerCall" href="tel:02039237888"><span>CALL COMPLEX</span><strong>0203 923 7888</strong><i>↗</i></a></div><div className="pageShell footerNav"><div><h4>EMPLOYERS</h4><a href="/employers">Employer Solutions</a><a href="/request-staff">Request Staff</a></div><div><h4>CANDIDATES</h4><a href="/jobs">Find Jobs</a><a href="/candidates">Why Complex</a></div><div><h4>TRAINING</h4><a href="/training/driver-assessments">Driver Assessments</a><a href="/training/cpc">CPC Training</a></div><div><h4>COMPANY</h4><a href="/about">About</a><a href="/contact">Contact</a></div></div><div className="pageShell footerBottom"><span>© 2026 COMPLEX RECRUITMENT</span><nav><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a></nav></div></footer>}

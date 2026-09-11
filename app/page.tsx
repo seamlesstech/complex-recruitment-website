@@ -1,5 +1,6 @@
 import { Hero } from "../components/Hero";
 import { SectionLabel } from "../components/SectionLabel";
+import { Footer } from "../components/layout/Footer";
 
 const jobs = [
   {title:'HGV Class 1 Driver', location:'Enfield', sector:'Driving', type:'Temporary', pay:'£19–£22/hr'},
@@ -183,15 +184,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer id="contact">
-        <div className="pageShell footerTop">
-          <div className="footerBrand"><div className="brand footerLogo"><span className="brandMark">C</span><span className="brandWord">COMPLEX</span><span className="brandSub">RECRUITMENT</span></div><p>Specialist workforce solutions across Driving, Industrial and Construction.</p></div>
-          <div><h4>Employers</h4><a href="#">Employer Solutions</a><a href="#request-staff">Request Staff</a><a href="#sectors">Driving</a><a href="#sectors">Industrial</a><a href="#sectors">Construction</a></div>
-          <div><h4>Candidates</h4><a href="#jobs">Find Jobs</a><a href="#candidates">Why Complex</a><a href="#training">Training</a><a href="#">Driver Assessments</a><a href="#">CPC Training</a></div>
-          <div><h4>Contact</h4><a href="tel:02039237888">0203 923 7888</a><a href="mailto:info@complexrecruitment.co.uk">info@complexrecruitment.co.uk</a><p>Unit 2 Georgiou Business Park,<br/>Second Avenue, London, N18 2PG</p></div>
-        </div>
-        <div className="pageShell footerBottom"><span>© 2026 Complex Recruitment</span><span>Privacy · Cookies · Terms · Modern Slavery</span><span>REC MEMBER</span></div>
-      </footer>
+      <Footer variant="home" />
     </main>
   );
 }

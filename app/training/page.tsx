@@ -1,5 +1,6 @@
 import { Header } from '../../components/Header';
 import { SectionLabel } from '../../components/SectionLabel';
+import { Footer } from '../../components/layout/Footer';
 
 export default function TrainingPage(){
   return <main className="trainingPage">
@@ -29,8 +30,6 @@ export default function TrainingPage(){
     <section className="trainingWho"><div className="pageShell trainingWhoHead"><SectionLabel>WHO IS IT FOR?</SectionLabel><h2>Support for both sides<br/><em>of the operation.</em></h2></div><div className="trainingWhoGrid"><article><small>FOR EMPLOYERS</small><h3>Strengthen driver standards.</h3><p>Discuss assessments, refresher needs and training support around your transport operation.</p><a href="/contact">Make an Enquiry <i>↗</i></a></article><article><small>FOR DRIVERS</small><h3>Keep developing professionally.</h3><p>Explore assessment and training options designed around professional driving.</p><a href="/contact">Talk to Complex <i>↗</i></a></article></div></section>
 
     <section className="trainingFinal"><div className="pageShell trainingFinalGrid"><div><SectionLabel>START A CONVERSATION</SectionLabel><h2>Need training or<br/><em>an assessment?</em></h2></div><div><p>Tell us whether you are enquiring as an employer or driver and what support you need. The Complex team can advise on the next step.</p><a className="button buttonAccent" href="/contact">Make an Enquiry <span>↗</span></a></div></div></section>
-    <Footer />
+    <Footer variant="training" />
   </main>
 }
-
-function Footer(){return <footer id="contact" className="siteFooter"><img className="footerMark" src="/complex-mark.png" alt="" aria-hidden="true"/><div className="pageShell footerLead"><div className="footerBrand"><img className="footerLogo" src="/complex-logo-white.png" alt="Complex Recruitment"/><p>Specialist workforce solutions across Driving, Industrial and Construction.</p></div><a className="footerCall" href="tel:02039237888"><span>CALL COMPLEX</span><strong>0203 923 7888</strong><i>↗</i></a></div><div className="pageShell footerNav"><div><h4>EMPLOYERS</h4><a href="/employers">Employer Solutions</a><a href="/request-staff">Request Staff</a></div><div><h4>CANDIDATES</h4><a href="/jobs">Find Jobs</a><a href="/candidates">Why Complex</a><a href="/training">Training & Assessments</a></div><div><h4>TRAINING</h4><a href="/training/driver-assessments">Driver Assessments</a><a href="/training/cpc">CPC Training</a></div><div><h4>COMPANY</h4><a href="/about">About</a><a href="/contact">Contact</a></div></div><div className="pageShell footerBottom"><span>© 2026 COMPLEX RECRUITMENT</span><nav><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a></nav></div></footer>}

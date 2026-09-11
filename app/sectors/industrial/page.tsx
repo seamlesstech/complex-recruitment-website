@@ -1,5 +1,6 @@
 import { Header } from '../../../components/Header';
 import { SectionLabel } from '../../../components/SectionLabel';
+import { Footer } from '../../../components/layout/Footer';
 import { IndustrialRoleExplorer } from '../../../components/IndustrialRoleExplorer';
 
 export default function IndustrialPage(){
@@ -57,6 +58,6 @@ export default function IndustrialPage(){
 
     <section className="drivingDual"><a href="/request-staff" className="drivingDualCard employerPath"><small>FOR EMPLOYERS</small><div className="sectorDualHeading"><span className="sectorDualGreeting">Hi, Complex,</span><h3>I need industrial staff.</h3></div><p>Tell us the role, shift, numbers and timing. We’ll take it from there.</p><span className="sectorDualCta">Request Staff <i>↗</i></span></a><a href="/jobs" className="drivingDualCard candidatePath"><small>FOR CANDIDATES</small><div className="sectorDualHeading"><span className="sectorDualGreeting">Hi, Complex,</span><h3>I’m looking for industrial work.</h3></div><p>Explore warehouse, logistics and production opportunities.</p><span className="sectorDualCta">Find Industrial Jobs <i>↗</i></span></a></section>
 
-    <footer id="contact" className="siteFooter"><img className="footerMark" src="/complex-mark.png" alt="" aria-hidden="true"/><div className="pageShell footerLead"><div className="footerBrand"><img className="footerLogo" src="/complex-logo-white.png" alt="Complex Recruitment"/><p>Specialist workforce solutions across Driving, Industrial and Construction.</p></div><a className="footerCall" href="tel:02039237888"><span>CALL COMPLEX</span><strong>0203 923 7888</strong><i>↗</i></a></div><div className="pageShell footerNav"><div><h4>EMPLOYERS</h4><a href="/employers">Employer Solutions</a><a href="/request-staff">Request Staff</a><a href="/sectors/driving">Driving</a><a href="/sectors/industrial">Industrial</a><a href="/sectors/construction">Construction</a></div><div><h4>CANDIDATES</h4><a href="/jobs">Find Jobs</a><a href="/candidates">Why Complex</a><a href="/training">Training & Assessments</a></div><div><h4>COMPANY</h4><a href="/about">About</a><a href="/contact">Contact</a></div><div><h4>SECTORS</h4><a href="/sectors/driving">Driving</a><a href="/sectors/industrial">Industrial</a><a href="/sectors/construction">Construction</a></div></div><div className="pageShell footerBottom"><span>© 2026 COMPLEX RECRUITMENT</span><nav aria-label="Legal"><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a><a href="/modern-slavery">Modern Slavery</a></nav></div></footer>
+    <Footer />
   </main>
 }

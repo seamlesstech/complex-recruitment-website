@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Header } from '../Header';
 import { Container } from '../layout/Container';
+import { Footer } from '../layout/Footer';
 
 export type LegalSection = {
   title: string;
@@ -14,13 +15,6 @@ type LegalPageProps = {
   updated: string;
   sections: readonly LegalSection[];
 };
-
-const legalLinks = [
-  ['Privacy', '/privacy'],
-  ['Cookies', '/cookies'],
-  ['Terms', '/terms'],
-  ['Modern Slavery', '/modern-slavery'],
-] as const;
 
 export function LegalPage({ kicker, title, intro, updated, sections }: LegalPageProps) {
   return (
@@ -76,13 +70,7 @@ export function LegalPage({ kicker, title, intro, updated, sections }: LegalPage
         </Container>
       </section>
 
-      <footer className="legalFooter">
-        <div className="pageShell">
-          <img src="/complex-logo-white.png" alt="Complex Recruitment" />
-          <div>{legalLinks.map(([label, href]) => <a key={href} href={href}>{label}</a>)}</div>
-          <span>0203 923 7888</span>
-        </div>
-      </footer>
+      <Footer variant="compact" />
     </main>
   );
 }

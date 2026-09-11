@@ -1,5 +1,6 @@
 import { Header } from '../../components/Header';
 import { Container } from '../../components/layout/Container';
+import { Footer } from '../../components/layout/Footer';
 import { RequestStaffForm } from '../../components/RequestStaffForm';
 import { SectionLabel } from '../../components/SectionLabel';
 
@@ -64,7 +65,7 @@ export default function RequestStaffPage() {
         </Container>
       </section>
 
-      <footer className="siteFooter"><img className="footerMark" src="/complex-mark.png" alt="" /><div className="pageShell footerLead"><div className="footerBrand"><img className="footerLogo" src="/complex-logo-white.png" alt="Complex Recruitment" /><p>Specialist workforce solutions across Driving, Industrial and Construction.</p></div><a className="footerCall" href="tel:02039237888"><span>CALL COMPLEX</span><strong>0203 923 7888</strong><i>↗</i></a></div><div className="pageShell footerBottom"><span>© 2026 COMPLEX RECRUITMENT</span><nav><a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/terms">Terms</a><a href="/modern-slavery">Modern Slavery</a></nav></div></footer>
+      <Footer variant="simple" />
     </main>
   );
 }
