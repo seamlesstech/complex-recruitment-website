@@ -1,127 +1,25 @@
-import { Header } from "../../components/Header";
-import { SectionLabel } from "../../components/SectionLabel";
-import { EmployerServiceSwitcher } from "../../components/EmployerServiceSwitcher";
-import { RequestStaffPreview } from "../../components/RequestStaffPreview";
-import { Footer } from "../../components/layout/Footer";
+import { Header } from '../../components/Header';
+import { SectionLabel } from '../../components/SectionLabel';
+import { EmployerServiceSwitcher } from '../../components/EmployerServiceSwitcher';
+import { RequestStaffPreview } from '../../components/RequestStaffPreview';
+import { Container } from '../../components/layout/Container';
+import { Footer } from '../../components/layout/Footer';
+import { ArrowIcon } from '../../components/ui/ArrowIcon';
+import { ButtonLink } from '../../components/ui/ButtonLink';
+import { TextLink } from '../../components/ui/TextLink';
 
-const checks = [
-  ['01','Right-to-work','Identity and eligibility checks appropriate to the assignment.'],
-  ['02','Employment history','References and experience reviewed where the role requires it.'],
-  ['03','Licences & categories','Relevant driver licence, category and entitlement checks.'],
-  ['04','Qualifications','Role-specific tickets, cards and qualifications verified where applicable.'],
-  ['05','Competency','Practical or competency assessment where the assignment calls for it.'],
-  ['06','Ongoing compliance','Relevant records and requirements kept under review during supply.'],
-];
+const checks=[['01','Right-to-work','Identity and eligibility checks appropriate to the assignment.'],['02','Employment history','References and experience reviewed where the role requires it.'],['03','Licences & categories','Relevant driver licence, category and entitlement checks.'],['04','Qualifications','Role-specific tickets, cards and qualifications verified where applicable.'],['05','Competency','Practical or competency assessment where the assignment calls for it.'],['06','Ongoing compliance','Relevant records and requirements kept under review during supply.']];
+const workTypes=[['Temporary','<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/>'],['Ad-hoc','<path d="M13.5 3 6 13h5l-.5 8L18 11h-5l.5-8Z"/>'],['Temp-to-perm','<path d="M5 8h12l-3-3M19 16H7l3 3"/>'],['Permanent','<path d="m5 12 4 4L19 6"/>'],['High-volume','<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 19c.7-3 2.4-4.5 5-4.5S12.3 16 13 19M11 19c.7-3 2.4-4.5 5-4.5s4.3 1.5 5 4.5"/>']];
+const heading='text-[clamp(54px,5.1vw,86px)] leading-[.95] tracking-[-.055em] max-[760px]:text-5xl';
 
-export default function EmployersPage(){
-  return <main className="employersPage">
-    <section className="employersHero" id="top">
-      <div className="employersHeroMedia" />
-      <div className="employersHeroShade" />
-      <Header active="Employers" />
-      <div className="pageShell employersHeroInner">
-        <div className="employersHeroCopy">
-          <div className="eyebrow">FOR EMPLOYERS <span>/ WORKFORCE SOLUTIONS</span></div>
-          <h1><span>Staffing built for</span><br/><em>your operation<span className="accentPeriod">.</span></em></h1>
-          <p>When demand changes, Complex helps you respond with the right people across Driving, Industrial and Construction — from urgent temporary cover to permanent hires.</p>
-          <div className="heroActions">
-            <a className="button buttonAccent" href="/request-staff">Request Staff <span>↗</span></a>
-            <a className="textLink" href="#solutions">See our solutions <span>↓</span></a>
-          </div>
-        </div>
-        <aside className="employerHeroProof"><span>WHEN YOU NEED US</span><strong>24/7</strong><p>Operational support</p></aside>
-      </div>
-      <div className="employersHeroStrip">
-        <div className="pageShell employerStripInner">
-          <span>HOW WE CAN SUPPORT YOU</span>
-          <div className="workTypeList">
-            <b><span className="workTypeIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span>Temporary</b>
-            <b><span className="workTypeIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 3 6 13h5l-.5 8L18 11h-5l.5-8Z"/></svg></span>Ad-hoc</b>
-            <b><span className="workTypeIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h12l-3-3M19 16H7l3 3"/></svg></span>Temp-to-perm</b>
-            <b><span className="workTypeIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>Permanent</b>
-            <b><span className="workTypeIcon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 19c.7-3 2.4-4.5 5-4.5S12.3 16 13 19M11 19c.7-3 2.4-4.5 5-4.5s4.3 1.5 5 4.5"/></svg></span>High-volume</b>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section className="employerStatement lightSection">
-      <div className="pageShell employerStatementGrid">
-        <SectionLabel>BUILT FOR OPERATIONS</SectionLabel>
-        <h2>When staffing pressure changes,<br/><em>we move with it.</em></h2>
-        <p>Recruitment is only useful when it works in the real world. Complex combines specialist sector knowledge with responsive account support so businesses can deal with peaks, absences, new contracts and longer-term hiring without losing momentum.</p>
-      </div>
-      <div className="pageShell pressureBand">
-        <span>ABSENCE COVER</span><i>→</i><span>SEASONAL PEAKS</span><i>→</i><span>NEW CONTRACTS</span><i>→</i><span>PERMANENT GROWTH</span>
-      </div>
-    </section>
-
-    <section className="employerSolutions" id="solutions">
-      <div className="pageShell employerSolutionsHead">
-        <div><SectionLabel>RECRUITMENT SOLUTIONS</SectionLabel><h2>Support that flexes<br/>around the requirement.</h2></div>
-        <p>Choose the model that suits the pressure you're dealing with now. Complex can support immediate temporary demand as well as more considered permanent recruitment.</p>
-      </div>
-      <div className="pageShell"><EmployerServiceSwitcher /></div>
-    </section>
-
-    <section className="employerSectors lightSection">
-      <div className="pageShell employerSectorsHead"><SectionLabel>SECTOR SPECIALISTS</SectionLabel><h2>People who understand<br/>the work.</h2></div>
-      <div className="pageShell employerSectorRows">
-        <a href="/sectors/driving"><span>01</span><strong>Driving</strong><p>Drivers, transport professionals and operational support across logistics and distribution.</p><i>↗</i></a>
-        <a href="/sectors/industrial"><span>02</span><strong>Industrial</strong><p>Warehousing, production, distribution and flexible industrial workforce support.</p><i>↗</i></a>
-        <a href="/sectors/construction"><span>03</span><strong>Construction</strong><p>Trades, plant, site operatives and labour for projects and contractors.</p><i>↗</i></a>
-      </div>
-    </section>
-
-    <section className="employerCompliance">
-      <div className="pageShell complianceIntro">
-        <div><SectionLabel>COMPLIANCE & VETTING</SectionLabel><h2>Confidence before<br/>the first shift.</h2></div>
-        <p>The right person is not simply someone who is available. Relevant identity, experience, licence, qualification and competency checks are built into the supply process according to the role and assignment.</p>
-      </div>
-      <div className="pageShell checkGrid">
-        {checks.map(([n,t,c])=><article key={n}><span>{n}</span><h3>{t}</h3><p>{c}</p></article>)}
-      </div>
-    </section>
-
-    <section className="employerProcess lightSection">
-      <div className="pageShell employerProcessHead">
-        <SectionLabel>FROM REQUIREMENT TO READY</SectionLabel>
-        <h2>A clear route from<br/>need to workforce.</h2>
-      </div>
-      <div className="pageShell employerProcessTrack">
-        {[
-          ['01','Brief us','Tell us the role, location, headcount, shifts and when you need people.'],
-          ['02','Source & verify','We identify suitable candidates and complete the relevant checks.'],
-          ['03','Confirm & deploy','Workers are confirmed, briefed and prepared for the assignment.'],
-          ['04','Stay supported','We remain involved with communication, account support and escalation.'],
-        ].map(([n,t,c])=><article key={n}><span>{n}</span><div><h3>{t}</h3><p>{c}</p></div></article>)}
-      </div>
-    </section>
-
-    <section className="accountSupport">
-      <div className="accountSupportImage" />
-      <div className="accountSupportCopy">
-        <SectionLabel>ACCOUNT SUPPORT</SectionLabel>
-        <h2>The relationship doesn't end<br/><em>when the shift starts.</em></h2>
-        <p>Complex stays close to the requirement after placement, helping clients deal with changes, questions and operational issues as they happen.</p>
-        <div className="supportList">
-          <span>Dedicated point of contact</span><span>Ongoing communication</span><span>Rapid replacement / escalation support</span><span>Support outside normal office hours</span>
-        </div>
-        <div className="support24"><strong>24/7</strong><span>Operational support</span></div>
-      </div>
-    </section>
-
-    <section className="employerFinal" id="request-staff">
-      <div className="pageShell employerFinalGrid">
-        <div>
-          <SectionLabel>START A REQUEST</SectionLabel>
-          <h2>Tell us what<br/>you need.</h2>
-          <p>You don't need an account. Give us the essentials and the Complex team can take the requirement from there.</p>
-        </div>
-        <RequestStaffPreview />
-      </div>
-    </section>
-
-    <Footer />
-  </main>
-}
+export default function EmployersPage(){return <main className="bg-white text-ink">
+  <section id="top" className="relative isolate grid min-h-svh grid-rows-[92px_minmax(0,1fr)_106px] overflow-hidden bg-brand-grey text-white max-[900px]:min-h-0 max-[900px]:grid-rows-[92px_auto_auto] max-[760px]:grid-rows-[76px_auto_auto]"><div className="absolute inset-y-0 right-0 -z-[2] w-[54%] bg-[url('https://images.pexels.com/photos/4481259/pexels-photo-4481259.jpeg?auto=compress&cs=tinysrgb&w=1800')] bg-cover bg-center grayscale-[.55] max-[900px]:w-full max-[900px]:opacity-40"/><div className="absolute inset-0 -z-[1] bg-[linear-gradient(90deg,rgba(121,127,132,.98)_0%,rgba(121,127,132,.94)_43%,rgba(121,127,132,.18)_74%,rgba(17,18,20,.25))]"/><Header active="Employers" theme="dark"/><Container className="grid grid-cols-[1fr_230px] items-end gap-[70px] py-[70px] pb-[54px] max-[1100px]:gap-10 max-[900px]:grid-cols-1 max-[900px]:py-20 max-[760px]:py-[58px]"><div className="max-w-[900px]"><div className="eyebrow text-white">FOR EMPLOYERS <span className="text-white/60">/ WORKFORCE SOLUTIONS</span></div><h1 className="m-0 text-[clamp(66px,6.3vw,106px)] font-semibold leading-[.88] tracking-[-.065em] max-[1100px]:text-[78px] max-[760px]:text-[52px]">Staffing built for<br/><em className="not-italic text-white">your operation<span className="text-brand-red">.</span></em></h1><p className="my-7 max-w-[610px] text-base leading-[1.62] text-white/85">When demand changes, Complex helps you respond with the right people across Driving, Industrial and Construction — from urgent temporary cover to permanent hires.</p><div className="flex items-center gap-7 max-[520px]:items-start max-[520px]:flex-col"><ButtonLink href="/request-staff">Request Staff</ButtonLink><TextLink href="#solutions" variant="light" arrowDirection="down-right">See our solutions</TextLink></div></div><aside className="mb-1 self-end border-l-2 border-brand-red bg-ink/35 p-[18px] pl-5 backdrop-blur-lg max-[900px]:w-[230px]"><span className="text-[9px] tracking-[.16em] text-white/70">WHEN YOU NEED US</span><strong className="my-[11px] mb-1 block text-[56px] leading-none tracking-[-.05em]">24/7</strong><p className="text-[10px] text-white/70">Operational support</p></aside></Container><div className="relative z-[4] overflow-x-auto border-t border-white/80 bg-white/95 text-ink backdrop-blur-lg"><Container className="grid h-[106px] grid-cols-[240px_1fr] items-center max-[900px]:h-auto max-[900px]:min-w-[760px]"><span className="text-[9px] tracking-[.16em] text-muted">HOW WE CAN SUPPORT YOU</span><div className="grid h-full grid-cols-5 border-l border-line">{workTypes.map(([name,svg])=><b key={name} className="flex items-center gap-3 border-r border-line px-[22px] text-[11px]"><span className="h-6 w-6 [&_svg]:fill-none [&_svg]:stroke-current [&_svg]:stroke-[1.5]" dangerouslySetInnerHTML={{__html:`<svg viewBox="0 0 24 24">${svg}</svg>`}}/>{name}</b>)}</div></Container></div></section>
+  <section className="py-[150px] pb-[115px] max-[760px]:py-[90px]"><Container><div className="grid grid-cols-[170px_1.2fr_.64fr] items-start gap-[65px] max-[1000px]:grid-cols-1 max-[1000px]:gap-10"><SectionLabel>BUILT FOR OPERATIONS</SectionLabel><h2 className={`${heading} m-0`}>When staffing pressure changes,<br/><em className="not-italic text-brand-red">we move with it.</em></h2><p className="mt-[84px] text-base leading-[1.75] text-muted max-[1000px]:mt-0">Recruitment is only useful when it works in the real world. Complex combines specialist sector knowledge with responsive account support so businesses can deal with peaks, absences, new contracts and longer-term hiring without losing momentum.</p></div><div className="mt-[100px] flex h-[92px] items-center justify-between border-y border-line text-muted max-[760px]:h-auto max-[760px]:flex-wrap max-[760px]:gap-5 max-[760px]:py-6">{['ABSENCE COVER','SEASONAL PEAKS','NEW CONTRACTS','PERMANENT GROWTH'].map((x,i)=><span className="contents" key={x}><b className="text-[10px] tracking-[.14em]">{x}</b>{i<3&&<ArrowIcon direction="right" className="text-xl text-brand-red"/>}</span>)}</div></Container></section>
+  <section id="solutions" className="bg-[#17181a] py-[140px] pb-[150px] text-white max-[760px]:py-[90px]"><Container><div className="mb-[72px] grid grid-cols-[1.2fr_.6fr] items-end gap-[100px] max-[900px]:grid-cols-1 max-[900px]:gap-8"><div><SectionLabel>RECRUITMENT SOLUTIONS</SectionLabel><h2 className={`${heading} mt-[34px]`}>Support that flexes<br/>around the requirement.</h2></div><p className="mb-2 text-[15px] leading-[1.7] text-[#aeb7bc]">Choose the model that suits the pressure you're dealing with now. Complex can support immediate temporary demand as well as more considered permanent recruitment.</p></div><EmployerServiceSwitcher/></Container></section>
+  <section className="py-[126px] max-[760px]:py-[90px]"><Container><SectionLabel>SECTOR SPECIALISTS</SectionLabel><h2 className={`${heading} mt-[38px]`}>People who understand<br/>the work.</h2><div className="mt-[70px] border-t border-line">{[['01','Driving','Drivers, transport professionals and operational support across logistics and distribution.'],['02','Industrial','Warehousing, production, distribution and flexible industrial workforce support.'],['03','Construction','Trades, plant, site operatives and labour for projects and contractors.']].map(([n,t,c])=><a href={`/sectors/${t.toLowerCase()}`} key={n} className="group grid min-h-[138px] grid-cols-[60px_.72fr_1fr_40px] items-center gap-6 border-b border-line outline-none transition-colors hover:bg-surface focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red max-[760px]:grid-cols-[38px_1fr_30px] max-[760px]:gap-[10px] max-[760px]:py-6"><span className="text-[9px] text-brand-red">{n}</span><strong className="text-[42px] tracking-[-.045em] transition-transform group-hover:translate-x-3 max-[760px]:text-[31px]">{t}</strong><p className="max-w-[520px] text-xs leading-[1.55] text-muted max-[760px]:col-start-2">{c}</p><ArrowIcon className="text-[22px] transition-transform group-hover:translate-x-[7px] group-hover:-translate-y-[7px] max-[760px]:col-start-3 max-[760px]:row-start-1 max-[760px]:row-end-3"/></a>)}</div></Container></section>
+  <section className="bg-ink py-[126px] text-white max-[760px]:py-[90px]"><Container><div className="grid grid-cols-[1fr_.65fr] items-end gap-[100px] max-[900px]:grid-cols-1 max-[900px]:gap-8"><div><SectionLabel>COMPLIANCE & VETTING</SectionLabel><h2 className={`${heading} mt-[38px]`}>Confidence before<br/>the first shift.</h2></div><p className="text-[15px] leading-[1.7] text-white/65">The right person is not simply someone who is available. Relevant identity, experience, licence, qualification and competency checks are built into the supply process according to the role and assignment.</p></div><div className="mt-[70px] grid grid-cols-3 border-l border-t border-white/15 max-[900px]:grid-cols-2 max-[520px]:grid-cols-1">{checks.map(([n,t,c])=><article key={n} className="min-h-[250px] border-b border-r border-white/15 p-[27px]"><span className="text-[8px] text-brand-red">{n}</span><h3 className="mb-3 mt-[64px] text-xl">{t}</h3><p className="text-[11px] leading-[1.6] text-white/60">{c}</p></article>)}</div></Container></section>
+  <section className="py-[126px] max-[760px]:py-[90px]"><Container><div className="grid grid-cols-[.4fr_1fr] gap-[70px] max-[760px]:grid-cols-1 max-[760px]:gap-8"><SectionLabel>FROM REQUIREMENT TO READY</SectionLabel><h2 className={`${heading} m-0`}>A clear route from<br/>need to workforce.</h2></div><div className="mt-[72px] grid grid-cols-4 border-l border-t border-line max-[900px]:grid-cols-2 max-[520px]:grid-cols-1">{[['01','Brief us','Tell us the role, location, headcount, shifts and when you need people.'],['02','Source & verify','We identify suitable candidates and complete the relevant checks.'],['03','Confirm & deploy','Workers are confirmed, briefed and prepared for the assignment.'],['04','Stay supported','We remain involved with communication, account support and escalation.']].map(([n,t,c])=><article key={n} className="group relative min-h-[300px] border-b border-r border-line p-[27px] transition hover:-translate-y-[3px] hover:bg-surface before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:origin-left before:scale-x-0 before:bg-brand-red before:transition-transform hover:before:scale-x-100"><span className="text-[8px] text-muted">{n}</span><h3 className="mb-4 mt-20 text-[23px] transition-colors group-hover:text-brand-red">{t}</h3><p className="text-[11px] leading-[1.6] text-muted">{c}</p></article>)}</div></Container></section>
+  <section className="grid grid-cols-2 bg-brand-grey text-white max-[900px]:grid-cols-1"><div className="min-h-[650px] bg-[url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1800')] bg-cover bg-center grayscale-[.3] max-[760px]:min-h-[390px]"/><div className="px-20 py-[110px] max-[760px]:px-6 max-[760px]:py-[70px]"><SectionLabel>ACCOUNT SUPPORT</SectionLabel><h2 className={`${heading} mt-[38px]`}>The relationship doesn't end<br/><em className="not-italic text-brand-red">when the shift starts.</em></h2><p className="my-7 max-w-[590px] text-[15px] leading-[1.7] text-white/75">Complex stays close to the requirement after placement, helping clients deal with changes, questions and operational issues as they happen.</p><div className="grid grid-cols-2 border-l border-t border-white/20 max-[520px]:grid-cols-1">{['Dedicated point of contact','Ongoing communication','Rapid replacement / escalation support','Support outside normal office hours'].map(x=><span className="min-h-[70px] border-b border-r border-white/20 p-4 text-xs" key={x}>{x}</span>)}</div><div className="mt-8 flex items-end gap-4"><strong className="text-[58px] leading-none">24/7</strong><span className="pb-1 text-xs text-white/65">Operational support</span></div></div></section>
+  <section id="request-staff" className="bg-surface py-[126px] max-[760px]:py-[90px]"><Container className="grid grid-cols-[.7fr_1.3fr] items-start gap-[90px] max-[900px]:grid-cols-1"><div><SectionLabel>START A REQUEST</SectionLabel><h2 className={`${heading} mt-[38px]`}>Tell us what<br/>you need.</h2><p className="mt-7 max-w-[470px] text-[15px] leading-[1.7] text-muted">You don't need an account. Give us the essentials and the Complex team can take the requirement from there.</p></div><RequestStaffPreview/></Container></section>
+  <Footer/>
+</main>}

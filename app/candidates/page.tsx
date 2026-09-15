@@ -1,180 +1,23 @@
-import { Header } from "../../components/Header";
-import { SectionLabel } from "../../components/SectionLabel";
-import { Footer } from "../../components/layout/Footer";
+import { Header } from '../../components/Header';
+import { SectionLabel } from '../../components/SectionLabel';
+import { Container } from '../../components/layout/Container';
+import { Footer } from '../../components/layout/Footer';
+import { ArrowIcon } from '../../components/ui/ArrowIcon';
+import { ButtonLink } from '../../components/ui/ButtonLink';
+import { TextLink } from '../../components/ui/TextLink';
 
-const jobs = [
-  {title:'HGV Class 1 Driver', location:'Enfield', sector:'Driving', type:'Temporary', pay:'£19–£22/hr'},
-  {title:'Warehouse Operative', location:'Croydon', sector:'Industrial', type:'Temporary', pay:'£12.50/hr'},
-  {title:'HGV Class 2 Driver', location:'Park Royal', sector:'Driving', type:'Temp-to-perm', pay:'£17–£20/hr'},
-  {title:'CSCS Labourer', location:'Greater London', sector:'Construction', type:'Temporary', pay:'Competitive'},
-];
+const jobs=[{title:'HGV Class 1 Driver',location:'Enfield',sector:'Driving',type:'Temporary',pay:'£19–£22/hr'},{title:'Warehouse Operative',location:'Croydon',sector:'Industrial',type:'Temporary',pay:'£12.50/hr'},{title:'HGV Class 2 Driver',location:'Park Royal',sector:'Driving',type:'Temp-to-perm',pay:'£17–£20/hr'},{title:'CSCS Labourer',location:'Greater London',sector:'Construction',type:'Temporary',pay:'Competitive'}];
+const benefits=[['01','Competitive rates','Clear role information and competitive pay across the assignments we support.'],['02','Reliable payroll','A dependable payroll process so you know when to expect your pay.'],['03','Flexible opportunities','Temporary, ad-hoc and longer-term work depending on what suits you.'],['04','Real communication','A recruitment team you can reach when you need an update or support.'],['05','Training & upskilling','Access to relevant driver training and development opportunities.'],['06','Sector specialists','People who understand Driving, Industrial and Construction environments.']];
+const sectorCards=[['01','Driving','HGV Class 1 & 2, 7.5T, 3.5T, ADR, HIAB and transport roles.','https://images.pexels.com/photos/35501718/pexels-photo-35501718/free-photo-of-aerial-view-of-industrial-truck-parking-lot.jpeg?auto=compress&cs=tinysrgb&w=1800'],['02','Industrial','Warehouse, FLT, picking, loading, production and supervisory opportunities.','https://images.pexels.com/photos/6169178/pexels-photo-6169178.jpeg?auto=compress&cs=tinysrgb&w=1800'],['03','Construction','Trades, plant, site operations, labour and project-based opportunities.','https://images.pexels.com/photos/8138734/pexels-photo-8138734.jpeg?auto=compress&cs=tinysrgb&w=1800']];
+const heading='text-[clamp(52px,5vw,82px)] leading-[.95] tracking-[-.055em] max-[760px]:text-5xl';
 
-const benefits = [
-  ['01','Competitive rates','Clear role information and competitive pay across the assignments we support.'],
-  ['02','Reliable payroll','A dependable payroll process so you know when to expect your pay.'],
-  ['03','Flexible opportunities','Temporary, ad-hoc and longer-term work depending on what suits you.'],
-  ['04','Real communication','A recruitment team you can reach when you need an update or support.'],
-  ['05','Training & upskilling','Access to relevant driver training and development opportunities.'],
-  ['06','Sector specialists','People who understand Driving, Industrial and Construction environments.'],
-];
-
-export default function CandidatesPage(){
-  return <main className="candidatesPage">
-    <section className="candidatesHero" id="top">
-      <Header active="Candidates" theme="light" />
-      <div className="pageShell candidatesHeroGrid">
-        <div className="candidatesHeroCopy">
-          <div className="candidateEyebrow">FOR CANDIDATES <span>/ FIND WORK</span></div>
-          <h1>Find work that<br/><em>works for you<span className="accentPeriod">.</span></em></h1>
-          <p>Explore current opportunities across Driving, Industrial and Construction, with a recruitment team that keeps communication clear from application to first shift.</p>
-          <div className="candidateHeroActions">
-            <a className="button buttonAccent" href="#candidate-jobs">Find Jobs <span>↗</span></a>
-            <a className="candidateTextLink" href="#register-interest">Register your interest <span>↓</span></a>
-          </div>
-        </div>
-        <div className="candidatesHeroVisual" aria-label="Worker in an operational environment">
-          <div className="candidateHeroRedBlock" aria-hidden="true" />
-          <div className="candidateHeroPhoto" />
-          <div className="candidateHeroCard">
-            <span>CURRENT OPPORTUNITIES</span>
-            <strong>Driving · Industrial<br/>Construction</strong>
-            <i>↗</i>
-          </div>
-        </div>
-      </div>
-      <div className="candidateHeroStrip">
-        <div className="pageShell candidateExpectationGrid">
-          <span>WHAT YOU CAN EXPECT</span>
-          <div><i>01</i><b>Competitive rates</b></div>
-          <div><i>02</i><b>Reliable payroll</b></div>
-          <div><i>03</i><b>Flexible roles</b></div>
-          <div><i>04</i><b>Real support</b></div>
-        </div>
-      </div>
-    </section>
-
-    <section className="candidateJobs" id="candidate-jobs">
-      <div className="pageShell candidateJobsHead">
-        <div>
-          <SectionLabel>LATEST OPPORTUNITIES</SectionLabel>
-          <h2>Find your<br/><em>next role.</em></h2>
-        </div>
-        <div className="candidateJobsIntro">
-          <p>Browse current vacancies across our specialist sectors. The live site will pull these directly from the Complex jobs CMS.</p>
-          <div className="candidateFilters" aria-label="Example job filters">
-            <button className="active">All roles</button><button>Driving</button><button>Industrial</button><button>Construction</button>
-          </div>
-        </div>
-      </div>
-      <div className="pageShell candidateJobList">
-        <div className="candidateJobLabels"><span>ROLE</span><span>LOCATION</span><span>SECTOR</span><span>TYPE</span><span>RATE</span><span></span></div>
-        {jobs.map(job=><a className="candidateJobRow" href="#" key={job.title}>
-          <strong>{job.title}</strong><span>{job.location}</span><span>{job.sector}</span><span>{job.type}</span><span>{job.pay}</span><i>↗</i>
-        </a>)}
-      </div>
-      <div className="pageShell candidateJobsFoot"><a className="button buttonDark" href="/jobs">View All Jobs <span>↗</span></a></div>
-    </section>
-
-    <section className="candidateWhy candidateWhyV17">
-      <div className="pageShell candidateWhyHeader">
-        <SectionLabel>WHY WORK WITH COMPLEX</SectionLabel>
-        <div>
-          <h2>Good work starts<br/><em>with being valued.</em></h2>
-          <p>We want the experience around the job to feel as dependable as the job itself — clear communication, reliable processes and people who understand the sectors they recruit for.</p>
-        </div>
-      </div>
-      <div className="pageShell candidatePromiseStage">
-        <div className="candidatePromiseImage">
-          <div className="candidatePromiseBadge"><span>PEOPLE FIRST</span><strong>Clear communication.<br/>Real support.</strong></div>
-        </div>
-        <div className="candidatePromiseContent">
-          <div className="candidatePromiseTop">
-            <span>WHAT YOU CAN EXPECT</span>
-            <p>Practical support around the work — not unnecessary friction around the recruitment process.</p>
-          </div>
-          <div className="candidateBenefitGrid candidateBenefitGridV17">
-            {benefits.map(([n,t,c])=><article key={n}><span>{n}</span><div><h3>{t}</h3><p>{c}</p></div><i>↗</i></article>)}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section className="candidateJourney">
-      <div className="pageShell candidateJourneyHead">
-        <div><SectionLabel>YOUR JOURNEY</SectionLabel><h2>From application<br/><em>to first shift.</em></h2></div>
-        <p>A straightforward recruitment journey, with clear communication at each stage and role-specific checks where required.</p>
-      </div>
-      <div className="pageShell candidateJourneyTrack">
-        {[
-          ['01','Find a role','Browse live vacancies and choose an opportunity that fits your experience.'],
-          ['02','Apply','Send the essentials and your CV through a quick, mobile-friendly application.'],
-          ['03','Talk to Complex','We review your application, discuss the role and confirm any checks required.'],
-          ['04','Get ready','If the role is right, we help you understand what you need before the assignment starts.'],
-        ].map(([n,t,c])=><article key={n}><span>{n}</span><h3>{t}</h3><p>{c}</p><i>↗</i></article>)}
-      </div>
-    </section>
-
-    <section className="candidateSectors candidateSectorsV17">
-      <div className="pageShell candidateSectorsHead">
-        <SectionLabel>WHERE WE RECRUIT</SectionLabel>
-        <h2>Specialist opportunities<br/>across three sectors.</h2>
-      </div>
-      <div className="pageShell candidateSectorCards">
-        <a className="candidateSectorCard driving" href="/sectors/driving">
-          <div className="candidateSectorCardMedia" />
-          <div className="candidateSectorCardShade" />
-          <span className="candidateSectorNumber">01</span>
-          <div className="candidateSectorCardCopy"><small>EXPLORE SECTOR</small><strong>Driving</strong><p>HGV Class 1 & 2, 7.5T, 3.5T, ADR, HIAB and transport roles.</p></div>
-          <i>↗</i>
-        </a>
-        <a className="candidateSectorCard industrial" href="/sectors/industrial">
-          <div className="candidateSectorCardMedia" />
-          <div className="candidateSectorCardShade" />
-          <span className="candidateSectorNumber">02</span>
-          <div className="candidateSectorCardCopy"><small>EXPLORE SECTOR</small><strong>Industrial</strong><p>Warehouse, FLT, picking, loading, production and supervisory opportunities.</p></div>
-          <i>↗</i>
-        </a>
-        <a className="candidateSectorCard construction" href="/sectors/construction">
-          <div className="candidateSectorCardMedia" />
-          <div className="candidateSectorCardShade" />
-          <span className="candidateSectorNumber">03</span>
-          <div className="candidateSectorCardCopy"><small>EXPLORE SECTOR</small><strong>Construction</strong><p>Trades, plant, site operations, labour and project-based opportunities.</p></div>
-          <i>↗</i>
-        </a>
-      </div>
-    </section>
-
-    <section className="candidateTraining">
-      <div className="pageShell candidateTrainingGrid">
-        <div>
-          <SectionLabel>TRAINING & DEVELOPMENT</SectionLabel>
-          <h2>Keep moving<br/><em>forward.</em></h2>
-          <p>Complex also supports professional drivers through assessments, CPC training and relevant development opportunities.</p>
-          <a className="button buttonDark" href="/training">Explore Training <span>↗</span></a>
-        </div>
-        <div className="candidateTrainingCards">
-          <a href="/training/driver-assessments"><span>01</span><h3>Driver Assessments</h3><p>Practical and theoretical evaluation designed around safer, more capable driving.</p><i>↗</i></a>
-          <a href="/training/cpc"><span>02</span><h3>CPC Training</h3><p>Professional driver training and development for a highly regulated sector.</p><i>↗</i></a>
-        </div>
-      </div>
-    </section>
-
-    <section className="candidateRegister" id="register-interest">
-      <div className="pageShell candidateRegisterGrid">
-        <div>
-          <SectionLabel>CAN'T SEE THE RIGHT ROLE?</SectionLabel>
-          <h2>Stay on our<br/><em>radar.</em></h2>
-        </div>
-        <div className="candidateRegisterCard">
-          <span>REGISTER YOUR INTEREST</span>
-          <h3>Tell us what kind of work you're looking for.</h3>
-          <p>Share your details and CV so the Complex team can contact you when a relevant opportunity comes up.</p>
-          <div className="candidateRegisterMeta"><span>No account required</span><span>Mobile friendly</span></div>
-          <a href="/register-interest">Register your interest <i>↗</i></a>
-        </div>
-      </div>
-    </section>
-
-    <Footer />
-  </main>
-}
+export default function CandidatesPage(){return <main className="bg-white text-ink">
+  <section id="top" className="grid min-h-svh grid-rows-[92px_minmax(0,1fr)_112px] overflow-hidden bg-white max-[760px]:min-h-0 max-[760px]:grid-rows-[76px_auto_auto]"><Header active="Candidates" theme="light"/><Container className="grid grid-cols-[.88fr_1.12fr] items-center gap-[70px] py-12 max-[1100px]:gap-[45px] max-[760px]:flex max-[760px]:flex-col max-[760px]:gap-12 max-[760px]:py-[52px] max-[760px]:pb-[58px]"><div><div className="candidateEyebrow">FOR CANDIDATES <span>/ FIND WORK</span></div><h1 className="m-0 text-[clamp(62px,6vw,98px)] leading-[.89] tracking-[-.065em] max-[1100px]:text-7xl max-[760px]:text-[clamp(48px,13vw,60px)] [&_em]:not-italic [&_em]:text-brand-grey">Find work that<br/><em>works for you<span className="text-brand-red">.</span></em></h1><p className="my-7 max-w-[570px] text-base leading-[1.65] text-muted max-[760px]:my-6 max-[760px]:text-sm">Explore current opportunities across Driving, Industrial and Construction, with a recruitment team that keeps communication clear from application to first shift.</p><div className="flex items-center gap-7 max-[520px]:items-start max-[520px]:flex-col"><ButtonLink href="#candidate-jobs">Find Jobs</ButtonLink><TextLink href="#register-interest" arrowDirection="down-right">Register your interest</TextLink></div></div><div className="relative h-[560px] max-[760px]:h-[430px] max-[760px]:w-full"><div className="absolute bottom-0 left-0 h-[76%] w-[46%] bg-brand-red"/><div className="absolute inset-[20px_0_0_34px] bg-[url('https://images.pexels.com/photos/4481326/pexels-photo-4481326.jpeg?auto=compress&cs=tinysrgb&w=1600')] bg-cover bg-center grayscale-[.2] max-[760px]:inset-[25px_18px_0_0]"/><div className="absolute bottom-0 left-0 w-[285px] bg-ink p-6 text-white"><span className="text-[8px] tracking-[.16em] text-white/60">CURRENT OPPORTUNITIES</span><strong className="mt-5 block text-xl leading-[1.2]">Driving · Industrial<br/>Construction</strong><ArrowIcon className="absolute right-5 top-5 text-brand-red"/></div></div></Container><div className="overflow-x-auto border-t border-line bg-surface"><Container className="grid h-28 grid-cols-[1fr_repeat(4,.9fr)] border-l border-line max-[760px]:w-[720px] max-[760px]:grid-cols-[150px_repeat(4,1fr)] [&>*]:flex [&>*]:items-center [&>*]:border-r [&>*]:border-line [&>*]:px-5"><span className="text-[8px] font-extrabold tracking-[.16em] text-brand-red">WHAT YOU CAN EXPECT</span>{['Competitive rates','Reliable payroll','Flexible roles','Real support'].map((x,i)=><div className="gap-3" key={x}><i className="text-[8px] not-italic text-brand-red">0{i+1}</i><b className="text-[11px]">{x}</b></div>)}</Container></div></section>
+  <section id="candidate-jobs" className="bg-surface py-[126px] max-[760px]:py-[90px]"><Container><div className="grid grid-cols-[1fr_.65fr] items-end gap-[110px] max-[1100px]:gap-[60px] max-[760px]:grid-cols-1 max-[760px]:gap-8"><div><SectionLabel>LATEST OPPORTUNITIES</SectionLabel><h2 className={`${heading} mt-[38px]`}>Find your<br/><em className="not-italic text-brand-red">next role.</em></h2></div><div><p className="text-sm leading-[1.7] text-muted">Browse current vacancies across our specialist sectors. The live site will pull these directly from the Complex jobs CMS.</p><div className="mt-6 flex flex-wrap gap-2" aria-label="Example job filters">{['All roles','Driving','Industrial','Construction'].map((x,i)=><button type="button" aria-pressed={i===0} key={x} className={`min-h-[40px] cursor-pointer border px-4 text-[10px] font-bold outline-none focus-visible:ring-2 focus-visible:ring-brand-red ${i===0?'border-ink bg-ink text-white':'border-line bg-transparent hover:bg-white'}`}>{x}</button>)}</div></div></div><div className="mt-[68px]"><div className="grid grid-cols-[1.5fr_.8fr_.7fr_.7fr_.75fr_36px] gap-[18px] px-5 pb-3 text-[8px] tracking-[.14em] text-muted max-[760px]:hidden">{['ROLE','LOCATION','SECTOR','TYPE','RATE',''].map(x=><span key={x}>{x}</span>)}</div>{jobs.map(job=><a href="#" key={job.title} className="group relative grid min-h-[86px] grid-cols-[1.5fr_.8fr_.7fr_.7fr_.75fr_36px] items-center gap-[18px] overflow-hidden border-t border-line px-5 outline-none before:absolute before:inset-0 before:-translate-x-full before:bg-white before:transition-transform before:duration-500 before:ease-complex hover:before:translate-x-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red focus-visible:before:translate-x-0 max-[760px]:min-h-0 max-[760px]:grid-cols-[1fr_34px] max-[760px]:gap-[7px] max-[760px]:py-[22px]"><strong className="relative z-[1] text-lg tracking-[-.02em] transition-transform duration-500 group-hover:translate-x-[14px] max-[760px]:col-start-1">{job.title}</strong>{[job.location,job.sector,job.type,job.pay].map(x=><span className="relative z-[1] text-[11px] text-[#59656b] transition-transform duration-500 group-hover:translate-x-2 max-[760px]:col-start-1" key={x}>{x}</span>)}<ArrowIcon className="relative z-[1] text-lg text-brand-red transition-transform group-hover:translate-x-[5px] group-hover:-translate-y-1.5 max-[760px]:col-start-2 max-[760px]:row-start-1 max-[760px]:row-end-6"/></a>)}</div><div className="mt-[38px] flex justify-end"><ButtonLink href="/jobs" variant="dark">View All Jobs</ButtonLink></div></Container></section>
+  <section className="py-[126px] max-[760px]:py-[90px]"><Container><div className="mb-[70px] grid grid-cols-[.43fr_1fr] gap-[72px] max-[1100px]:grid-cols-[.32fr_1fr] max-[760px]:block max-[760px]:mb-12"><SectionLabel>WHY WORK WITH COMPLEX</SectionLabel><div className="max-[760px]:mt-[30px]"><h2 className={`${heading} m-0`}>Good work starts<br/><em className="not-italic text-brand-red">with being valued.</em></h2><p className="mt-[26px] max-w-[650px] text-[15px] leading-[1.7] text-muted">We want the experience around the job to feel as dependable as the job itself — clear communication, reliable processes and people who understand the sectors they recruit for.</p></div></div><div className="grid min-h-[610px] grid-cols-[.44fr_.56fr] overflow-hidden border border-line bg-surface max-[1100px]:grid-cols-[.4fr_.6fr] max-[760px]:block"><div className="relative min-h-[610px] bg-[linear-gradient(rgba(17,18,20,.02),rgba(17,18,20,.22)),url('https://images.pexels.com/photos/4481326/pexels-photo-4481326.jpeg?auto=compress&cs=tinysrgb&w=1800')] bg-cover bg-center grayscale-[.14] max-[760px]:min-h-[390px]"><div className="absolute inset-x-7 bottom-7 border border-white/50 bg-white/90 p-6 backdrop-blur-lg"><span className="mb-3 block text-[8px] font-extrabold tracking-[.17em] text-brand-red">PEOPLE FIRST</span><strong className="text-xl leading-[1.22]">Clear communication.<br/>Real support.</strong></div></div><div className="flex min-w-0 flex-col"><div className="grid grid-cols-[.55fr_1fr] gap-[30px] border-b border-line px-[34px] py-[30px] max-[760px]:block max-[760px]:px-6"><span className="text-[9px] font-extrabold tracking-[.16em] text-muted">WHAT YOU CAN EXPECT</span><p className="max-w-[460px] text-xs leading-[1.6] text-muted max-[760px]:mt-[18px]">Practical support around the work — not unnecessary friction around the recruitment process.</p></div><div className="grid flex-1 grid-cols-2 max-[760px]:grid-cols-1">{benefits.map(([n,t,c])=><article key={n} className="group grid min-h-0 grid-cols-[32px_1fr_20px] items-center gap-3 border-b border-r border-line px-6 py-[22px] transition-colors hover:bg-white max-[760px]:min-h-[130px] max-[760px]:border-r-0"><span className="self-start pt-1 text-[8px] font-bold text-brand-red">{n}</span><div><h3 className="mb-[7px] text-lg">{t}</h3><p className="max-w-[260px] text-[10.5px] leading-[1.52] text-muted">{c}</p></div><ArrowIcon className="-translate-x-2 translate-y-2 text-brand-red opacity-0 transition group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"/></article>)}</div></div></div></Container></section>
+  <section className="bg-[#151618] py-[126px] text-white max-[760px]:py-[90px]"><Container><div className="grid grid-cols-[1fr_.65fr] items-end gap-[110px] max-[760px]:grid-cols-1 max-[760px]:gap-8"><div><SectionLabel>YOUR JOURNEY</SectionLabel><h2 className={`${heading} mt-[38px]`}>From application<br/><em className="not-italic text-brand-red">to first shift.</em></h2></div><p className="max-w-[520px] text-[15px] leading-[1.65] text-white/65">A straightforward recruitment journey, with clear communication at each stage and role-specific checks where required.</p></div><div className="mt-[78px] grid grid-cols-4 border-y border-white/15 max-[760px]:mt-[55px] max-[760px]:grid-cols-1">{[['01','Find a role','Browse live vacancies and choose an opportunity that fits your experience.'],['02','Apply','Send the essentials and your CV through a quick, mobile-friendly application.'],['03','Talk to Complex','We review your application, discuss the role and confirm any checks required.'],['04','Get ready','If the role is right, we help you understand what you need before the assignment starts.']].map(([n,t,c])=><article key={n} className="group relative min-h-[330px] border-r border-white/15 p-7 transition-colors before:absolute before:inset-x-0 before:top-0 before:h-[3px] before:origin-left before:scale-x-0 before:bg-brand-red before:transition-transform hover:bg-white/5 hover:before:scale-x-100 max-[760px]:min-h-[230px] max-[760px]:border-b max-[760px]:border-r-0"><span className="text-[9px] text-white/45">{n}</span><h3 className="mb-4 mt-[72px] text-2xl max-[760px]:mt-[42px]">{t}</h3><p className="max-w-[235px] text-xs leading-[1.65] text-white/60">{c}</p><ArrowIcon className="absolute bottom-[25px] right-[25px] text-brand-red transition-transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5"/></article>)}</div></Container></section>
+  <section className="py-[126px] max-[760px]:py-[90px]"><Container><div className="grid grid-cols-[.45fr_1fr] items-end gap-[70px] max-[760px]:block"><SectionLabel>WHERE WE RECRUIT</SectionLabel><h2 className={`${heading} m-0 max-[760px]:mt-[30px]`}>Specialist opportunities<br/>across three sectors.</h2></div><div className="mt-[70px] grid grid-cols-3 gap-[14px] max-[760px]:mt-12 max-[760px]:grid-cols-1">{sectorCards.map(([n,t,c,img])=><a href={`/sectors/${t.toLowerCase()}`} key={n} className="group relative isolate min-h-[540px] overflow-hidden bg-ink text-white outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red max-[1100px]:min-h-[490px] max-[760px]:min-h-[430px]"><div className="absolute -inset-[2%] -z-[3] scale-[1.02] bg-cover bg-center grayscale-[.45] transition duration-700 ease-complex group-hover:scale-[1.075] group-hover:grayscale-0 group-focus-visible:scale-[1.075] group-focus-visible:grayscale-0" style={{backgroundImage:`url('${img}')`}}/><div className="absolute inset-0 -z-[2] bg-[linear-gradient(180deg,rgba(10,11,12,.12),rgba(10,11,12,.28)_48%,rgba(10,11,12,.86))]"/><div className="absolute inset-x-0 bottom-0 -z-[1] h-[62%] translate-y-full bg-[linear-gradient(180deg,transparent,rgba(236,33,37,.38)_35%,rgba(236,33,37,.92))] transition-transform duration-700 group-hover:translate-y-0 group-focus-visible:translate-y-0 max-[760px]:translate-y-0"/><span className="absolute left-[27px] top-[26px] text-[9px] text-white/70">{n}</span><div className="absolute bottom-[30px] left-7 right-[70px] transition-transform group-hover:-translate-y-2 group-focus-visible:-translate-y-2"><small className="mb-3 block translate-y-[10px] text-[8px] font-bold tracking-[.17em] text-white/70 opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 max-[760px]:translate-y-0 max-[760px]:opacity-100">EXPLORE SECTOR</small><strong className="block text-[47px] leading-[.95] tracking-[-.05em] max-[1100px]:text-[39px] max-[760px]:text-[40px]">{t}</strong><p className="mt-4 max-w-[330px] text-[11px] leading-[1.55] text-white/75">{c}</p></div><ArrowIcon className="absolute bottom-[30px] right-7 text-[23px] transition-transform group-hover:translate-x-2 group-hover:-translate-y-2"/></a>)}</div></Container></section>
+  <section className="bg-[#eceeef] py-[126px] max-[760px]:py-[90px]"><Container className="grid grid-cols-[.8fr_1.2fr] items-start gap-[95px] max-[760px]:grid-cols-1 max-[760px]:gap-[50px]"><div><SectionLabel>TRAINING & DEVELOPMENT</SectionLabel><h2 className={`${heading} mt-[38px]`}>Keep moving<br/><em className="not-italic text-brand-red">forward.</em></h2><p className="my-7 max-w-[500px] text-[15px] leading-[1.7] text-muted">Complex also supports professional drivers through assessments, CPC training and relevant development opportunities.</p><ButtonLink href="/training" variant="dark">Explore Training</ButtonLink></div><div className="grid grid-cols-2 gap-[14px] max-[520px]:grid-cols-1">{[['01','Driver Assessments','Practical and theoretical evaluation designed around safer, more capable driving.','/training/driver-assessments'],['02','CPC Training','Professional driver training and development for a highly regulated sector.','/training/cpc']].map(([n,t,c,h])=><a href={h} key={n} className="group relative min-h-[360px] border border-line bg-white p-7 outline-none transition hover:-translate-y-[5px] hover:bg-brand-red hover:text-white focus-visible:ring-2 focus-visible:ring-brand-red max-[760px]:min-h-[280px]"><span className="text-[9px] text-brand-red group-hover:text-white/70">{n}</span><h3 className="mb-[18px] mt-[110px] text-[28px] leading-[1.05] tracking-[-.035em] max-[760px]:mt-[78px]">{t}</h3><p className="max-w-[290px] text-xs leading-[1.6] text-muted group-hover:text-white/75">{c}</p><ArrowIcon className="absolute right-[27px] top-[27px] text-[22px] transition-transform group-hover:translate-x-[7px] group-hover:-translate-y-[7px]"/></a>)}</div></Container></section>
+  <section id="register-interest" className="bg-brand-grey py-[126px] text-white max-[760px]:py-[90px]"><Container className="grid grid-cols-[.75fr_1.25fr] items-center gap-[100px] max-[760px]:grid-cols-1 max-[760px]:gap-12"><div><SectionLabel>CAN'T SEE THE RIGHT ROLE?</SectionLabel><h2 className={`${heading} mt-[34px]`}>Stay on our<br/><em className="not-italic text-brand-red">radar.</em></h2></div><div className="relative min-h-[330px] bg-white px-[46px] py-[42px] text-ink shadow-[0_30px_70px_rgba(17,18,20,.14)] max-[760px]:min-h-[380px] max-[760px]:px-[25px] max-[760px]:py-8"><span className="text-[9px] font-bold tracking-[.16em] text-muted">REGISTER YOUR INTEREST</span><h3 className="mb-[18px] mt-[42px] max-w-[540px] text-[34px] leading-[1.08] tracking-[-.04em] max-[760px]:text-[30px]">Tell us what kind of work you're looking for.</h3><p className="max-w-[570px] text-[13px] leading-[1.65] text-muted">Share your details and CV so the Complex team can contact you when a relevant opportunity comes up.</p><div className="mt-[22px] flex gap-[18px] border-t border-line pt-[18px] text-[9px] uppercase tracking-[.08em] text-muted"><span>No account required</span><span>Mobile friendly</span></div><ButtonLink href="/register-interest" className="absolute bottom-[35px] right-10 max-[760px]:bottom-[25px] max-[760px]:left-[25px] max-[760px]:right-auto">Register your interest</ButtonLink></div></Container></section>
+  <Footer/>
+</main>}

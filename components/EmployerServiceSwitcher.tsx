@@ -1,5 +1,6 @@
 "use client";
 import {useState} from "react";
+import { ArrowIcon } from './ui/ArrowIcon';
 
 const items = [
   {
@@ -31,20 +32,20 @@ const items = [
 export function EmployerServiceSwitcher(){
   const [active,setActive]=useState(0);
   const item=items[active];
-  return <div className="employerServiceGrid">
-    <div className="employerServiceList" role="tablist" aria-label="Recruitment solutions">
-      {items.map((it,i)=><button key={it.title} className={`employerServiceTab ${active===i?'active':''}`} onMouseEnter={()=>setActive(i)} onFocus={()=>setActive(i)} onClick={()=>setActive(i)} role="tab" aria-selected={active===i}>
-        <span>{it.n}</span><strong>{it.title}</strong><i>↗</i>
+  return <div className="grid min-h-[590px] grid-cols-[.85fr_1.25fr] border-t border-white/15 max-[800px]:grid-cols-1">
+    <div className="border-r border-white/15 max-[800px]:grid max-[800px]:grid-cols-2 max-[800px]:border-b max-[800px]:border-r-0 max-[520px]:grid-cols-1" role="tablist" aria-label="Recruitment solutions">
+      {items.map((it,i)=><button key={it.title} className={`group grid h-[108px] w-full cursor-pointer grid-cols-[48px_1fr_30px] items-center border-0 border-b border-white/15 pr-[26px] text-left text-white outline-none transition-[background,padding] duration-300 ease-complex focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white max-[800px]:h-[92px] ${active===i?'bg-brand-red pl-5':'bg-transparent hover:bg-brand-red hover:pl-5'}`} onMouseEnter={()=>setActive(i)} onFocus={()=>setActive(i)} onClick={()=>setActive(i)} role="tab" aria-selected={active===i}>
+        <span className="text-[9px] tracking-[.13em] text-white/50">{it.n}</span><strong className="text-[23px] tracking-[-.025em] max-[520px]:text-lg">{it.title}</strong><ArrowIcon className="text-lg transition-transform duration-300 group-hover:translate-x-[5px] group-hover:-translate-y-[5px]" />
       </button>)}
     </div>
-    <div className="employerServiceStage">
-      {items.map((it,i)=><div key={it.title} className={`serviceStageImage ${active===i?'active':''}`} style={{backgroundImage:`url(${it.image})`}} />)}
-      <div className="serviceStageShade" />
-      <div className="serviceStageCopy" key={item.title}>
-        <span>{item.n} / SOLUTION</span>
-        <h3>{item.title}</h3>
-        <p>{item.summary}</p>
-        <p className="serviceStageDetail">{item.detail}</p>
+    <div className="relative min-h-[590px] overflow-hidden max-[520px]:min-h-[520px]" role="tabpanel">
+      {items.map((it,i)=><div key={it.title} aria-hidden={active!==i} className={`absolute inset-0 bg-cover bg-center transition-[opacity,transform] duration-700 ease-complex ${active===i?'scale-100 opacity-100':'scale-[1.035] opacity-0'}`} style={{backgroundImage:`url(${it.image})`}} />)}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,14,15,.08),rgba(13,14,15,.88))]" />
+      <div className="absolute inset-x-0 bottom-0 p-12 max-[520px]:p-7" key={item.title}>
+        <span className="text-[8px] font-extrabold tracking-[.17em] text-brand-red">{item.n} / SOLUTION</span>
+        <h3 className="mb-[18px] mt-4 text-[clamp(38px,4vw,62px)] leading-[.95] tracking-[-.05em]">{item.title}</h3>
+        <p className="max-w-[570px] text-sm leading-[1.65] text-white/85">{item.summary}</p>
+        <p className="mt-4 max-w-[560px] border-t border-white/20 pt-4 text-xs leading-[1.65] text-white/65">{item.detail}</p>
       </div>
     </div>
   </div>
