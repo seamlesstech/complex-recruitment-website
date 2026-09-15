@@ -1,63 +1,20 @@
-import { Header } from '../../../components/Header';
-import { SectionLabel } from '../../../components/SectionLabel';
-import { Footer } from '../../../components/layout/Footer';
 import { IndustrialRoleExplorer } from '../../../components/IndustrialRoleExplorer';
+import { Footer } from '../../../components/layout/Footer';
+import { SectorHero } from '../../../components/sectors/SectorHero';
+import { SectorCompliance, SectorDualCta, SectorIntro, SectorJobs, SectorProcess, SectorRoles, SectorService } from '../../../components/sectors/SectorSections';
 
-export default function IndustrialPage(){
-  return <main className="industrialPage">
-    <section className="drivingHero industrialHero" id="top">
-      <div className="drivingHeroMedia industrialHeroMediaA" aria-hidden="true" />
-      <div className="drivingHeroMedia industrialHeroMediaB" aria-hidden="true" />
-      <div className="drivingHeroShade" aria-hidden="true" />
-      <Header active="Sectors" theme="dark" />
-      <div className="pageShell drivingHeroContent">
-        <div className="drivingHeroCopy">
-          <div className="eyebrow">COMPLEX INDUSTRIAL <span>/ SPECIALIST DIVISION</span></div>
-          <h1>Industrial staffing built for<br/><em>the pace of your operation.</em></h1>
-          <p>Reliable temporary and permanent workforce solutions across warehousing, logistics, production, engineering and retail environments.</p>
-          <div className="heroActions"><a className="button buttonAccent" href="/request-staff">Request Industrial Staff <span>↗</span></a><a className="textLink" href="#industrial-jobs">Find Industrial Work →</a></div>
-        </div>
-        <div className="drivingHeroProof"><span>OPERATIONAL SUPPORT</span><strong>24/7</strong><p>Flexible staffing support for fast-moving industrial requirements.</p></div>
-      </div>
-      <div className="drivingHeroStrip"><div className="pageShell drivingStripGrid"><span>INDUSTRIAL DIVISION</span><b>Warehouse</b><b>FLT</b><b>Production</b><b>Picking & Packing</b><b>Supervisory</b></div></div>
-    </section>
+const serviceItems = ['Daily check-in confirmation','Management of rotas','Weekly onsite staff welfare sessions','Training workshops','Weekly management information','Monthly compliance log','Worker performance reviews','Buddy system'];
 
-    <section className="drivingIntro">
-      <div className="pageShell drivingIntroGrid"><div><SectionLabel>WHY COMPLEX INDUSTRIAL</SectionLabel><h2>Flexible workforce.<br/><em>Operationally ready.</em></h2></div><div className="drivingIntroCopy"><p>Complex Industrial supports clients with reliable staff and service models shaped around different operating pressures — from daily supply and urgent peaks to fully managed workforce requirements.</p><a className="candidateTextLink darkLink" href="/employers">Explore Employer Solutions <span>↗</span></a></div></div>
-      <div className="pageShell drivingProofRail">{[
-        ['01','Temporary & Ad-hoc','Rapid access to workers for peaks, absence cover and changing volume.'],
-        ['02','Permanent','Longer-term recruitment for operational and supervisory roles.'],
-        ['03','Skills-matched','Candidates aligned to the practical requirements of the environment.'],
-        ['04','Dedicated support','Account management and 24/7 response for changing requirements.'],
-      ].map(([n,t,c])=><article key={n}><span>{n}</span><h3>{t}</h3><p>{c}</p></article>)}</div>
-    </section>
-
-    <section className="drivingRoles"><div className="pageShell drivingRolesHead"><div><SectionLabel>INDUSTRIAL JOB CATEGORIES</SectionLabel><h2>From warehouse teams<br/><em>to operational support.</em></h2></div><p>Explore the kinds of warehouse, logistics, material-handling and production roles supported by the Industrial division.</p></div><div className="pageShell"><IndustrialRoleExplorer /></div></section>
-
-    <section className="drivingCompliance industrialCompliance"><div className="drivingComplianceImage" aria-hidden="true"/><div className="drivingCompliancePanel"><SectionLabel>WORKFORCE READINESS</SectionLabel><h2>Right people.<br/><em>Right preparation.</em><br/>Ready to perform.</h2><p>Complex works around each client’s regulatory and operational requirements so workers arrive briefed, appropriately checked and prepared for the role.</p><div className="drivingComplianceList">{[
-      'Pre-screening for suitability and relevant work history',
-      'Eligibility and role-specific compliance checks',
-      'Skills matching around the client requirement',
-      'Site and role-specific assignment overview',
-      'Performance reviews and upskilling support',
-      'Management information around productivity, fulfilment and retention',
-    ].map((item,i)=><div key={item}><span>{String(i+1).padStart(2,'0')}</span><b>{item}</b></div>)}</div><a className="button buttonAccent" href="/request-staff">Request Industrial Staff <span>↗</span></a></div></section>
-
-    <section className="drivingService"><div className="pageShell drivingServiceGrid"><div><SectionLabel>SERVICE DELIVERY</SectionLabel><h2>Support beyond<br/><em>the first shift.</em></h2><p>Complex’s Industrial service model combines workforce supply with practical account support throughout the assignment.</p></div><div className="drivingServiceItems">{['Daily check-in confirmation','Management of rotas','Weekly onsite staff welfare sessions','Training workshops','Weekly management information','Monthly compliance log','Worker performance reviews','Buddy system'].map((x,i)=><article key={x}><span>{String(i+1).padStart(2,'0')}</span><h3>{x}</h3><i>↗</i></article>)}</div></div></section>
-
-    <section className="drivingProcess"><div className="pageShell drivingProcessHead"><SectionLabel>FROM REQUIREMENT TO WORKFORCE</SectionLabel><h2>Built around changing<br/><em>operational demand.</em></h2></div><div className="pageShell drivingProcessTrack">{[
-      ['01','Brief us','Role, location, shift, numbers and timing.'],
-      ['02','Match & prepare','Suitable workers are identified, checked and briefed.'],
-      ['03','Deploy','Assignments are confirmed and attendance is supported.'],
-      ['04','Stay involved','Complex manages communication, welfare and service information.'],
-    ].map(([n,t,c])=><article key={n}><span>{n}</span><h3>{t}</h3><p>{c}</p></article>)}</div></section>
-
-    <section className="drivingJobs" id="industrial-jobs"><div className="pageShell drivingJobsHead"><div><SectionLabel>INDUSTRIAL OPPORTUNITIES</SectionLabel><h2>Current roles<br/><em>across industry.</em></h2></div><div><p>Live roles will be pulled from the new jobs CMS and filtered automatically to the Industrial division.</p><a className="candidateTextLink darkLink" href="/jobs">View All Jobs <span>↗</span></a></div></div><div className="pageShell drivingJobList">{[
-      ['Warehouse Operative','Hayes','Industrial','Temporary','CMS PREVIEW'],['Forklift Driver','Heston','Industrial','Temporary','CMS PREVIEW'],['Warehouse Supervisor','London','Industrial','Permanent','CMS PREVIEW']
-    ].map(([t,l,s,ty,tag])=><a href="/jobs" className="drivingJobRow" key={t}><small>{tag}</small><strong>{t}</strong><span>{l}</span><span>{s}</span><span>{ty}</span><i>↗</i></a>)}</div></section>
-
-    <section className="drivingDual"><a href="/request-staff" className="drivingDualCard employerPath"><small>FOR EMPLOYERS</small><div className="sectorDualHeading"><span className="sectorDualGreeting">Hi, Complex,</span><h3>I need industrial staff.</h3></div><p>Tell us the role, shift, numbers and timing. We’ll take it from there.</p><span className="sectorDualCta">Request Staff <i>↗</i></span></a><a href="/jobs" className="drivingDualCard candidatePath"><small>FOR CANDIDATES</small><div className="sectorDualHeading"><span className="sectorDualGreeting">Hi, Complex,</span><h3>I’m looking for industrial work.</h3></div><p>Explore warehouse, logistics and production opportunities.</p><span className="sectorDualCta">Find Industrial Jobs <i>↗</i></span></a></section>
-
+export default function IndustrialPage() {
+  return <main className="bg-white text-ink">
+    <SectorHero compactTitle sector="Industrial" title={<>Industrial staffing built for<br/><em>the pace of your operation.</em></>} description="Reliable temporary and permanent workforce solutions across warehousing, logistics, production, engineering and retail environments." requestLabel="Request Industrial Staff" jobsLabel="Find Industrial Work" jobsHref="#industrial-jobs" proofLabel="OPERATIONAL SUPPORT" proofCopy="Flexible staffing support for fast-moving industrial requirements." rail={['Warehouse','FLT','Production','Picking & Packing','Supervisory']} images={['https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=2200','https://images.pexels.com/photos/6169669/pexels-photo-6169669.jpeg?auto=compress&cs=tinysrgb&w=2200']} positions={['center 52%','center 42%']} />
+    <SectorIntro label="WHY COMPLEX INDUSTRIAL" title={<>Flexible workforce.<br/><em>Operationally ready.</em></>} copy="Complex Industrial supports clients with reliable staff and service models shaped around different operating pressures — from daily supply and urgent peaks to fully managed workforce requirements." proof={[["01","Temporary & Ad-hoc","Rapid access to workers for peaks, absence cover and changing volume."],["02","Permanent","Longer-term recruitment for operational and supervisory roles."],["03","Skills-matched","Candidates aligned to the practical requirements of the environment."],["04","Dedicated support","Account management and 24/7 response for changing requirements."]]} />
+    <SectorRoles label="INDUSTRIAL JOB CATEGORIES" title={<>From warehouse teams<br/><em>to operational support.</em></>} copy="Explore the kinds of warehouse, logistics, material-handling and production roles supported by the Industrial division."><IndustrialRoleExplorer /></SectorRoles>
+    <SectorCompliance image="https://images.pexels.com/photos/4483608/pexels-photo-4483608.jpeg?auto=compress&cs=tinysrgb&w=1800" label="WORKFORCE READINESS" title={<>Right people.<br/><em>Right preparation.</em><br/>Ready to perform.</>} copy="Complex works around each client’s regulatory and operational requirements so workers arrive briefed, appropriately checked and prepared for the role." checks={['Pre-screening for suitability and relevant work history','Eligibility and role-specific compliance checks','Skills matching around the client requirement','Site and role-specific assignment overview','Performance reviews and upskilling support','Management information around productivity, fulfilment and retention']} button="Request Industrial Staff" />
+    <SectorService title={<>Support beyond<br/><em>the first shift.</em></>} copy="Complex’s Industrial service model combines workforce supply with practical account support throughout the assignment." items={serviceItems} />
+    <SectorProcess label="FROM REQUIREMENT TO WORKFORCE" title={<>Built around changing<br/><em>operational demand.</em></>} steps={[["01","Brief us","Role, location, shift, numbers and timing."],["02","Match & prepare","Suitable workers are identified, checked and briefed."],["03","Deploy","Assignments are confirmed and attendance is supported."],["04","Stay involved","Complex manages communication, welfare and service information."]]} />
+    <SectorJobs id="industrial-jobs" label="INDUSTRIAL OPPORTUNITIES" title={<>Current roles<br/><em>across industry.</em></>} copy="Live roles will be pulled from the new jobs CMS and filtered automatically to the Industrial division." jobs={[["Warehouse Operative","Hayes","Industrial","Temporary","CMS PREVIEW"],["Forklift Driver","Heston","Industrial","Temporary","CMS PREVIEW"],["Warehouse Supervisor","London","Industrial","Permanent","CMS PREVIEW"]]} />
+    <SectorDualCta employer={{ label:'FOR EMPLOYERS', title:'I need industrial staff.', copy:'Tell us the role, shift, numbers and timing. We’ll take it from there.', action:'Request Staff', href:'/request-staff' }} candidate={{ label:'FOR CANDIDATES', title:'I’m looking for industrial work.', copy:'Explore warehouse, logistics and production opportunities.', action:'Find Industrial Jobs', href:'/jobs' }} />
     <Footer />
-  </main>
+  </main>;
 }

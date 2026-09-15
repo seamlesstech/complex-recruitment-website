@@ -1,5 +1,4 @@
-'use client';
-import { useState } from 'react';
+import { SectorRoleExplorer } from './sectors/SectorRoleExplorer';
 
 const groups = [
   {key:'hgv1',label:'HGV Class 1',eyebrow:'HEAVY GOODS',roles:['Tramping','Trunking','Shunting','Multi Drop','ADR – Packages & Tanks','International','Wagon & Drag']},
@@ -10,17 +9,5 @@ const groups = [
 ] as const;
 
 export function DrivingRoleExplorer(){
-  const [active,setActive]=useState(0);
-  const current=groups[active];
-  return <div className="drivingRoleExplorer">
-    <div className="drivingRoleTabs" role="tablist" aria-label="Driving job categories">
-      {groups.map((g,i)=><button key={g.key} role="tab" aria-selected={active===i} className={active===i?'active':''} onClick={()=>setActive(i)}><span>{String(i+1).padStart(2,'0')}</span>{g.label}</button>)}
-    </div>
-    <div className="drivingRolePanel" role="tabpanel">
-      <div className="drivingRolePanelHead"><span>{current.eyebrow}</span><strong>{current.label}</strong></div>
-      <div className="drivingRoleList">
-        {current.roles.map((role,i)=><div key={role}><span>{String(i+1).padStart(2,'0')}</span><b>{role}</b><i>↗</i></div>)}
-      </div>
-    </div>
-  </div>
+  return <SectorRoleExplorer groups={groups} label="Driving job categories" />;
 }
