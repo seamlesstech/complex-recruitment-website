@@ -35,7 +35,7 @@ export default function JobDetailPage() {
         <Container className="grid grid-cols-[1fr_360px] items-start gap-[100px] max-[1200px]:grid-cols-[1fr_320px] max-[1200px]:gap-[60px] max-[1000px]:grid-cols-1">
           <article className="max-w-[820px]">
             <SectionLabel>THE ROLE</SectionLabel>
-            <h2 className="mb-7 mt-[34px] text-[clamp(52px,4.8vw,78px)] leading-[.95] tracking-[-.055em] max-[640px]:text-5xl">Keep a busy transport<br /><em className="not-italic text-brand-red">operation moving.</em></h2>
+            <h2 className="section-heading mb-7 mt-[34px] text-[clamp(52px,4.8vw,78px)] leading-[.95] tracking-[-.055em] max-[640px]:text-5xl">Keep a busy transport<br /><em className="not-italic text-brand-red">operation moving.</em></h2>
             <p className="mb-16 text-lg leading-[1.68] text-[#5e6a70] max-[640px]:text-base">Complex is recruiting an experienced HGV Class 1 Driver for a temporary assignment in Enfield. This prototype copy demonstrates the structure the CMS-driven vacancy page will support.</p>
             <div className={detailBlockClass}><h3>What you’ll be doing</h3><ul><li>Completing scheduled Class 1 deliveries safely and efficiently.</li><li>Carrying out vehicle checks and reporting defects appropriately.</li><li>Following site, transport and customer procedures.</li><li>Maintaining accurate delivery and driving records.</li><li>Communicating clearly with the transport team throughout the shift.</li></ul></div>
             <div className={detailBlockClass}><h3>What we’re looking for</h3><ul><li>Valid HGV Class 1 licence and relevant Driver CPC.</li><li>Current Digital Tachograph Card.</li><li>Professional approach to vehicle safety and compliance.</li><li>Relevant recent driving experience.</li><li>Ability to work the advertised shift pattern.</li></ul></div>
@@ -50,7 +50,7 @@ export default function JobDetailPage() {
 
       <section className="bg-surface py-[126px] max-[640px]:py-[88px]" id="apply">
         <Container className="grid grid-cols-[.7fr_1.3fr] gap-[90px] max-[1200px]:grid-cols-1 max-[1200px]:gap-[54px]">
-          <div><SectionLabel>APPLY FOR THIS ROLE</SectionLabel><h2 className="mb-6 mt-[34px] text-[clamp(52px,5vw,82px)] leading-[.95] tracking-[-.055em] max-[640px]:text-5xl">A straightforward<br /><em className="not-italic text-brand-red">application.</em></h2><p className="max-w-[500px] text-sm leading-[1.7] text-[#637077]">In the production build this submission will create an application record in the Complex admin system and notify the recruitment team by email.</p></div>
+          <div><SectionLabel>APPLY FOR THIS ROLE</SectionLabel><h2 className="section-heading mb-6 mt-[34px] text-[clamp(52px,5vw,82px)] leading-[.95] tracking-[-.055em] max-[640px]:text-5xl">A straightforward<br /><em className="not-italic text-brand-red">application.</em></h2><p className="max-w-[500px] text-sm leading-[1.7] text-[#637077]">In the production build this submission will create an application record in the Complex admin system and notify the recruitment team by email.</p></div>
           <JobApplicationForm />
         </Container>
       </section>

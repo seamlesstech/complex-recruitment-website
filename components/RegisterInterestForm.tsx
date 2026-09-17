@@ -7,13 +7,13 @@ import { ChoiceButton } from './forms/ChoiceButton';
 import { InputField, SelectField, TextAreaField } from './forms/FormField';
 import { FormStepProgress } from './forms/FormStepProgress';
 
-const sectors = ['Driving', 'Industrial', 'Construction', 'Open to anything'];
+const sectors = ['Driving & Transport', 'Industrial & Warehouse', 'Construction & Engineering', 'Business & Operational Support', 'Open to anything'];
 const formStepClass = 'px-14 pb-11 pt-[52px] [animation:fullFormIn_.5s_cubic-bezier(.16,1,.3,1)] max-[760px]:px-6 max-[760px]:pb-[34px] max-[760px]:pt-10';
 const fieldGridClass = 'mt-[34px] grid grid-cols-2 gap-x-5 gap-y-6 max-[760px]:grid-cols-1';
 
 export function RegisterInterestForm() {
   const [step, setStep] = useState(0);
-  const [sector, setSector] = useState('Driving');
+  const [sector, setSector] = useState('Driving & Transport');
   const [submitted, setSubmitted] = useState(false);
 
   if (submitted) {

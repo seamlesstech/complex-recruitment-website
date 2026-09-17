@@ -17,8 +17,9 @@ const items = [
   },
   {
     n:'03', title:'Permanent',
-    summary:'Targeted recruitment for specialist, supervisory and long-term operational positions.',
+    summary:'Targeted permanent recruitment across the specialist sectors Complex understands.',
     detail:'A more considered search built around the role, the environment and the person you need to keep.',
+    href:'/employers/permanent-recruitment',
     image:'https://images.pexels.com/photos/4487362/pexels-photo-4487362.jpeg?auto=compress&cs=tinysrgb&w=1800'
   },
   {
@@ -46,6 +47,7 @@ export function EmployerServiceSwitcher(){
         <h3 className="mb-[18px] mt-4 text-[clamp(38px,4vw,62px)] leading-[.95] tracking-[-.05em]">{item.title}</h3>
         <p className="max-w-[570px] text-sm leading-[1.65] text-white/85">{item.summary}</p>
         <p className="mt-4 max-w-[560px] border-t border-white/20 pt-4 text-xs leading-[1.65] text-white/65">{item.detail}</p>
+        {'href' in item && item.href && <a href={item.href} className="mt-6 inline-flex min-h-11 items-center gap-3 border-b border-white/45 pb-2 text-xs font-extrabold outline-none transition-colors hover:border-brand-red focus-visible:ring-2 focus-visible:ring-brand-red">Explore Permanent Recruitment <ArrowIcon className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a>}
       </div>
     </div>
   </div>

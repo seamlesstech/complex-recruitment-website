@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 
-const sectors = ['Driving','Industrial','Construction','Other'];
+const sectors = ['Driving & Transport','Industrial & Warehouse','Construction & Engineering','Business & Operational Support'];
 
 export function RequestStaffPreview(){
   const [step,setStep]=useState(0);
-  const [sector,setSector]=useState('Driving');
+  const [sector,setSector]=useState('Driving & Transport');
   const total=3;
   const next=()=>setStep((s)=>Math.min(total-1,s+1));
   const back=()=>setStep((s)=>Math.max(0,s-1));
@@ -37,7 +37,7 @@ export function RequestStaffPreview(){
         <span className="text-[8px] font-extrabold tracking-[.16em] text-brand-red">STEP 02 · REQUIREMENT</span>
         <h3 className="mb-7 mt-5 text-[30px] tracking-[-.035em]">Tell us what the operation needs.</h3>
         <div className="grid grid-cols-2 gap-x-5 gap-y-6 max-[520px]:grid-cols-1 [&_label>span]:mb-2 [&_label>span]:block [&_label>span]:text-[9px] [&_label>span]:font-bold [&_input]:h-12 [&_input]:w-full [&_input]:border [&_input]:border-line [&_input]:px-3 [&_input]:outline-none focus-within:[&_input]:border-brand-red">
-          <label><span>Role required</span><input placeholder={sector==='Driving'?'e.g. HGV Class 1 Driver':'e.g. Role or skill'} /></label>
+          <label><span>Role required</span><input placeholder={sector==='Driving & Transport'?'e.g. HGV Class 1 Driver':'e.g. Role or skill'} /></label>
           <label><span>Headcount</span><input inputMode="numeric" placeholder="e.g. 12" /></label>
           <label><span>Location</span><input placeholder="Town / postcode" /></label>
           <label><span>Start date</span><input type="date" /></label>

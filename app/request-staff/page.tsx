@@ -18,7 +18,7 @@ export default function RequestStaffPage() {
         <Container className="grid grid-cols-[1.12fr_.58fr] items-end gap-[90px] pb-20 pt-[84px] max-[1100px]:grid-cols-[1fr_.72fr] max-[1100px]:gap-[55px] max-[760px]:block max-[760px]:py-[58px]">
           <div>
             <div className="mb-[30px] text-[10px] font-extrabold tracking-[.2em] text-ink before:mr-[13px] before:mb-[3px] before:inline-block before:h-0.5 before:w-9 before:bg-brand-red">FOR EMPLOYERS <span className="ml-[10px] text-brand-grey">/ REQUEST STAFF</span></div>
-            <h1 className="m-0 text-[clamp(60px,6vw,100px)] leading-[.9] tracking-[-.065em] max-[760px]:text-[52px]">Tell us what your<br /><em className="not-italic text-brand-grey">operation needs<span className="text-brand-red">.</span></em></h1>
+            <h1 className="m-0 text-[clamp(60px,6vw,100px)] font-semibold leading-[.9] tracking-[-.065em] max-[760px]:text-[52px]">Tell us what your<br /><em className="not-italic text-brand-grey">operation needs<span className="text-brand-red">.</span></em></h1>
           </div>
           <div className="pb-1 max-[760px]:mt-[34px]">
             <p className="max-w-[520px] text-base leading-[1.72] text-[#59646a]">A short, structured brief gives the Complex team the information needed to respond quickly. No account. No long onboarding process.</p>
@@ -34,7 +34,7 @@ export default function RequestStaffPage() {
         <Container className="grid grid-cols-[.68fr_1.32fr] items-start gap-[90px] max-[1100px]:grid-cols-1 max-[1100px]:gap-[60px]">
           <aside className="max-[1100px]:max-w-[700px] max-[760px]:mb-[50px]">
             <SectionLabel>BEFORE YOU START</SectionLabel>
-            <h2 className="mb-[25px] mt-[34px] text-[clamp(48px,4.6vw,76px)] leading-[.95] tracking-[-.055em] max-[480px]:text-[46px]">Keep it simple.<br /><em className="not-italic text-brand-red">We’ll handle the detail.</em></h2>
+            <h2 className="section-heading mb-[25px] mt-[34px] text-[clamp(48px,4.6vw,76px)] leading-[.95] tracking-[-.055em] max-[480px]:text-[46px]">Keep it simple.<br /><em className="not-italic text-brand-red">We’ll handle the detail.</em></h2>
             <p className="max-w-[430px] text-sm leading-[1.72] text-[#657177]">You don’t need to know every specification before getting in touch. Start with the basics and the team can clarify the rest with you.</p>
             <div className="mt-10 flex flex-col border-t border-line">
               <span className="flex min-h-[58px] items-center gap-[14px] border-b border-line text-xs text-[#566167]"><b className="text-[8px] text-brand-red">01</b> Sector &amp; requirement type</span>

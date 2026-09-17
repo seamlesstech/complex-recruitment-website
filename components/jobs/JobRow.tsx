@@ -5,7 +5,7 @@ export type Job = {
   title: string;
   location: string;
   sector: string;
-  type: string;
+  workType: string;
   rate: string;
   slug: string;
 };
@@ -28,7 +28,7 @@ export function JobRow({ job, index }: JobRowProps) {
       </div>
       <span className="relative z-[1] text-[11px] text-[#616c72] transition-transform duration-500 ease-complex group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5 max-[640px]:col-start-1">{job.location}</span>
       <span className="relative z-[1] text-[11px] text-[#616c72] transition-transform duration-500 ease-complex group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5 max-[640px]:col-start-1 max-[640px]:hidden">{job.sector}</span>
-      <span className="relative z-[1] text-[11px] text-[#616c72] transition-transform duration-500 ease-complex group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5 max-[1000px]:hidden">{job.type}</span>
+      <span className="relative z-[1] text-[11px] text-[#616c72] transition-transform duration-500 ease-complex group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5 max-[1000px]:hidden">{job.workType}</span>
       <b className="relative z-[1] text-xs transition-transform duration-500 ease-complex group-hover:translate-x-1.5 group-focus-visible:translate-x-1.5 max-[1000px]:hidden">{job.rate}</b>
       <ArrowIcon className="relative z-[1] text-[19px] transition-[transform,color] duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-1.5 group-hover:text-brand-red group-focus-visible:translate-x-1.5 group-focus-visible:-translate-y-1.5 group-focus-visible:text-brand-red max-[640px]:col-start-2 max-[640px]:row-start-1 max-[640px]:row-end-5 max-[640px]:self-center" />
     </Link>

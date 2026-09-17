@@ -7,8 +7,8 @@ import { ChoiceButton } from './forms/ChoiceButton';
 import { FormStepProgress } from './forms/FormStepProgress';
 import { InputField, TextAreaField } from './forms/FormField';
 
-const sectors = ['Driving', 'Industrial', 'Construction', 'Other'];
-const requirements = ['Temporary', 'Ad-hoc', 'Temp-to-perm', 'Permanent', 'Not sure'];
+const sectors = ['Driving & Transport', 'Industrial & Warehouse', 'Construction & Engineering', 'Business & Operational Support'];
+const requirements = ['Temporary', 'Ad-hoc', 'Temp-to-perm', 'Permanent', 'High-volume', 'Not sure'];
 
 const formShellClass = 'relative min-h-[650px] overflow-hidden border border-ink/10 bg-surface shadow-[0_28px_70px_rgba(17,18,20,.07)]';
 const formStepClass = 'px-14 pb-11 pt-[52px] [animation:fullFormIn_.5s_cubic-bezier(.16,1,.3,1)] max-[760px]:px-6 max-[760px]:pb-[34px] max-[760px]:pt-10';
@@ -16,7 +16,7 @@ const fieldGridClass = 'mt-[34px] grid grid-cols-2 gap-x-5 gap-y-6 max-[760px]:g
 
 export function RequestStaffForm() {
   const [step, setStep] = useState(0);
-  const [sector, setSector] = useState('Driving');
+  const [sector, setSector] = useState('Driving & Transport');
   const [type, setType] = useState('Temporary');
   const [submitted, setSubmitted] = useState(false);
 
@@ -65,7 +65,7 @@ export function RequestStaffForm() {
           <span className="text-[8px] font-extrabold tracking-[.17em] text-brand-red">STEP 02 · ASSIGNMENT</span>
           <h2 id="request-step-two" className="mb-4 mt-[22px] max-w-[720px] text-[clamp(38px,3.5vw,58px)] leading-[.96] tracking-[-.045em]">Tell us what the operation needs.</h2>
           <div className={fieldGridClass}>
-            <InputField id="staff-role" label="Role required" required placeholder={sector === 'Driving' ? 'e.g. HGV Class 1 Driver' : 'Role or skill'} />
+            <InputField id="staff-role" label="Role required" required placeholder={sector === 'Driving & Transport' ? 'e.g. HGV Class 1 Driver' : 'Role or skill'} />
             <InputField id="staff-count" label="How many people?" required inputMode="numeric" placeholder="e.g. 12" />
             <InputField id="staff-location" label="Location / postcode" required placeholder="e.g. Enfield, N18" />
             <InputField id="staff-start-date" label="Required start date" type="date" />

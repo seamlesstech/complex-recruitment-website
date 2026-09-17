@@ -18,7 +18,7 @@ const variants = {
 
 export function ButtonLink({ href, children, variant = 'accent', className = '', arrow = true, arrowDirection = 'up-right' }: ButtonLinkProps) {
   const classes = `group inline-flex min-h-12 items-center justify-between gap-6 border border-transparent px-5 text-[13px] font-bold tracking-[.02em] transition duration-200 hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand-red ${variants[variant]} ${className}`;
-  const content = <>{children}{arrow && <ArrowIcon direction={arrowDirection} className="text-lg transition-transform duration-300 ease-complex group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-focus-visible:translate-x-[3px] group-focus-visible:-translate-y-[3px]" />}</>;
+  const content = <>{children}{arrow && <ArrowIcon direction={arrowDirection} className="text-lg text-white transition-transform duration-300 ease-complex group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-focus-visible:translate-x-[3px] group-focus-visible:-translate-y-[3px]" />}</>;
 
   return href.startsWith('/')
     ? <Link className={classes} href={href}>{content}</Link>
