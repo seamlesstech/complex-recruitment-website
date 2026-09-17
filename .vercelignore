@@ -1,0 +1,7 @@
+references/
+.next-dev/
+.next-build/
+node_modules/
+.next/
+.DS_Store
+*.tsbuildinfo
