@@ -33,9 +33,9 @@ const items = [
 export function EmployerServiceSwitcher(){
   const [active,setActive]=useState(0);
   const item=items[active];
-  return <div className="grid min-h-[590px] grid-cols-[.85fr_1.25fr] border-t border-white/15 max-[800px]:grid-cols-1">
+  return <div className="grid gap-7 max-[1100px]:gap-[22px] min-h-[590px] grid-cols-[.85fr_1.25fr] border-t border-white/15 max-[800px]:grid-cols-1">
     <div className="border-r border-white/15 max-[800px]:grid max-[800px]:grid-cols-2 max-[800px]:border-b max-[800px]:border-r-0 max-[520px]:grid-cols-1" role="tablist" aria-label="Recruitment solutions">
-      {items.map((it,i)=><button key={it.title} className={`group grid h-[108px] w-full cursor-pointer grid-cols-[48px_1fr_30px] items-center border-0 border-b border-white/15 pr-[26px] text-left text-white outline-none transition-[background,padding] duration-300 ease-complex focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white max-[800px]:h-[92px] ${active===i?'bg-brand-red pl-5':'bg-transparent hover:bg-brand-red hover:pl-5'}`} onMouseEnter={()=>setActive(i)} onFocus={()=>setActive(i)} onClick={()=>setActive(i)} role="tab" aria-selected={active===i}>
+      {items.map((it,i)=><button key={it.title} className={`group grid h-[108px] w-full cursor-pointer grid-cols-[48px_1fr_30px] items-center border-0 border-b border-white/15 pr-[26px] text-left text-white outline-none pl-5 transition-colors duration-300 ease-complex focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white max-[800px]:h-[92px] ${active===i?'bg-brand-red':'bg-transparent hover:bg-brand-red'}`} onMouseEnter={()=>setActive(i)} onFocus={()=>setActive(i)} onClick={()=>setActive(i)} role="tab" aria-selected={active===i}>
         <span className="text-[9px] tracking-[.13em] text-white/50">{it.n}</span><strong className="text-[23px] tracking-[-.025em] max-[520px]:text-lg">{it.title}</strong><ArrowIcon className="text-lg transition-transform duration-300 group-hover:translate-x-[5px] group-hover:-translate-y-[5px]" />
       </button>)}
     </div>

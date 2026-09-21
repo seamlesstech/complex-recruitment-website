@@ -7,8 +7,9 @@ import { TextLink } from "./ui/TextLink";
 
 const slides = [
   {
-    label: "WORKFORCE",
-    src: "https://videos.pexels.com/video-files/3254006/3254006-uhd_3840_2160_25fps.mp4",
+    label: "STAFFING",
+    src: "/complex-hero-new.mp4",
+    //src: "https://videos.pexels.com/video-files/3254006/3254006-uhd_3840_2160_25fps.mp4",
     eyebrow: "UK WORKFORCE SOLUTIONS",
     titleTop: "Looking for staff",
     titleBase: "or",
@@ -125,8 +126,8 @@ export function Hero() {
             </p>
           </div>
           <div className="flex items-center gap-8">
-            <ButtonLink href="#request-staff">Request Staff</ButtonLink>
-            <TextLink href="#jobs" variant="light" arrowDirection="down-right">
+            <ButtonLink href="/request-staff">Request Staff</ButtonLink>
+            <TextLink href="/jobs" variant="light" arrowDirection="down-right">
               Find Work
             </TextLink>
           </div>
@@ -161,11 +162,16 @@ export function Hero() {
                 className={`relative min-w-[132px] cursor-pointer border-0 border-l border-white/25 bg-transparent px-[18px] text-left text-[9px] font-extrabold tracking-[.07em] text-white transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-1 after:origin-left after:bg-brand-red after:transition-transform max-[760px]:min-h-[76px] ${active === i ? "opacity-100 after:scale-x-100" : "opacity-50 after:scale-x-0"}`}
                 onClick={() => setActive(i)}
                 aria-label={`Show ${item.label.toLowerCase()} hero`}
+                aria-pressed={active === i}
               >
-                <span className="mb-[7px] block text-[6px] text-white/60">
-                  0{i + 1}
+                <span className="block min-h-[30px]">
+                  <span className="block leading-[14px]">{item.label}</span>
+                  {i > 0 && (
+                    <span className="mt-1.5 block text-[12px] font-medium leading-[12px] tracking-normal text-white/75">
+                      Staff
+                    </span>
+                  )}
                 </span>
-                {item.label}
               </button>
             ))}
           </div>

@@ -1,10 +1,10 @@
+import { HeroEyebrow } from '../../components/HeroEyebrow';
 import { Header } from '../../components/Header';
 import { JobBoardExplorer } from '../../components/JobBoardExplorer';
 import { Container } from '../../components/layout/Container';
 import { Footer } from '../../components/layout/Footer';
 import { SectionLabel } from '../../components/SectionLabel';
 import { ButtonLink } from '../../components/ui/ButtonLink';
-import { TextLink } from '../../components/ui/TextLink';
 
 const supportItems = [
   ['01', 'Clear communication', 'Know what the role involves, where you need to be and what happens next.'],
@@ -16,21 +16,15 @@ const supportItems = [
 export default function JobsPage() {
   return (
     <main className="bg-white text-ink">
-      <section className="grid min-h-[616px] grid-rows-[92px_minmax(0,1fr)] bg-white max-[1000px]:min-h-0 max-[1000px]:grid-rows-[92px_auto] max-[640px]:grid-rows-[76px_auto]">
-        <Header active="Jobs" theme="light" />
-        <Container className="grid grid-cols-[1.18fr_.62fr] items-end gap-[100px] pb-[70px] pt-[82px] max-[1200px]:gap-[58px] max-[1200px]:[&_h1]:text-[76px] max-[1000px]:grid-cols-1 max-[1000px]:py-14 max-[640px]:py-11 max-[640px]:[&_h1]:text-[50px]">
-          <div>
-            <div className="mb-[30px] text-[10px] font-extrabold tracking-[.2em] before:mr-[13px] before:mb-[3px] before:inline-block before:h-0.5 before:w-9 before:bg-brand-red">LIVE OPPORTUNITIES <span className="ml-[10px] text-brand-grey max-[760px]:hidden">/ COMPLEX JOBS</span></div>
-            <h1 className="m-0 text-[clamp(68px,6.4vw,108px)] font-semibold leading-[.88] tracking-[-.068em]">Find your next<br /><em className="not-italic text-brand-grey">opportunity<span className="text-brand-red">.</span></em></h1>
-          </div>
-          <div className="pb-2 max-[1000px]:max-w-[650px]">
-            <p className="mb-[30px] max-w-[520px] text-base leading-[1.68] text-[#626d73]">Search current opportunities across our four specialist sectors. No account required — find a role, review the details and apply.</p>
-            <TextLink href="/register-interest">Can’t see the right role? <span>Register interest</span></TextLink>
-          </div>
+      <section className="grid grid-rows-[92px_auto] bg-brand-grey text-white max-[760px]:grid-rows-[76px_auto]">
+        <Header active="Jobs" theme="dark" />
+        <Container className="py-[25px] max-[640px]:py-[17px]">
+          <HeroEyebrow detail="OPPORTUNITIES">JOBS</HeroEyebrow>
+          <h1 className="m-0 text-[clamp(40px,4.5vw,64px)] font-semibold leading-[.95] tracking-[-.055em]">Find your next <em className="not-italic text-white">opportunity<span className="text-brand-red">.</span></em></h1>
         </Container>
       </section>
 
-      <section className="bg-surface py-[72px] max-[640px]:py-[58px]">
+      <section className="bg-white pb-[72px] pt-6 max-[640px]:pb-[58px]">
         <Container>
           <JobBoardExplorer />
         </Container>

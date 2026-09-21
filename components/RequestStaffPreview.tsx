@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { ButtonLink } from './ui/ButtonLink';
 
 const sectors = ['Driving & Transport','Industrial & Warehouse','Construction & Engineering','Business & Operational Support'];
 
@@ -12,22 +13,22 @@ export function RequestStaffPreview(){
   const back=()=>setStep((s)=>Math.max(0,s-1));
 
   return <div className="bg-white text-ink shadow-[0_28px_80px_rgba(0,0,0,.2)]" aria-label="Request staff preview">
-    <div className="flex min-h-[92px] items-center justify-between border-b border-line px-8 max-[520px]:px-5">
+    <div className="flex min-h-[76px] items-center justify-between border-b border-line px-8 max-[520px]:px-5">
       <div>
         <span className="block text-[9px] font-extrabold tracking-[.16em]">REQUEST STAFF</span>
-        <small className="mt-1 block text-[10px] text-muted">No account required</small>
+        <small className="mt-1 block text-[10px] text-muted">Preview the steps · No account required</small>
       </div>
-      <strong className="text-sm text-brand-red">0{step+1} / 0{total}</strong>
+      <ButtonLink href="/request-staff" className="!min-h-11 !px-4 !text-xs">Request Staff</ButtonLink>
     </div>
     <div className="grid h-[3px] grid-cols-3 gap-[2px] bg-line" aria-hidden="true">
       {[0,1,2].map((n)=><i key={n} className={`transition-colors ${n<=step?'bg-brand-red':'bg-transparent'}`}/>) }
     </div>
 
-    <div className="min-h-[430px] px-8 py-9 max-[520px]:min-h-[500px] max-[520px]:px-5">
+    <div className="px-8 py-7 max-[520px]:px-5">
       <section className={step===0?'block':'hidden'} aria-hidden={step!==0}>
         <span className="text-[8px] font-extrabold tracking-[.16em] text-brand-red">STEP 01 · SECTOR</span>
         <h3 className="mb-3 mt-5 text-[30px] tracking-[-.035em]">Which team do you need?</h3>
-        <p className="max-w-[560px] text-xs leading-[1.65] text-muted">Start with the area closest to your requirement. You can add the detail next.</p>
+        <p className="max-w-[560px] text-xs leading-[1.65] text-muted">Start with the area closest to your requirement. Open Request Staff when you’re ready to send your requirement.</p>
         <div className="mt-7 grid grid-cols-2 border-l border-t border-line max-[520px]:grid-cols-1">
           {sectors.map((item)=><button type="button" key={item} aria-pressed={sector===item} className={`group flex min-h-[64px] cursor-pointer items-center justify-between border-0 border-b border-r border-line px-5 text-left text-sm font-bold outline-none transition-colors focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red ${sector===item?'bg-ink text-white':'bg-white hover:bg-surface'}`} onClick={()=>setSector(item)}>{item}<i className="not-italic text-brand-red">↗</i></button>)}
         </div>
@@ -56,11 +57,11 @@ export function RequestStaffPreview(){
       </section>
     </div>
 
-    <div className="flex min-h-[88px] items-center justify-between gap-4 border-t border-line px-8 max-[520px]:items-start max-[520px]:flex-col max-[520px]:px-5 max-[520px]:py-5">
-      <span className="text-[10px] text-muted">{step===0?`${sector} selected`:step===1?'Role · Headcount · Location · Start date':'Contact details · Privacy · Submit'}</span>
+    <div className="flex min-h-[76px] items-center justify-between gap-4 border-t border-line px-8 max-[520px]:items-start max-[520px]:flex-col max-[520px]:px-5 max-[520px]:py-5">
+      <span className="text-[10px] text-muted">{step===0?`${sector} selected`:step===1?'Preview only · Details are not saved':'Preview only · Details are not sent'}</span>
       <div className="flex items-center gap-3">
         {step>0&&<button type="button" className="min-h-11 cursor-pointer border-0 bg-transparent px-4 text-xs font-bold underline" onClick={back}>Back</button>}
-        {step<2?<button type="button" className="inline-flex min-h-12 cursor-pointer items-center gap-7 border-0 bg-brand-red px-5 text-xs font-bold text-white transition-colors hover:bg-brand-grey focus-visible:outline-2 focus-visible:outline-brand-red" onClick={next}>Continue <i className="not-italic">→</i></button>:<a className="inline-flex min-h-12 items-center gap-7 bg-brand-red px-5 text-xs font-bold text-white transition-colors hover:bg-brand-grey focus-visible:outline-2 focus-visible:outline-brand-red" href="/request-staff">Continue to request <i className="not-italic">↗</i></a>}
+        {step<2?<button type="button" className="inline-flex min-h-12 cursor-pointer items-center gap-7 border-0 bg-brand-red px-5 text-xs font-bold text-white transition-colors hover:bg-brand-grey focus-visible:outline-2 focus-visible:outline-brand-red" onClick={next}>Preview next step <i className="not-italic">→</i></button>:<a className="inline-flex min-h-12 items-center gap-7 bg-brand-red px-5 text-xs font-bold text-white transition-colors hover:bg-brand-grey focus-visible:outline-2 focus-visible:outline-brand-red" href="/request-staff">Request Staff <i className="not-italic">↗</i></a>}
       </div>
     </div>
   </div>

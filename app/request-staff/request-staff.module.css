@@ -1,0 +1,69 @@
+.depth {
+  position: absolute;
+  inset: 0 calc((100% - 100vw) / 2);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.depth::before,
+.depth::after {
+  content: '';
+  position: absolute;
+  border: 1px solid rgb(255 255 255 / 5%);
+  background: linear-gradient(135deg, rgb(255 255 255 / 2%), transparent);
+}
+
+.depth::before {
+  inset: 12% 9% -35% 38%;
+}
+
+.depth::after {
+  inset: 38% -8% -60% 66%;
+  background: rgb(17 18 20 / 1.5%);
+}
+
+.lockup {
+  --mark-offset: 82px;
+  position: relative;
+}
+
+.mark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-12px, -50%);
+  animation: mark-reveal 1.9s both;
+}
+
+.title {
+  width: fit-content;
+  max-width: 100%;
+  animation: title-reveal 1.9s both;
+}
+
+@keyframes mark-reveal {
+  0% { opacity: 0; transform: translate(-12px, -50%); }
+  21%, 66% { opacity: 1; transform: translate(0, -50%); }
+  100% { opacity: 0; transform: translate(-20px, -50%); }
+}
+
+@keyframes title-reveal {
+  0%, 18% { opacity: 0; transform: translateX(calc(var(--mark-offset) + 10px)); }
+  42%, 66% { opacity: 1; transform: translateX(var(--mark-offset)); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 480px) {
+  .lockup { --mark-offset: 46px; }
+  .mark { width: 34px; height: 34px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark { display: none; animation: none; }
+  .title { animation: none; opacity: 1; transform: none; }
+}

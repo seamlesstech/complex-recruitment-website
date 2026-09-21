@@ -8,14 +8,78 @@ import { ButtonLink } from "../components/ui/ButtonLink";
 
 const heading =
   "section-heading m-0 text-[clamp(48px,5.2vw,84px)] leading-[.96] tracking-[-.05em] max-[640px]:text-5xl [&_em]:not-italic [&_em]:text-brand-red";
-type TrustedLogo = { name: string; alt: string };
+type TrustedLogo = {
+  file: string;
+  alt: string;
+  width: number;
+  height: number;
+  displayHeight: number;
+};
 const trustedLogos: readonly TrustedLogo[] = [
-  { name: "AMAZON", alt: "Amazon" },
-  { name: "ASDA", alt: "Asda" },
-  { name: "XPO", alt: "XPO" },
-  { name: "CEVA", alt: "CEVA Logistics" },
-  { name: "LYRECO", alt: "Lyreco" },
-  { name: "POUNDLAND", alt: "Poundland" },
+  {
+    file: "move-makers.png",
+    alt: "Move Makers",
+    width: 481,
+    height: 242,
+    displayHeight: 64,
+  },
+  {
+    file: "argos.png",
+    alt: "Argos",
+    width: 377,
+    height: 242,
+    displayHeight: 64,
+  },
+  { file: "asda.png", alt: "ASDA", width: 445, height: 242, displayHeight: 64 },
+  {
+    file: "lloyd-fraser.png",
+    alt: "Lloyd Fraser",
+    width: 321,
+    height: 242,
+    displayHeight: 72,
+  },
+  {
+    file: "xpo-logistics.png",
+    alt: "XPO Logistics",
+    width: 449,
+    height: 134,
+    displayHeight: 52,
+  },
+  {
+    file: "translux.png",
+    alt: "Translux",
+    width: 497,
+    height: 134,
+    displayHeight: 48,
+  },
+  {
+    file: "amazon.png",
+    alt: "Amazon",
+    width: 497,
+    height: 174,
+    displayHeight: 60,
+  },
+  {
+    file: "ceva-logistics.png",
+    alt: "CEVA Logistics",
+    width: 497,
+    height: 190,
+    displayHeight: 64,
+  },
+  {
+    file: "neuven.png",
+    alt: "Neuven",
+    width: 497,
+    height: 190,
+    displayHeight: 60,
+  },
+  {
+    file: "poundland.png",
+    alt: "Poundland",
+    width: 589,
+    height: 130,
+    displayHeight: 48,
+  },
 ];
 const jobs = [
   ["HGV Class 1 Driver", "Enfield", "Driving", "Temporary", "£19–£22/hr"],
@@ -40,7 +104,7 @@ export default function Home() {
           </h2>
         </Container>
         <div
-          className="mt-10 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]"
+          className="trustedMarqueeViewport mt-10 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]"
           aria-label="Organisations that trust Complex Recruitment"
         >
           <div className="trustedMarqueeTrack flex w-max items-center">
@@ -51,13 +115,15 @@ export default function Home() {
                 key={String(duplicate)}
               >
                 {trustedLogos.map((logo) => (
-                  <span
-                    className="min-w-[120px] text-center text-sm font-black tracking-[.05em] text-[#7b8285] opacity-80 grayscale max-[760px]:min-w-[96px] max-[760px]:text-xs"
-                    aria-label={logo.alt}
-                    key={logo.name}
-                  >
-                    {logo.name}
-                  </span>
+                  <img
+                    src={`/client-logos/${logo.file}`}
+                    alt={duplicate ? "" : logo.alt}
+                    width={logo.width}
+                    height={logo.height}
+                    style={{ height: logo.displayHeight }}
+                    className="w-auto max-w-none max-h-[72px] shrink-0 opacity-90 transition-opacity duration-300 hover:opacity-100 max-[760px]:max-h-[56px]"
+                    key={logo.file}
+                  />
                 ))}
               </div>
             ))}
@@ -79,29 +145,59 @@ export default function Home() {
             </h2>
             <p className="max-w-[530px] text-lg leading-[1.6] text-[#526069]">
               We help businesses respond to changing workforce requirements with
-              a PAYE temporary workforce alongside ad-hoc and permanent staffing — supported by
-              sector expertise, compliance and hands-on account management.
+              a PAYE temporary workforce alongside ad-hoc and permanent staffing
+              — supported by sector expertise, compliance and hands-on account
+              management.
             </p>
           </div>
-          <div className="mt-[100px] grid grid-cols-3 border-y border-line max-[640px]:grid-cols-1">
-            {[
-              ["40", "+", "Years of combined senior management experience"],
-              ["24", " / 7", "Operational support when your business needs it"],
-              ["REC", "", "Member with compliance-led recruitment processes"],
-            ].map(([a, b, c], i) => (
-              <article
-                className="border-r border-line py-9 pr-9 last:border-0 not-first:pl-9 max-[640px]:border-r-0 max-[640px]:border-b max-[640px]:px-0"
-                key={i}
-              >
-                <strong className="text-[62px] tracking-[-.06em]">
-                  {a}
-                  <span className="text-[.45em]">{b}</span>
-                </strong>
-                <p className="max-w-60 text-xs leading-[1.45] text-muted">
-                  {c}
-                </p>
-              </article>
-            ))}
+          <div className="mt-[100px] grid grid-cols-4 border-y border-line max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1">
+            {/* 40+ */}
+            <article className="border-r border-line py-9 pr-9 max-[1000px]:border-b max-[640px]:border-r-0 max-[640px]:px-0">
+              <strong className="text-[62px] tracking-[-.06em]">
+                40
+                <span className="text-[.45em]">+</span>
+              </strong>
+
+              <p className="max-w-60 text-xs leading-[1.45] text-muted">
+                Years of combined senior management experience
+              </p>
+            </article>
+
+            {/* 24 / 7 */}
+            <article className="border-r border-line px-9 py-9 max-[1000px]:border-b max-[1000px]:border-r-0 max-[640px]:border-r-0 max-[640px]:px-0">
+              <strong className="text-[62px] tracking-[-.06em]">
+                24
+                <span className="text-[.45em]"> / 7</span>
+              </strong>
+
+              <p className="max-w-60 text-xs leading-[1.45] text-muted">
+                Operational support when your business needs it
+              </p>
+            </article>
+
+            {/* REC */}
+            <article className="border-r border-line px-9 py-9 max-[1000px]:border-r max-[640px]:border-r-0 max-[640px]:border-b max-[640px]:px-0">
+              <div className="flex h-[74px] items-center">
+                <img
+                  src="/rec-logo.png"
+                  alt="REC"
+                  className="block max-h-[58px] w-auto max-w-[200px] object-contain"
+                />
+              </div>
+
+              <p className="max-w-60 text-xs leading-[1.45] text-muted">
+                REC member with compliance-led recruitment processes
+              </p>
+            </article>
+
+            {/* Specialist recruitment areas */}
+            <article className="py-9 pl-9 max-[1000px]:pl-9 max-[640px]:px-0">
+              <strong className="text-[62px] tracking-[-.06em]">05</strong>
+
+              <p className="max-w-60 text-xs leading-[1.45] text-muted">
+                Specialist recruitment areas supporting operational businesses
+              </p>
+            </article>
           </div>
         </Container>
       </section>
@@ -122,7 +218,7 @@ export default function Home() {
       </section>
 
       <section
-        className="bg-[#17181a] py-[130px] text-white max-[640px]:py-[88px]"
+        className="bg-brand-grey py-[130px] text-white max-[640px]:py-[88px]"
         id="employers"
       >
         <Container
@@ -134,16 +230,23 @@ export default function Home() {
             <h2 className={`${heading} mt-[34px]`}>
               Need people?
               <br />
-              <em>Tell us what your operation needs.</em>
+              <em className="!text-white">
+                Tell us what your operation needs.
+              </em>
             </h2>
           </div>
           <div className="pt-16 max-[900px]:pt-0">
-            <p className="mb-[34px] text-lg leading-[1.65] text-[#b8c0c5]">
+            <p className="mb-[34px] text-lg leading-[1.65] text-white/90">
               Whether you're looking for one specialist worker or a high-volume
               temporary workforce, tell us what you need and the Complex team
               will take it from there.
             </p>
-            <ButtonLink href="#request-staff">Request Staff</ButtonLink>
+            <ButtonLink
+              href="/request-staff"
+              className="hover:!bg-brand-red focus-visible:!bg-brand-red focus-visible:!outline-white"
+            >
+              Request Staff
+            </ButtonLink>
           </div>
         </Container>
         <Container
@@ -171,9 +274,9 @@ export default function Home() {
               className="min-h-[190px] border-r border-white/20 pt-8 pr-[34px] not-first:pl-[34px] last:border-0 max-[640px]:min-h-0 max-[640px]:border-r-0 max-[640px]:border-b max-[640px]:px-0 max-[640px]:pb-8"
               key={n}
             >
-              <span className="text-[10px] text-brand-red">{n}</span>
+              <span className="text-[10px] text-white/65">{n}</span>
               <h3 className="my-[26px] mb-3 text-[22px]">{t}</h3>
-              <p className="max-w-[300px] text-[13px] leading-normal text-[#99a4aa]">
+              <p className="max-w-[300px] text-[13px] leading-normal text-white/85">
                 {c}
               </p>
             </div>
@@ -181,53 +284,37 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className="bg-surface py-[130px] max-[640px]:py-[88px]">
+      <section
+        id="compliance"
+        className="relative bg-[#eceeef] pt-[100px] pb-16 text-ink max-[640px]:pt-[68px] max-[640px]:pb-11"
+      >
         <Container
           gutter="wide"
-          className="grid grid-cols-[1fr_2fr] items-start max-[760px]:grid-cols-1 max-[760px]:gap-9"
+          className="grid grid-cols-[1.15fr_.85fr] items-end gap-20 max-[900px]:grid-cols-1 max-[900px]:gap-9"
         >
-          <SectionLabel>HOW COMPLEX WORKS</SectionLabel>
-          <h2 className={heading}>
-            From requirement
-            <br />
-            to workforce.
-          </h2>
+          <div>
+            <SectionLabel>COMPLIANCE &amp; VETTING</SectionLabel>
+            <h2 className={`${heading} mt-[34px]`}>
+              <span className="text-ink">Right people.</span>
+              <br />
+              <span className="text-brand-grey">Right checks.</span>
+              <br />
+              <span className="text-brand-red">Ready to work.</span>
+            </h2>
+          </div>
+          <div>
+            <p className="mb-8 max-w-[520px] text-base leading-[1.7] text-ink/80">
+              Our service goes beyond forwarding CVs. Relevant vetting, licence
+              checks and role-specific compliance are part of how we prepare
+              people for placement.
+            </p>
+            <ButtonLink href="/compliance" variant="dark">
+              Explore Compliance &amp; Vetting
+            </ButtonLink>
+          </div>
         </Container>
-        <Container
-          gutter="wide"
-          className="mt-[90px] grid grid-cols-4 border-t border-line max-[900px]:grid-cols-2 max-[640px]:grid-cols-1"
-        >
-          {[
-            [
-              "01",
-              "Tell us what you need",
-              "Role, location, numbers, shift and start date.",
-            ],
-            [
-              "02",
-              "We source and verify",
-              "We identify suitable people and complete applicable checks.",
-            ],
-            [
-              "03",
-              "Your workforce is ready",
-              "Confirmed workers are prepared for the assignment.",
-            ],
-            [
-              "04",
-              "We stay involved",
-              "Ongoing communication and account support throughout.",
-            ],
-          ].map(([n, t, c]) => (
-            <article
-              className="min-h-[260px] border-r border-line py-[30px] pr-[30px] not-first:pl-[30px] last:border-0 max-[640px]:min-h-[220px] max-[640px]:border-r-0 max-[640px]:border-b max-[640px]:px-0"
-              key={n}
-            >
-              <span className="text-[10px] text-brand-red">{n}</span>
-              <h3 className="my-[55px] mb-3.5 text-[22px]">{t}</h3>
-              <p className="text-[13px] leading-[1.55] text-[#69737a]">{c}</p>
-            </article>
-          ))}
+        <Container aria-hidden="true" className="absolute inset-x-0 bottom-0">
+          <div className="border-b border-line/60" />
         </Container>
       </section>
 
@@ -244,7 +331,7 @@ export default function Home() {
             <h2 className={`${heading} mt-[34px]`}>
               Your next role
               <br />
-              <em>could be here.</em>
+              could be here.
             </h2>
           </div>
           <p className="max-w-[410px] text-base leading-[1.6] text-[#59646b]">
@@ -263,7 +350,7 @@ export default function Home() {
           {jobs.map((job) => (
             <a
               className="group grid min-h-[94px] grid-cols-[2fr_1fr_1fr_1fr_1fr_36px] items-center gap-[22px] border-t border-ink/20 transition hover:bg-white/40 hover:pl-3 max-[700px]:grid-cols-[1fr_auto] max-[700px]:gap-2 max-[700px]:py-5"
-              href="#"
+              href="/jobs"
               key={job[0]}
             >
               <strong className="text-xl max-[700px]:col-span-2">
@@ -281,7 +368,7 @@ export default function Home() {
           ))}
         </Container>
         <Container gutter="wide" className="mt-[38px]">
-          <ButtonLink href="#" variant="dark">
+          <ButtonLink href="/jobs" variant="accent">
             View All Jobs
           </ButtonLink>
         </Container>
@@ -314,7 +401,7 @@ export default function Home() {
               </span>
             ))}
           </div>
-          <ButtonLink href="#jobs">Find Work</ButtonLink>
+          <ButtonLink href="/jobs">Find Work</ButtonLink>
         </div>
       </section>
 
@@ -355,8 +442,8 @@ export default function Home() {
                 <span className="absolute left-6 top-[22px] text-[10px] text-brand-red max-[640px]:left-0">
                   {n}
                 </span>
-                <div className="absolute bottom-[25px] left-6 w-[250px] max-w-[calc(100%-76px)] transition-transform group-hover:translate-x-[5px] max-[640px]:left-0 max-[640px]:bottom-[22px] max-[640px]:w-auto max-[640px]:max-w-[calc(100%-52px)] max-[640px]:group-hover:translate-x-0">
-                  <h3 className="mb-3 whitespace-nowrap text-2xl leading-[1.08] max-[640px]:whitespace-normal">
+                <div className="absolute bottom-[25px] left-6 w-[250px] max-w-[calc(100%-76px)] transition-transform group-hover:text-white  group-hover:translate-x-[5px] max-[640px]:left-0 max-[640px]:bottom-[22px] max-[640px]:w-auto max-[640px]:max-w-[calc(100%-52px)] max-[640px]:group-hover:translate-x-0">
+                  <h3 className="mb-3 whitespace-nowrap text-2xl font-medium leading-[1.08] max-[640px]:whitespace-normal group-hover:text-white ">
                     {t}
                   </h3>
                   <p className="min-h-[60px] w-[250px] max-w-full text-[13px] leading-[1.55] text-[#68737a] group-hover:text-white/80 max-[640px]:min-h-0 max-[640px]:w-auto">
@@ -372,26 +459,6 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className="bg-[#1a1b1d] py-[140px] text-white max-[640px]:py-[90px]">
-        <Container
-          gutter="wide"
-          className="grid grid-cols-[170px_1.1fr_.65fr] items-start gap-[70px] max-[900px]:grid-cols-1 max-[900px]:gap-9"
-        >
-          <SectionLabel>COMPLIANCE BUILT IN</SectionLabel>
-          <h2 className={heading}>
-            Right people.
-            <br />
-            Right checks.
-            <br />
-            <em>Ready to work.</em>
-          </h2>
-          <p className="mt-[88px] text-base leading-[1.7] text-[#bdc5c9] max-[900px]:mt-0">
-            Our service goes beyond forwarding CVs. Relevant vetting, licence
-            checks and role-specific compliance are part of how we prepare
-            people for placement.
-          </p>
-        </Container>
-      </section>
       <section id="request-staff">
         <div className="bg-surface pb-[65px] pt-[120px] max-[640px]:pt-[90px]">
           <Container gutter="wide">

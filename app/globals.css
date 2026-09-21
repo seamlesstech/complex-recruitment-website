@@ -33,7 +33,7 @@
 }
 
 @keyframes trustedLogoMarquee{to{transform:translateX(-50%)}}
-.trustedMarqueeTrack{animation:trustedLogoMarquee 34s linear infinite}
+.trustedMarqueeTrack{animation:trustedLogoMarquee 60s linear infinite}
 
 :root{
   --ink:#111214; --ink-2:#1a1c1f; --paper:#f3f4f4; --paper-2:#eceeef;
@@ -47,7 +47,7 @@
 .heroEyebrow{animation:heroEyebrowIn .55s .05s cubic-bezier(.16,1,.3,1) both}.heroLine{transform:translateY(112%) rotate(.8deg);transform-origin:left bottom;opacity:.15;animation:heroLineReveal .9s cubic-bezier(.16,1,.3,1) forwards}.heroLineOne{animation-delay:.10s}.heroLineTwo{animation-delay:.22s}.heroIntro{animation:heroSupportingIn .72s .42s cubic-bezier(.16,1,.3,1) both}
 @keyframes heroEyebrowIn{0%{opacity:0;transform:translateX(-18px)}100%{opacity:1;transform:translateX(0)}}@keyframes heroLineReveal{0%{transform:translateY(112%) rotate(.8deg);opacity:.15;filter:blur(2px)}55%{opacity:1}100%{transform:translateY(0);opacity:1;filter:blur(0)}}@keyframes heroSupportingIn{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
 @media (hover:hover) and (min-width:761px){.homeSectorRow:hover .homeSectorCard{flex-basis:45%}.homeSectorRow .homeSectorCard:hover,.homeSectorRow .homeSectorCard:focus-visible{flex-basis:55%}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}.heroMediaItem{transform:none!important}.trustedMarqueeTrack{width:100%;transform:none!important}.trustedMarqueeTrack>div:first-child{width:100%;flex-wrap:wrap;justify-content:center;padding-right:0}.trustedMarqueeDuplicate{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}.heroMediaItem{transform:none!important}.trustedMarqueeViewport{mask-image:none;padding-inline:20px}.trustedMarqueeTrack{width:100%;transform:none!important}.trustedMarqueeTrack>div:first-child{width:100%;flex-wrap:wrap;justify-content:center;padding-right:0}.trustedMarqueeDuplicate{display:none}}
 
 /* Shared editorial eyebrow used by the Sectors and Candidates heroes. */
 .candidateEyebrow{font-size:10px;font-weight:800;letter-spacing:.2em;color:#5f686e;margin-bottom:34px}.candidateEyebrow:before{content:"";display:inline-block;width:36px;height:2px;background:var(--accent);margin:0 13px 3px 0}.candidateEyebrow span{color:#9aa0a4;margin-left:10px}
@@ -68,3 +68,55 @@
 
 
 @media(max-width:760px){.contactHero,.legalHero{min-height:auto;grid-template-rows:76px auto}.contactHeroGrid,.legalHeroGrid{display:block;padding:58px 0}.contactHero h1,.legalHero h1,.notFoundHero h1{font-size:52px}.contactHeroAside,.legalHeroGrid>div:last-child{margin-top:34px}.contactRoutes,.contactDetails,.contactGeneralForm,.legalBody{padding:88px 0}.contactDetailsGrid,.contactGeneralGrid{display:block}.contactDepartments{margin-top:50px}.contactDepartments a{grid-template-columns:1fr auto;gap:8px 20px;padding:17px 0;min-height:88px}.contactDepartments span{grid-column:1}.contactDepartments strong{grid-column:1;font-size:14px;overflow-wrap:anywhere}.contactDepartments i{grid-column:2;grid-row:1/3}.simpleContactForm{grid-template-columns:1fr}.simpleContactForm{margin-top:50px}.legalBodyGrid{display:block}.legalBody aside{position:static;margin-bottom:35px}.legalBody article{padding:5px 24px}.legalBody h2{font-size:29px}.legalFooter>div{grid-template-columns:1fr;gap:22px;text-align:center}.legalFooter img{margin:auto}.legalFooter div div{flex-wrap:wrap}.notFoundHero{grid-template-rows:76px 1fr}.notFoundGrid{display:block;padding:80px 0}.notFoundMark{position:absolute;right:-100px;bottom:30px;opacity:.55}.notFoundMark img{width:300px}.notFoundHero p{max-width:440px}}
+
+/* Solid action surfaces retain readable labels and arrows, including selected controls. */
+:is(a, button):is(.bg-ink, .bg-ink-soft, .bg-black, .bg-brand-grey, .bg-brand-red),
+:is(a, button)[class~="hover:bg-ink"]:hover,
+:is(a, button)[class~="focus-visible:bg-ink"]:focus-visible {
+  color: #fff;
+}
+:is(a, button):is(.bg-ink, .bg-ink-soft, .bg-black, .bg-brand-grey, .bg-brand-red) :is([data-arrow], i),
+:is(a, button)[class~="hover:bg-ink"]:hover :is([data-arrow], i),
+:is(a, button)[class~="focus-visible:bg-ink"]:focus-visible :is([data-arrow], i) {
+  color: #fff;
+}
+
+/* Keep copy measures stable while the desktop interaction changes card widths. */
+:is(.trainingCard, .dualCtaCard):is(:hover, :focus-visible),
+:is(.trainingCard, .dualCtaCard):is(:hover, :focus-visible) :is(small, span, h3, p, i) {
+  color: #fff;
+}
+@media (hover: hover) and (pointer: fine) and (min-width: 1001px) {
+  .trainingCardRow, .dualCtaRow { display: flex; container-type: inline-size; }
+  .trainingCard, .dualCtaCard {
+    flex: 1 1 0%; min-width: 0;
+    transition: flex-grow .7s var(--ease-complex), background-color .5s var(--ease-complex);
+  }
+  :is(.trainingCardRow, .dualCtaRow):has(> :is(:hover, :focus-visible)) > a { flex-grow: .9; }
+  :is(.trainingCardRow, .dualCtaRow) > a:is(:hover, :focus-visible) { flex-grow: 1.1; }
+  .trainingCard > :not([aria-hidden]):not(.absolute) { width: calc(45cqw - 66px); }
+  .dualCtaContent { width: calc(45cqw - var(--cta-gutter) - 40px); flex: 1 0 auto; }
+  .dualCtaCard:last-child .dualCtaContent { margin-left: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trainingCard, .dualCtaCard { transition: none; }
+}
+
+.dualCtaRow { --cta-gutter: 100px; }
+.dualCtaCard { padding-inline: 40px; }
+.dualCtaCard:first-child { padding-left: var(--cta-gutter); }
+.dualCtaCard:last-child { padding-right: var(--cta-gutter); }
+:is(.dualCtaCard, .contactCtaCard), :is(.dualCtaCard, .contactCtaCard) :is(small, span, h2, h3, p, strong, i) { color: #fff; }
+:is(.dualCtaCard, .contactCtaCard):is(:hover, :focus-visible) .ctaGreeting { opacity: 1; transform: translateY(0); }
+@media (max-width: 1279px) { .dualCtaRow { --cta-gutter: 84px; } }
+@media (max-width: 1023px) { .dualCtaRow { --cta-gutter: 48px; } }
+@media (max-width: 920px) { .dualCtaCard { padding-inline: var(--cta-gutter); } }
+@media (max-width: 767px) { .dualCtaRow { --cta-gutter: 20px; } }
+@media (hover: hover) and (pointer: fine) and (min-width: 1101px) {
+  .contactCtaRow { display: flex; container-type: inline-size; }
+  .contactCtaCard { flex: 1 1 0%; min-width: 0; padding-inline: 20px; transition: flex-grow .7s var(--ease-complex), background-color .5s var(--ease-complex); }
+  .contactCtaContent { width: calc(28cqw - 40px); flex-shrink: 0; }
+  .contactCtaRow:has(> :is(:hover, :focus-visible)) > a { flex-grow: .84; }
+  .contactCtaRow > a:is(:hover, :focus-visible) { flex-grow: 1.32; }
+}
+@media (prefers-reduced-motion: reduce) { .contactCtaCard, .ctaGreeting { transition: none; } }

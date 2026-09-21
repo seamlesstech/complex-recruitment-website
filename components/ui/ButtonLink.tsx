@@ -12,8 +12,8 @@ type ButtonLinkProps = {
 };
 
 const variants = {
-  accent: 'bg-brand-red text-white hover:bg-brand-grey focus-visible:bg-brand-grey',
-  dark: 'bg-ink text-white hover:bg-brand-grey focus-visible:bg-brand-grey',
+  accent: 'bg-brand-red !text-white hover:bg-brand-grey focus-visible:bg-brand-grey',
+  dark: 'bg-ink !text-white hover:bg-brand-grey focus-visible:bg-brand-grey',
 } as const;
 
 export function ButtonLink({ href, children, variant = 'accent', className = '', arrow = true, arrowDirection = 'up-right' }: ButtonLinkProps) {

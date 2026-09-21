@@ -32,7 +32,7 @@ export default function DrivingPage() {
         sector="Driving & Transport"
         title={
           <>
-            Driving talent built for
+            Driving talent for
             <br />
             <em>your operation.</em>
           </>
@@ -40,7 +40,7 @@ export default function DrivingPage() {
         description="Professional drivers and transport specialists for temporary, ad-hoc and permanent requirements across logistics, distribution and haulage."
         requestLabel="Request Drivers"
         jobsLabel="Find Driving Work"
-        jobsHref="#driving-jobs"
+        jobsHref="/jobs"
         proofLabel="OPERATIONAL SUPPORT"
         proofCopy="Specialist consultants when transport operations move."
         rail={["HGV Class 1", "HGV Class 2", "7.5T", "3.5T", "Transport Roles"]}

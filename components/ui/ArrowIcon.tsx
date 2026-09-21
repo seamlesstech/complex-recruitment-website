@@ -6,5 +6,5 @@ type ArrowIconProps = {
 const arrows = { 'up-right': '↗', 'down-right': '↘', right: '→' } as const;
 
 export function ArrowIcon({ direction = 'up-right', className = '' }: ArrowIconProps) {
-  return <span className={className} aria-hidden="true">{arrows[direction]}</span>;
+  return <span data-arrow="" className={className} aria-hidden="true">{arrows[direction]}</span>;
 }

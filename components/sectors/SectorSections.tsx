@@ -1,3 +1,4 @@
+import { CtaGreeting } from '../ui/CtaGreeting';
 import type { ReactNode } from 'react';
 import { SectionLabel } from '../SectionLabel';
 import { Container } from '../layout/Container';
@@ -35,5 +36,12 @@ export function SectorJobs({ id, label, title, copy, jobs }: { id: string; label
 
 type Cta = { label: string; title: string; copy: string; action: string; href: string };
 export function SectorDualCta({ employer, candidate }: { employer: Cta; candidate: Cta }) {
-  return <section className="grid grid-cols-2 max-[920px]:grid-cols-1">{[employer, candidate].map((cta, index) => <a href={cta.href} key={cta.label} className={`group/card flex min-h-[470px] flex-col px-[max(50px,calc((100vw-1400px)/2))] py-[54px] text-white outline-none transition-colors duration-500 ease-complex hover:bg-brand-grey focus-visible:bg-brand-grey focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white max-[920px]:min-h-[420px] max-[920px]:px-[42px] max-[920px]:py-12 max-[640px]:min-h-[390px] max-[640px]:px-6 max-[640px]:py-[38px] ${index === 0 ? 'bg-brand-red pl-[max(40px,calc((100vw-1400px)/2))]' : 'bg-ink pr-[max(40px,calc((100vw-1400px)/2))]'}`}><small className="text-[8px] font-extrabold tracking-[.18em] text-white/65">{cta.label}</small><div className="relative mt-[90px] max-[640px]:mt-[70px]"><span className="absolute bottom-full mb-3 block translate-y-[10px] text-[13px] font-semibold text-white/50 opacity-0 transition duration-300 group-hover/card:translate-y-0 group-hover/card:opacity-100 group-focus-visible/card:translate-y-0 group-focus-visible/card:opacity-100">Hi, Complex,</span><h3 className="m-0 text-[clamp(42px,4vw,68px)] font-semibold leading-[.94] tracking-[-.055em] text-white">{cta.title}</h3></div><p className="mt-5 max-w-[430px] text-xs leading-[1.65] text-white/75">{cta.copy}</p><span className={`group/action mt-auto inline-flex min-h-11 items-center gap-[14px] self-start py-[14px] text-[13px] font-extrabold text-white transition-[background,padding] duration-300 hover:px-4 focus-visible:px-4 ${index === 0 ? 'hover:bg-ink focus-visible:bg-ink' : 'hover:bg-brand-red focus-visible:bg-brand-red'}`}>{cta.action}<ArrowIcon className="transition-transform duration-300 group-hover/action:translate-x-1.5 group-hover/action:-translate-y-[5px]" /></span></a>)}</section>;
+  return <section className="dualCtaRow grid grid-cols-2 max-[920px]:grid-cols-1">{[employer, candidate].map((cta, index) => <a href={cta.href} key={cta.label} className={`dualCtaCard group/card flex min-h-[470px] flex-col py-[54px] text-white outline-none hover:bg-brand-grey focus-visible:bg-brand-grey focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white max-[920px]:min-h-[420px] max-[920px]:py-12 max-[640px]:min-h-[390px] max-[640px]:py-[38px] ${index === 0 ? 'bg-brand-red' : 'bg-ink'}`}>
+    <div className="dualCtaContent flex flex-1 flex-col">
+      <small className="text-[8px] font-extrabold tracking-[.18em]">{cta.label}</small>
+      <div className="relative mt-[90px] max-[640px]:mt-[70px]"><CtaGreeting /><h3 className="m-0 text-[clamp(42px,4vw,68px)] font-semibold leading-[.94] tracking-[-.055em]">{cta.title}</h3></div>
+      <p className="mt-5 max-w-[430px] text-xs leading-[1.65]">{cta.copy}</p>
+      <span className="group/action mt-auto inline-flex min-h-11 items-center gap-[14px] self-start py-[14px] text-[13px] font-extrabold">{cta.action}<ArrowIcon className="transition-transform duration-300 group-hover/action:translate-x-1.5 group-hover/action:-translate-y-[5px]" /></span>
+    </div>
+  </a>)}</section>;
 }
