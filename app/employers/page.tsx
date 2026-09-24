@@ -142,7 +142,7 @@ export default function EmployersPage() {
                 you need.
               </h2>
               <p className="mt-7 max-w-[470px] text-[15px] leading-[1.7] text-muted">
-                You don't need an account. Give us the essentials and the
+                You don&apos;t need an account. Give us the essentials and the
                 Complex team can take the requirement from there.
               </p>
             </div>
@@ -165,7 +165,7 @@ export default function EmployersPage() {
               </h2>
             </div>
             <p className="mb-2 text-[15px] leading-[1.7] text-[#aeb7bc]">
-              Choose the model that suits the pressure you're dealing with now.
+              Choose the model that suits the pressure you&apos;re dealing with now.
               Complex can support immediate temporary demand as well as more
               considered permanent recruitment.
             </p>
@@ -347,7 +347,7 @@ export default function EmployersPage() {
         <div className="px-20 py-[110px] max-[760px]:px-6 max-[760px]:py-[70px]">
           <SectionLabel>ACCOUNT SUPPORT</SectionLabel>
           <h2 className={`${heading} mt-[38px]`}>
-            The relationship doesn't end
+            The relationship doesn&apos;t end
             <br />
             <em className="not-italic text-brand-red">
               when the shift starts.

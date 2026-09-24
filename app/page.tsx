@@ -233,7 +233,7 @@ export default async function Home() {
           </div>
           <div className="pt-16 max-[900px]:pt-0">
             <p className="mb-[34px] text-lg leading-[1.65] text-white/90">
-              Whether you're looking for one specialist worker or a high-volume
+              Whether you&apos;re looking for one specialist worker or a high-volume
               temporary workforce, tell us what you need and the Complex team
               will take it from there.
             </p>

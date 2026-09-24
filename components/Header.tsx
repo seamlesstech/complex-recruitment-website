@@ -70,6 +70,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Container } from "./layout/Container";
 
 const navItems = [
@@ -479,7 +480,7 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
             isLight ? "border-ink/15" : "border-white/20"
           }`}
         >
-          <a
+          <Link
             className="block w-[178px] outline-none focus-visible:ring-2 focus-visible:ring-brand-red max-[1101px]:w-[158px] max-[760px]:w-[145px]"
             href="/"
             aria-label="Complex Recruitment home"
@@ -489,7 +490,7 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
               src={isLight ? "/complex-logo.png" : "/complex-logo-white.png"}
               alt="Complex Recruitment"
             />
-          </a>
+          </Link>
 
           <div className="flex justify-center max-[1101px]:hidden">
             <DesktopNavigation active={active} idPrefix="top" pill />
@@ -766,7 +767,7 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
             gutter="wide"
             className="grid h-full grid-cols-[225px_1fr_auto] items-center gap-7 max-[1350px]:grid-cols-[178px_1fr_auto] max-[1350px]:gap-4"
           >
-            <a
+            <Link
               className="block w-[158px] outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
               href="/"
               aria-label="Complex Recruitment home"
@@ -776,7 +777,7 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
                 src="/complex-logo-white.png"
                 alt="Complex Recruitment"
               />
-            </a>
+            </Link>
 
             <DesktopNavigation
               active={active}
