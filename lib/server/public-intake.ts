@@ -7,13 +7,14 @@ import { HONEYPOT_FIELD, type PublicFormResult } from '../forms/public-form';
 /**
  * Shared MVP anti-abuse + response helpers for every public write endpoint.
  *
- * What this DOES provide: JSON-only bodies with a hard size cap, a same-origin
- * check, a honeypot, strict Zod validation (per endpoint), and safe error bodies.
+ * What this DOES provide: JSON bodies (enquiries) or multipart bodies (applications
+ * with an optional CV) with hard size caps, a same-origin check, a honeypot,
+ * strict validation (per endpoint), and safe error bodies.
  *
  * What it does NOT provide: rate limiting or bot verification. An in-memory
  * limiter would be per-instance on serverless hosting and is deliberately not
  * faked here. Cloudflare Turnstile is a required pre-production task: verify the
- * token inside `guardPublicSubmission` (one place, used by both endpoints).
+ * token in `guardPublicSubmission` and `guardMultipartSubmission`.
  */
 
 const MAX_BODY_BYTES = 16 * 1024;
@@ -97,6 +98,74 @@ export const VALIDATION_FAILURE = 'Please check the highlighted fields and try a
 // status/owner_id, an unknown `kind`). Their Zod wording describes our schema,
 // so they are answered generically instead of being echoed back.
 const STRUCTURAL_ISSUES = new Set(['unrecognized_keys', 'invalid_union']);
+
+/**
+ * Multipart counterpart of `guardPublicSubmission`, for the Job Application form
+ * (which may carry a CV). Same origin/honeypot rules. The declared length is
+ * required and capped before the body is read, and only the expected field names
+ * are accepted, each at most once — so a file or oversized text can't be smuggled
+ * in under an unexpected key.
+ */
+export async function guardMultipartSubmission(
+  request: Request,
+  { maxBytes, textFields, fileFields }: { maxBytes: number; textFields: readonly string[]; fileFields: readonly string[] },
+): Promise<
+  | { ok: true; fields: Record<string, string>; files: Record<string, File | undefined> }
+  | { ok: false; response: NextResponse }
+> {
+  if (!isSameOrigin(request)) {
+    return { ok: false, response: fail(403, GENERIC_FAILURE) };
+  }
+  if (!request.headers.get('content-type')?.toLowerCase().startsWith('multipart/form-data')) {
+    return { ok: false, response: fail(415, GENERIC_FAILURE) };
+  }
+  const declaredLength = Number(request.headers.get('content-length'));
+  if (!Number.isFinite(declaredLength) || declaredLength <= 0) {
+    return { ok: false, response: fail(411, GENERIC_FAILURE) };
+  }
+  if (declaredLength > maxBytes) {
+    return { ok: false, response: fail(413, 'Your CV must be 4 MB or smaller.', { cv: 'Your CV must be 4 MB or smaller.' }) };
+  }
+
+  let form: FormData;
+  try {
+    form = await request.formData();
+  } catch {
+    return { ok: false, response: fail(400, GENERIC_FAILURE) };
+  }
+
+  const allowed = new Set([...textFields, ...fileFields, HONEYPOT_FIELD]);
+  const seen = new Set<string>();
+  const fields: Record<string, string> = {};
+  const files: Record<string, File | undefined> = {};
+  let honeypot = '';
+
+  for (const [key, value] of form.entries()) {
+    if (!allowed.has(key) || seen.has(key)) return { ok: false, response: fail(400, GENERIC_FAILURE) };
+    seen.add(key);
+    if (key === HONEYPOT_FIELD) {
+      honeypot = typeof value === 'string' ? value : 'file';
+    } else if (fileFields.includes(key)) {
+      if (typeof value === 'string') {
+        if (value !== '') return { ok: false, response: fail(400, GENERIC_FAILURE) };
+      } else if (value.size > 0 || value.name) {
+        files[key] = value;
+      }
+    } else {
+      if (typeof value !== 'string') return { ok: false, response: fail(400, GENERIC_FAILURE) };
+      fields[key] = value;
+    }
+  }
+
+  if (honeypot.trim() !== '') {
+    // Never report success for a submission that was not stored.
+    return { ok: false, response: fail(400, GENERIC_FAILURE) };
+  }
+
+  // TURNSTILE (pre-production): verify the token field here as well.
+
+  return { ok: true, fields, files };
+}
 
 /** First validation message per field path ("requester.email" style keys). */
 export function fieldErrorsFrom(error: z.ZodError): Record<string, string> {

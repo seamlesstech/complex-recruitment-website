@@ -48,7 +48,7 @@ export default async function JobsPage() {
       <section className="bg-brand-grey py-[120px] text-white max-[640px]:py-[88px]">
         <Container className="grid grid-cols-[1fr_.65fr] items-end gap-[100px] max-[1000px]:grid-cols-1 max-[1000px]:gap-11">
           <div className="[&_.sectionLabel]:text-white [&_.labelDot]:bg-white [&_.labelDot]:shadow-none"><SectionLabel>STAY ON OUR RADAR</SectionLabel><h2 className="section-heading m-0 mt-[34px] text-[clamp(52px,5vw,82px)] leading-[.95] tracking-[-.055em]">Nothing suitable<br /><em className="not-italic text-brand-red">right now?</em></h2></div>
-          <div><p className="mb-7 max-w-[560px] text-[15px] leading-[1.7] text-white/75">Tell us the type of work you are looking for and upload your CV once. The Complex team can then contact you when something relevant comes up.</p><ButtonLink href="/register-interest">Register Your Interest</ButtonLink></div>
+          <div><p className="mb-7 max-w-[560px] text-[15px] leading-[1.7] text-white/75">Tell us the type of work you are looking for and how to reach you. The Complex team can then contact you when something relevant comes up.</p><ButtonLink href="/register-interest">Register Your Interest</ButtonLink></div>
         </Container>
       </section>
       <Footer />

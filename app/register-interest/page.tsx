@@ -29,7 +29,7 @@ export default function RegisterInterestPage() {
             <div className="mt-10 flex flex-col border-t border-line">
               <span className="flex min-h-[58px] items-center gap-[14px] border-b border-line text-xs text-[#566167]">Four specialist operational sectors</span>
               <span className="flex min-h-[58px] items-center gap-[14px] border-b border-line text-xs text-[#566167]">Temporary or permanent work</span>
-              <span className="flex min-h-[58px] items-center gap-[14px] border-b border-line text-xs text-[#566167]">CV upload optional at first draft stage</span>
+              <span className="flex min-h-[58px] items-center gap-[14px] border-b border-line text-xs text-[#566167]">Attach your CV when you apply for a specific job</span>
             </div>
           </aside>
         </Container>

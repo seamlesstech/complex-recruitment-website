@@ -99,10 +99,12 @@ export function RegisterInterestForm() {
             <InputField id="candidate-phone" label="Phone" required maxLength={40} autoComplete="tel" type="tel" placeholder="Phone number" {...bind('phone')} />
             <InputField id="candidate-email" label="Email" required maxLength={254} autoComplete="email" type="email" placeholder="name@email.com" {...bind('email')} />
             <InputField id="candidate-postcode" label="Postcode" maxLength={20} autoComplete="postal-code" placeholder="Home postcode" {...bind('postcode')} />
-            {/* CV upload is intentionally unavailable until private document storage ships. */}
+            {/* Register Interest creates a candidate-type Enquiry, not a Candidate, so there is
+                no Candidate record to hold a private CV version yet. CVs are accepted on Job
+                Applications, which do create a Candidate. */}
             <div className="col-span-2 flex flex-col gap-[9px] max-[760px]:col-span-1" aria-disabled="true">
               <span className="text-[9px] font-extrabold tracking-[.1em] text-[#626b70]">CV UPLOAD</span>
-              <span className="cursor-not-allowed border-b border-dashed border-ink/25 py-[15px] text-sm text-muted">CV upload will be available shortly. The team will ask for your CV if they need it.</span>
+              <span className="cursor-not-allowed border-b border-dashed border-ink/25 py-[15px] text-sm text-muted">CVs aren’t collected on this quick registration. You can attach your CV when you apply for a specific job, or the team will ask for it if needed.</span>
             </div>
             <TextAreaField id="candidate-message" label="Anything else?" rows={4} maxLength={2000} wrapperClassName="col-span-2 max-[760px]:col-span-1" placeholder="Optional message" {...bind('message')} />
             <CheckboxField id="candidate-privacy" required className="col-span-2 max-[760px]:col-span-1" checked={values.consent} onChange={event => setValues(current => ({ ...current, consent: event.target.checked }))} error={fieldErrors.consent}>I agree that Complex Recruitment may use my details to contact me about relevant work opportunities.</CheckboxField>

@@ -1,8 +1,9 @@
 /**
  * Client/server-shared contract for public form submissions.
  *
- * Every public form posts JSON to a trusted route handler (`/api/applications` or
- * `/api/enquiries`) through `submitPublicForm`. Keeping that one path is what lets
+ * Every public form posts to a trusted route handler through `submitPublicForm`:
+ * JSON for `/api/enquiries`, multipart FormData for `/api/applications` (which
+ * may carry a CV file — never base64 in JSON). Keeping that one path is what lets
  * Cloudflare Turnstile be added next without redesigning the forms: the widget's
  * token becomes one more field here, verified in `lib/server/public-intake.ts`.
  */
@@ -23,14 +24,13 @@ const GENERIC_ERROR = 'Something went wrong and your details were not sent. Plea
  * Resolves `{ ok: true }` only when the server confirmed the row was written.
  * Never throws; every failure becomes a safe, user-facing message.
  */
-export async function submitPublicForm(endpoint: PublicFormEndpoint, payload: object): Promise<PublicFormResult> {
+export async function submitPublicForm(endpoint: PublicFormEndpoint, payload: object | FormData): Promise<PublicFormResult> {
   let response: Response;
   try {
-    response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    response = await fetch(endpoint, payload instanceof FormData
+      // The browser sets the multipart boundary itself.
+      ? { method: 'POST', body: payload }
+      : { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
   } catch {
     return { ok: false, message: NETWORK_ERROR };
   }
