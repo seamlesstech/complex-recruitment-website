@@ -1,8 +1,9 @@
 'use client';
 
-import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { ButtonLink } from '../ui/ButtonLink';
 import { InputField, TextAreaField } from '../forms/FormField';
+import { CvDropzone } from '../forms/CvDropzone';
 import { FormAlert } from '../forms/FormAlert';
 import { HoneypotField, readHoneypot } from '../forms/HoneypotField';
 import { PublicTurnstile, type PublicTurnstileHandle } from '../turnstile/PublicTurnstile';
@@ -26,7 +27,6 @@ export function JobApplicationForm({ jobReference, jobTitle }: { jobReference: s
   const [turnstileToken, setTurnstileToken] = useState('');
   const turnstileRef = useRef<PublicTurnstileHandle>(null);
   const form = useRef<HTMLFormElement>(null);
-  const cvInput = useRef<HTMLInputElement>(null);
   const fieldErrors = status.state === 'error' ? status.fieldErrors : {};
   const shownCvError = cvError || fieldErrors.cv;
   const turnstileReady = !isTurnstileConfigured || turnstileToken !== '';
@@ -41,13 +41,11 @@ export function JobApplicationForm({ jobReference, jobTitle }: { jobReference: s
     }
   }
 
-  function onCvChange(event: ChangeEvent<HTMLInputElement>) {
+  function onCvSelected(file: File) {
     clearServerCvError();
-    const file = event.target.files?.[0] ?? null;
-    const problem = file ? precheckCv(file) : null;
+    const problem = precheckCv(file);
     if (problem) {
       // Never keep a file we already know the server will refuse.
-      event.target.value = '';
       setCv(null);
       setCvError(problem);
       return;
@@ -58,7 +56,6 @@ export function JobApplicationForm({ jobReference, jobTitle }: { jobReference: s
 
   function removeCv() {
     clearServerCvError();
-    if (cvInput.current) cvInput.current.value = '';
     setCv(null);
     setCvError('');
   }
@@ -101,13 +98,16 @@ export function JobApplicationForm({ jobReference, jobTitle }: { jobReference: s
         <InputField id="application-postcode" maxLength={20} autoComplete="postal-code" label="Postcode (optional)" variant="boxed" wrapperClassName={labelClass} placeholder="Postcode" error={fieldErrors.postcode} />
       </div>
       <div className={labelClass}>
-        <label className="group block cursor-pointer focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-brand-red" htmlFor="application-cv">
-          UPLOAD CV (OPTIONAL)
-          <span className={`mt-[9px] flex min-h-[74px] flex-wrap items-center justify-between gap-3 border border-dashed bg-surface p-[18px] text-[13px] font-normal tracking-normal text-ink ${shownCvError ? 'border-brand-red' : 'border-[#aeb4b7]'}`}><span className="min-w-0 break-all">{cv?.name || 'Choose your CV'}</span> <b className="text-[8px] text-[#879095]">PDF, DOC, DOCX · MAX {CV_MAX_LABEL}</b></span>
-          <input ref={cvInput} id="application-cv" className="sr-only" type="file" accept={CV_ACCEPT} disabled={pending} onChange={onCvChange} aria-invalid={!!shownCvError} aria-describedby={shownCvError ? 'application-cv-error' : undefined} />
-        </label>
-        {shownCvError && <span id="application-cv-error" className="mt-2 block text-[11px] font-normal tracking-normal text-brand-red">{shownCvError}</span>}
-        {cv && !pending && <button type="button" onClick={removeCv} className="mt-2 text-[11px] font-normal tracking-normal text-ink underline outline-none focus-visible:outline-2 focus-visible:outline-brand-red">Remove file</button>}
+        <CvDropzone
+          id="application-cv"
+          file={cv}
+          error={shownCvError}
+          disabled={pending}
+          accept={CV_ACCEPT}
+          maxLabel={CV_MAX_LABEL}
+          onFileSelected={onCvSelected}
+          onRemove={removeCv}
+        />
       </div>
       <TextAreaField id="application-message" maxLength={2000} label="Optional message" variant="boxed" wrapperClassName={labelClass} rows={4} placeholder="Anything useful for the recruiter to know?" error={fieldErrors.message} />
       <label className="mb-[18px] flex flex-wrap items-start gap-[10px] text-[10px] leading-normal text-[#68747a]" htmlFor="application-privacy">
