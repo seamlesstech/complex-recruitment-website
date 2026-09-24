@@ -3,6 +3,7 @@ import { getAdminSupabase } from '../../../lib/supabase/admin';
 import { validateCvFile, type ValidatedCv } from '../../../lib/server/cv-file';
 import { applicationSchema } from '../../../lib/server/intake-schemas';
 import { submitPublicApplication } from '../../../lib/server/public-application';
+import { checkRateLimit } from '../../../lib/server/rate-limit';
 import {
   GENERIC_FAILURE,
   VALIDATION_FAILURE,
@@ -52,10 +53,14 @@ const OUTCOME_ERRORS = {
 } as const;
 
 export async function POST(request: Request) {
+  const rateLimit = await checkRateLimit(request, 'application');
+  if (!rateLimit.ok) return rateLimit.response;
+
   const guarded = await guardMultipartSubmission(request, {
     maxBytes: MAX_REQUEST_BYTES,
     textFields: TEXT_FIELDS,
     fileFields: FILE_FIELDS,
+    turnstileAction: 'job_application',
   });
   if (!guarded.ok) return guarded.response;
   const { fields, files } = guarded;

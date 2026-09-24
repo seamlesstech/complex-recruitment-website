@@ -3,7 +3,9 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { HoneypotField, readHoneypot } from '../forms/HoneypotField';
 import { ArrowIcon } from '../ui/ArrowIcon';
-import { HONEYPOT_FIELD, submitPublicForm } from '../../lib/forms/public-form';
+import { PublicTurnstile, type PublicTurnstileHandle } from '../turnstile/PublicTurnstile';
+import { isTurnstileConfigured } from '../../lib/turnstile/config';
+import { HONEYPOT_FIELD, TURNSTILE_FIELD, submitPublicForm } from '../../lib/forms/public-form';
 
 // Visual classes are unchanged from the original inline /contact form.
 const fieldClass =
@@ -24,13 +26,16 @@ const text = (data: FormData, name: string) => {
 
 export function GeneralEnquiryForm() {
   const [status, setStatus] = useState<Status>({ state: 'idle' });
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileRef = useRef<PublicTurnstileHandle>(null);
   const form = useRef<HTMLFormElement>(null);
   const fieldErrors = status.state === 'error' ? status.fieldErrors : {};
   const pending = status.state === 'pending';
+  const turnstileReady = !isTurnstileConfigured || turnstileToken !== '';
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (pending) return;
+    if (pending || !turnstileReady) return;
     const data = new FormData(event.currentTarget);
     setStatus({ state: 'pending' });
     const result = await submitPublicForm('/api/enquiries', {
@@ -41,7 +46,9 @@ export function GeneralEnquiryForm() {
       category: text(data, 'contact-category'),
       message: text(data, 'contact-message'),
       [HONEYPOT_FIELD]: readHoneypot(form.current),
+      [TURNSTILE_FIELD]: turnstileToken,
     });
+    if (!result.ok) turnstileRef.current?.reset();
     setStatus(result.ok ? { state: 'success' } : { state: 'error', message: result.message, fieldErrors: result.fieldErrors ?? {} });
   }
 
@@ -104,10 +111,12 @@ export function GeneralEnquiryForm() {
         </p>
       )}
 
+      <PublicTurnstile ref={turnstileRef} action="contact" onToken={setTurnstileToken} className="col-span-full max-[760px]:col-auto" />
+
       <button
         className="group inline-flex min-h-12 items-center justify-between justify-self-start border-0 bg-brand-red px-5 text-[13px] font-bold tracking-[.02em] text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand-grey focus-visible:-translate-y-0.5 focus-visible:bg-brand-grey focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand-red disabled:cursor-wait disabled:opacity-70"
         type="submit"
-        disabled={pending}
+        disabled={pending || !turnstileReady}
       >
         {pending ? 'Sending…' : 'Send Enquiry'}
         <ArrowIcon className="ml-6 text-lg transition-transform duration-300 group-hover:translate-x-[3px] group-hover:-translate-y-[3px]" />

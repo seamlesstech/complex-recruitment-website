@@ -6,7 +6,9 @@ import { RequesterDetailsStep } from './RequesterDetailsStep';
 import { RequestField, type RequestFieldConfig } from './RequestField';
 import { createStaffingRequest, type StaffingRequest } from '../../lib/staffing-request';
 import { HoneypotField, readHoneypot } from '../forms/HoneypotField';
-import { HONEYPOT_FIELD, submitPublicForm } from '../../lib/forms/public-form';
+import { PublicTurnstile, type PublicTurnstileHandle } from '../turnstile/PublicTurnstile';
+import { isTurnstileConfigured } from '../../lib/turnstile/config';
+import { HONEYPOT_FIELD, TURNSTILE_FIELD, submitPublicForm } from '../../lib/forms/public-form';
 
 type SubmitState = { state: 'idle' | 'pending' | 'success' } | { state: 'error'; message: string };
 
@@ -26,6 +28,9 @@ export function SectorEnquiryForm({ config, id = 'sector-enquiry' }: { config: S
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submission, setSubmission] = useState<SubmitState>({ state: 'idle' });
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileRef = useRef<PublicTurnstileHandle>(null);
+  const turnstileReady = !isTurnstileConfigured || turnstileToken !== '';
   const form = useRef<HTMLFormElement>(null);
   const firstRender = useRef(true);
   useEffect(() => {
@@ -58,14 +63,21 @@ export function SectorEnquiryForm({ config, id = 'sector-enquiry' }: { config: S
   // page, so staff read "Driver class" rather than "role") to the trusted
   // enquiry endpoint. Success is shown only once the Enquiry row exists.
   const send = async () => {
-    if (submission.state === 'pending') return;
+    if (submission.state === 'pending' || !turnstileReady) return;
     setSubmission({ state: 'pending' });
     const fieldLabels = Object.fromEntries(config.fields.map(field => [field.requestKey || field.name, field.label]));
-    const result = await submitPublicForm('/api/enquiries', { kind: 'sector_staffing', request, fieldLabels, [HONEYPOT_FIELD]: readHoneypot(form.current) });
+    const result = await submitPublicForm('/api/enquiries', {
+      kind: 'sector_staffing',
+      request,
+      fieldLabels,
+      [HONEYPOT_FIELD]: readHoneypot(form.current),
+      [TURNSTILE_FIELD]: turnstileToken,
+    });
     if (result.ok) {
       setSubmission({ state: 'success' });
       return;
     }
+    turnstileRef.current?.reset();
     const serverErrors = Object.fromEntries(Object.entries(result.fieldErrors ?? {}).map(([path, message]) => [path.split('.').pop() ?? path, message]));
     setErrors(serverErrors);
     if (Object.keys(result.fieldErrors ?? {}).some(path => path.startsWith('request.requirement'))) setStep(0);
@@ -109,9 +121,10 @@ export function SectorEnquiryForm({ config, id = 'sector-enquiry' }: { config: S
         <fieldset data-step="1" disabled={step !== 1} inert={step !== 1} aria-hidden={step !== 1} className={transition(1)}>
           <legend className="sr-only">Your details</legend>
           <RequesterDetailsStep prefix={id} requester={request.requester} errors={errors} onChange={(key, value) => change('requester', key, value)} />
+          <PublicTurnstile ref={turnstileRef} action="sector_staffing" onToken={setTurnstileToken} className="mt-4" />
           <div className="mt-4 flex items-center gap-3">
             <button type="button" className="min-h-12 shrink-0 px-2 text-xs font-bold text-ink outline-none hover:text-brand-red focus-visible:ring-2 focus-visible:ring-brand-red" onClick={() => { setErrors({}); setStep(0); }}>← Back</button>
-            <button type="submit" disabled={submission.state === 'pending'} className={`${actionClass} min-w-0 flex-1 disabled:cursor-wait disabled:opacity-70`}>{submission.state === 'pending' ? 'Sending…' : config.action}<ArrowIcon direction="right" className="shrink-0 text-white" /></button>
+            <button type="submit" disabled={submission.state === 'pending' || !turnstileReady} className={`${actionClass} min-w-0 flex-1 disabled:cursor-wait disabled:opacity-70`}>{submission.state === 'pending' ? 'Sending…' : config.action}<ArrowIcon direction="right" className="shrink-0 text-white" /></button>
           </div>
           <p className="mt-4 text-xs leading-relaxed text-muted">By submitting this request, you agree to us using your details to respond to your enquiry. See our <a href="/privacy" className="underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-brand-red">Privacy Policy</a>.</p>
         </fieldset>

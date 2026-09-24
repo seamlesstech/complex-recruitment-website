@@ -8,7 +8,9 @@ import { FormAlert } from './forms/FormAlert';
 import { FormStepProgress } from './forms/FormStepProgress';
 import { InputField, TextAreaField } from './forms/FormField';
 import { HoneypotField, readHoneypot } from './forms/HoneypotField';
-import { HONEYPOT_FIELD, submitPublicForm } from '../lib/forms/public-form';
+import { PublicTurnstile, type PublicTurnstileHandle } from './turnstile/PublicTurnstile';
+import { isTurnstileConfigured } from '../lib/turnstile/config';
+import { HONEYPOT_FIELD, TURNSTILE_FIELD, submitPublicForm } from '../lib/forms/public-form';
 
 const sectors = ['Driving & Transport', 'Industrial & Warehouse', 'Construction & Engineering', 'Business & Operational Support'];
 const requirements = ['Temporary', 'Ad-hoc', 'Temp-to-perm', 'Permanent', 'High-volume', 'Not sure'];
@@ -35,9 +37,12 @@ export function RequestStaffForm() {
   const [type, setType] = useState('Temporary');
   const [values, setValues] = useState<Values>(initialValues);
   const [status, setStatus] = useState<Status>({ state: 'idle' });
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileRef = useRef<PublicTurnstileHandle>(null);
   const form = useRef<HTMLFormElement>(null);
   const fieldErrors = status.state === 'error' ? status.fieldErrors : {};
   const pending = status.state === 'pending';
+  const turnstileReady = !isTurnstileConfigured || turnstileToken !== '';
 
   const bind = (key: Exclude<keyof Values, 'consent'>) => ({
     value: values[key],
@@ -46,7 +51,7 @@ export function RequestStaffForm() {
   });
 
   async function submit() {
-    if (pending) return;
+    if (pending || !turnstileReady) return;
     setStatus({ state: 'pending' });
     const result = await submitPublicForm('/api/enquiries', {
       kind: 'staffing_request',
@@ -54,11 +59,13 @@ export function RequestStaffForm() {
       assignmentType: type,
       ...values,
       [HONEYPOT_FIELD]: readHoneypot(form.current),
+      [TURNSTILE_FIELD]: turnstileToken,
     });
     if (result.ok) {
       setStatus({ state: 'success' });
       return;
     }
+    turnstileRef.current?.reset();
     const errors = result.fieldErrors ?? {};
     const earliest = Math.min(...Object.keys(errors).map(key => FIELD_STEP[key] ?? 2));
     if (Number.isFinite(earliest) && earliest < 2) setStep(earliest);
@@ -149,6 +156,7 @@ export function RequestStaffForm() {
             <strong className="mt-2 block text-xl">{sector}</strong>
             <p className="mb-0 mt-[5px] text-xs text-[#737d82]">{type} requirement{values.role.trim() && ` · ${values.headcount.trim() ? `${values.headcount.trim()} × ` : ''}${values.role.trim()}`}</p>
           </div>
+          {step === 2 && <PublicTurnstile ref={turnstileRef} action="staffing_request" onToken={setTurnstileToken} className="mt-6" />}
         </section>
       </fieldset>
 
@@ -158,7 +166,7 @@ export function RequestStaffForm() {
         <span className="text-[10px] text-[#838d92] max-[760px]:mb-[14px] max-[760px]:block">{step === 0 ? `${sector} · Requirement` : step === 1 ? 'Operational details' : 'Contact details · ready to send'}</span>
         <div className="flex gap-[10px] max-[760px]:justify-end max-[480px]:flex-col">
           {step > 0 && <button type="button" disabled={pending} className="min-h-12 cursor-pointer border-0 bg-transparent px-[18px] font-extrabold text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand-red max-[480px]:w-full" onClick={() => setStep(step - 1)}>Back</button>}
-          <button disabled={pending} className="min-h-12 cursor-pointer border-0 bg-brand-red px-[18px] font-extrabold text-white outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-70 max-[480px]:w-full" type="submit">{step < 2 ? 'Continue' : pending ? 'Sending…' : 'Send staffing request'} <i className="ml-[18px] not-italic">{step < 2 ? '→' : '↗'}</i></button>
+          <button disabled={pending || (step === 2 && !turnstileReady)} className="min-h-12 cursor-pointer border-0 bg-brand-red px-[18px] font-extrabold text-white outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-70 max-[480px]:w-full" type="submit">{step < 2 ? 'Continue' : pending ? 'Sending…' : 'Send staffing request'} <i className="ml-[18px] not-italic">{step < 2 ? '→' : '↗'}</i></button>
         </div>
       </div>
     </form>

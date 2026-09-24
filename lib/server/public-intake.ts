@@ -2,19 +2,19 @@ import 'server-only';
 
 import { NextResponse } from 'next/server';
 import type { z } from 'zod';
-import { HONEYPOT_FIELD, type PublicFormResult } from '../forms/public-form';
+import { HONEYPOT_FIELD, TURNSTILE_FIELD, type PublicFormResult } from '../forms/public-form';
+import { clientIpFrom, requestHostname } from './client-ip';
+import { verifyTurnstileToken } from './turnstile';
 
 /**
- * Shared MVP anti-abuse + response helpers for every public write endpoint.
+ * Shared anti-abuse + response helpers for every public write endpoint.
  *
- * What this DOES provide: JSON bodies (enquiries) or multipart bodies (applications
+ * What this provides: JSON bodies (enquiries) or multipart bodies (applications
  * with an optional CV) with hard size caps, a same-origin check, a honeypot,
- * strict validation (per endpoint), and safe error bodies.
- *
- * What it does NOT provide: rate limiting or bot verification. An in-memory
- * limiter would be per-instance on serverless hosting and is deliberately not
- * faked here. Cloudflare Turnstile is a required pre-production task: verify the
- * token in `guardPublicSubmission` and `guardMultipartSubmission`.
+ * server-side Cloudflare Turnstile verification, strict validation (per
+ * endpoint), and safe error bodies. Rate limiting is a separate concern, applied
+ * per-endpoint in the route handlers themselves (see `lib/server/rate-limit.ts`)
+ * before these guards run.
  */
 
 const MAX_BODY_BYTES = 16 * 1024;
@@ -86,8 +86,20 @@ export async function guardPublicSubmission(
   }
   delete record[HONEYPOT_FIELD];
 
-  // TURNSTILE (pre-production): verify record.turnstileToken with Cloudflare here
-  // and delete it from `record` before schema validation.
+  // The enquiry `kind` doubles as the Turnstile `action` the widget was rendered
+  // with, so a token minted for one form can't be replayed against another.
+  const turnstileToken = record[TURNSTILE_FIELD];
+  const expectedAction = typeof record.kind === 'string' ? record.kind : '';
+  delete record[TURNSTILE_FIELD];
+
+  const turnstile = await verifyTurnstileToken(turnstileToken, {
+    expectedAction,
+    expectedHostname: requestHostname(request),
+    remoteIp: clientIpFrom(request) ?? undefined,
+  });
+  if (!turnstile.ok) {
+    return { ok: false, response: fail(403, GENERIC_FAILURE) };
+  }
 
   return { ok: true, body: record };
 }
@@ -108,7 +120,12 @@ const STRUCTURAL_ISSUES = new Set(['unrecognized_keys', 'invalid_union']);
  */
 export async function guardMultipartSubmission(
   request: Request,
-  { maxBytes, textFields, fileFields }: { maxBytes: number; textFields: readonly string[]; fileFields: readonly string[] },
+  {
+    maxBytes,
+    textFields,
+    fileFields,
+    turnstileAction,
+  }: { maxBytes: number; textFields: readonly string[]; fileFields: readonly string[]; turnstileAction: string },
 ): Promise<
   | { ok: true; fields: Record<string, string>; files: Record<string, File | undefined> }
   | { ok: false; response: NextResponse }
@@ -134,17 +151,21 @@ export async function guardMultipartSubmission(
     return { ok: false, response: fail(400, GENERIC_FAILURE) };
   }
 
-  const allowed = new Set([...textFields, ...fileFields, HONEYPOT_FIELD]);
+  const allowed = new Set([...textFields, ...fileFields, HONEYPOT_FIELD, TURNSTILE_FIELD]);
   const seen = new Set<string>();
   const fields: Record<string, string> = {};
   const files: Record<string, File | undefined> = {};
   let honeypot = '';
+  let turnstileToken = '';
 
   for (const [key, value] of form.entries()) {
     if (!allowed.has(key) || seen.has(key)) return { ok: false, response: fail(400, GENERIC_FAILURE) };
     seen.add(key);
     if (key === HONEYPOT_FIELD) {
       honeypot = typeof value === 'string' ? value : 'file';
+    } else if (key === TURNSTILE_FIELD) {
+      if (typeof value !== 'string') return { ok: false, response: fail(400, GENERIC_FAILURE) };
+      turnstileToken = value;
     } else if (fileFields.includes(key)) {
       if (typeof value === 'string') {
         if (value !== '') return { ok: false, response: fail(400, GENERIC_FAILURE) };
@@ -162,7 +183,14 @@ export async function guardMultipartSubmission(
     return { ok: false, response: fail(400, GENERIC_FAILURE) };
   }
 
-  // TURNSTILE (pre-production): verify the token field here as well.
+  const turnstile = await verifyTurnstileToken(turnstileToken, {
+    expectedAction: turnstileAction,
+    expectedHostname: requestHostname(request),
+    remoteIp: clientIpFrom(request) ?? undefined,
+  });
+  if (!turnstile.ok) {
+    return { ok: false, response: fail(403, GENERIC_FAILURE) };
+  }
 
   return { ok: true, fields, files };
 }

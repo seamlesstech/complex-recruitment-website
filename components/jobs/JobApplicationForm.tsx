@@ -5,8 +5,10 @@ import { ButtonLink } from '../ui/ButtonLink';
 import { InputField, TextAreaField } from '../forms/FormField';
 import { FormAlert } from '../forms/FormAlert';
 import { HoneypotField, readHoneypot } from '../forms/HoneypotField';
+import { PublicTurnstile, type PublicTurnstileHandle } from '../turnstile/PublicTurnstile';
+import { isTurnstileConfigured } from '../../lib/turnstile/config';
 import { CV_ACCEPT, CV_MAX_LABEL, precheckCv } from '../../lib/forms/cv-rules';
-import { HONEYPOT_FIELD, submitPublicForm } from '../../lib/forms/public-form';
+import { HONEYPOT_FIELD, TURNSTILE_FIELD, submitPublicForm } from '../../lib/forms/public-form';
 
 const labelClass = 'mb-[18px] block text-[9px] font-extrabold tracking-[.1em] text-[#68747a]';
 
@@ -21,10 +23,13 @@ export function JobApplicationForm({ jobReference, jobTitle }: { jobReference: s
   const [status, setStatus] = useState<Status>({ state: 'idle' });
   const [cv, setCv] = useState<File | null>(null);
   const [cvError, setCvError] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileRef = useRef<PublicTurnstileHandle>(null);
   const form = useRef<HTMLFormElement>(null);
   const cvInput = useRef<HTMLInputElement>(null);
   const fieldErrors = status.state === 'error' ? status.fieldErrors : {};
   const shownCvError = cvError || fieldErrors.cv;
+  const turnstileReady = !isTurnstileConfigured || turnstileToken !== '';
 
   if (status.state === 'success') {
     return <div role="status" className="border border-line bg-white p-8"><h3 className="mt-0 text-3xl tracking-[-.03em]">Application received</h3><p className="text-sm leading-[1.7] text-muted">Thank you — your application{cv ? ' and CV have' : ' has'} been sent to the Complex recruitment team for {jobTitle}. A recruiter will review it and contact you using the details you provided.</p><ButtonLink href="/jobs" className="mt-4 !text-white">View more jobs</ButtonLink></div>;
@@ -60,7 +65,7 @@ export function JobApplicationForm({ jobReference, jobTitle }: { jobReference: s
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (status.state === 'pending' || cvError) return;
+    if (status.state === 'pending' || cvError || !turnstileReady) return;
     const data = new FormData(event.currentTarget);
     // Explicit field list: only what the server accepts, with the CV as a real file
     // part (multipart), never encoded into JSON.
@@ -73,10 +78,12 @@ export function JobApplicationForm({ jobReference, jobTitle }: { jobReference: s
     payload.set('message', text(data, 'application-message'));
     payload.set('consent', String(data.get('application-privacy') === 'on'));
     payload.set(HONEYPOT_FIELD, readHoneypot(form.current));
+    payload.set(TURNSTILE_FIELD, turnstileToken);
     if (cv) payload.set('cv', cv, cv.name);
 
     setStatus({ state: 'pending' });
     const result = await submitPublicForm('/api/applications', payload);
+    if (!result.ok) turnstileRef.current?.reset();
     // On failure the inputs (and the chosen CV) keep everything the applicant entered.
     setStatus(result.ok ? { state: 'success' } : { state: 'error', message: result.message, fieldErrors: result.fieldErrors ?? {} });
   }
@@ -109,7 +116,8 @@ export function JobApplicationForm({ jobReference, jobTitle }: { jobReference: s
         {fieldErrors.consent && <span className="basis-full text-[11px] text-brand-red">{fieldErrors.consent}</span>}
       </label>
       {status.state === 'error' && <FormAlert message={status.message} />}
-      <button disabled={pending} className="mt-[10px] inline-flex min-h-12 min-w-[220px] max-[640px]:w-full items-center justify-between gap-6 border border-transparent bg-brand-red px-5 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-brand-grey focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand-red disabled:cursor-wait disabled:opacity-70 disabled:hover:translate-y-0 disabled:hover:bg-brand-red" type="submit">{pending ? (cv ? 'Uploading CV…' : 'Submitting…') : 'Submit Application'} <span className="text-lg">↗</span></button>
+      <PublicTurnstile ref={turnstileRef} action="job_application" onToken={setTurnstileToken} className="mb-[18px]" />
+      <button disabled={pending || !turnstileReady} className="mt-[10px] inline-flex min-h-12 min-w-[220px] max-[640px]:w-full items-center justify-between gap-6 border border-transparent bg-brand-red px-5 text-[13px] font-bold text-white transition hover:-translate-y-0.5 hover:bg-brand-grey focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand-red disabled:cursor-wait disabled:opacity-70 disabled:hover:translate-y-0 disabled:hover:bg-brand-red" type="submit">{pending ? (cv ? 'Uploading CV…' : 'Submitting…') : 'Submit Application'} <span className="text-lg">↗</span></button>
     </form>
   );
 }

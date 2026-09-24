@@ -1,5 +1,6 @@
 import { getAdminSupabase } from '../../../lib/supabase/admin';
 import { enquirySchema, toEnquiryDraft } from '../../../lib/server/intake-schemas';
+import { checkRateLimit } from '../../../lib/server/rate-limit';
 import {
   GENERIC_FAILURE,
   fail,
@@ -26,6 +27,9 @@ import {
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
+  const rateLimit = await checkRateLimit(request, 'enquiry');
+  if (!rateLimit.ok) return rateLimit.response;
+
   const guarded = await guardPublicSubmission(request);
   if (!guarded.ok) return guarded.response;
 

@@ -8,7 +8,9 @@ import { FormAlert } from './forms/FormAlert';
 import { InputField, SelectField, TextAreaField } from './forms/FormField';
 import { FormStepProgress } from './forms/FormStepProgress';
 import { HoneypotField, readHoneypot } from './forms/HoneypotField';
-import { HONEYPOT_FIELD, submitPublicForm } from '../lib/forms/public-form';
+import { PublicTurnstile, type PublicTurnstileHandle } from './turnstile/PublicTurnstile';
+import { isTurnstileConfigured } from '../lib/turnstile/config';
+import { HONEYPOT_FIELD, TURNSTILE_FIELD, submitPublicForm } from '../lib/forms/public-form';
 
 const sectors = ['Driving & Transport', 'Industrial & Warehouse', 'Construction & Engineering', 'Business & Operational Support', 'Open to anything'];
 const formStepClass = 'px-14 pb-11 pt-[52px] [animation:fullFormIn_.5s_cubic-bezier(.16,1,.3,1)] max-[760px]:px-6 max-[760px]:pb-[34px] max-[760px]:pt-10';
@@ -30,9 +32,12 @@ export function RegisterInterestForm() {
   const [sector, setSector] = useState('Driving & Transport');
   const [values, setValues] = useState<Values>(initialValues);
   const [status, setStatus] = useState<Status>({ state: 'idle' });
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileRef = useRef<PublicTurnstileHandle>(null);
   const form = useRef<HTMLFormElement>(null);
   const fieldErrors = status.state === 'error' ? status.fieldErrors : {};
   const pending = status.state === 'pending';
+  const turnstileReady = !isTurnstileConfigured || turnstileToken !== '';
 
   const bind = (key: Exclude<keyof Values, 'consent'>) => ({
     value: values[key],
@@ -41,13 +46,20 @@ export function RegisterInterestForm() {
   });
 
   async function submit() {
-    if (pending) return;
+    if (pending || !turnstileReady) return;
     setStatus({ state: 'pending' });
-    const result = await submitPublicForm('/api/enquiries', { kind: 'candidate_interest', sector, ...values, [HONEYPOT_FIELD]: readHoneypot(form.current) });
+    const result = await submitPublicForm('/api/enquiries', {
+      kind: 'candidate_interest',
+      sector,
+      ...values,
+      [HONEYPOT_FIELD]: readHoneypot(form.current),
+      [TURNSTILE_FIELD]: turnstileToken,
+    });
     if (result.ok) {
       setStatus({ state: 'success' });
       return;
     }
+    turnstileRef.current?.reset();
     const errors = result.fieldErrors ?? {};
     if (Object.keys(errors).some(key => STEP_ONE_FIELDS.has(key))) setStep(0);
     setStatus({ state: 'error', message: result.message, fieldErrors: errors });
@@ -109,6 +121,7 @@ export function RegisterInterestForm() {
             <TextAreaField id="candidate-message" label="Anything else?" rows={4} maxLength={2000} wrapperClassName="col-span-2 max-[760px]:col-span-1" placeholder="Optional message" {...bind('message')} />
             <CheckboxField id="candidate-privacy" required className="col-span-2 max-[760px]:col-span-1" checked={values.consent} onChange={event => setValues(current => ({ ...current, consent: event.target.checked }))} error={fieldErrors.consent}>I agree that Complex Recruitment may use my details to contact me about relevant work opportunities.</CheckboxField>
           </div>
+          <PublicTurnstile ref={turnstileRef} action="candidate_interest" onToken={setTurnstileToken} className="mt-6" />
         </section>
       )}
 
@@ -118,7 +131,7 @@ export function RegisterInterestForm() {
         <span className="text-[10px] text-[#838d92] max-[760px]:mb-[14px] max-[760px]:block">{step === 0 ? sector : 'Candidate details · privacy'}</span>
         <div className="flex gap-[10px] max-[760px]:justify-end max-[480px]:flex-col">
           {step > 0 && <button type="button" disabled={pending} className="min-h-12 cursor-pointer border-0 bg-transparent px-[18px] font-extrabold text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand-red max-[480px]:w-full" onClick={() => setStep(0)}>Back</button>}
-          <button disabled={pending} className="min-h-12 cursor-pointer border-0 bg-brand-red px-[18px] font-extrabold text-white outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-70 max-[480px]:w-full" type="submit">{step === 0 ? 'Continue' : pending ? 'Sending…' : 'Register my interest'} <i className="ml-[18px] not-italic">{step === 0 ? '→' : '↗'}</i></button>
+          <button disabled={pending || (step === 1 && !turnstileReady)} className="min-h-12 cursor-pointer border-0 bg-brand-red px-[18px] font-extrabold text-white outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-70 max-[480px]:w-full" type="submit">{step === 0 ? 'Continue' : pending ? 'Sending…' : 'Register my interest'} <i className="ml-[18px] not-italic">{step === 0 ? '→' : '↗'}</i></button>
         </div>
       </div>
     </form>

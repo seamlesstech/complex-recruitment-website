@@ -11,6 +11,9 @@
 /** Honeypot input name. Hidden from people; bots that fill every field trip it. */
 export const HONEYPOT_FIELD = 'website';
 
+/** Cloudflare Turnstile token field name, verified server-side in `lib/server/turnstile.ts`. */
+export const TURNSTILE_FIELD = 'turnstileToken';
+
 export type PublicFormEndpoint = '/api/applications' | '/api/enquiries';
 
 export type PublicFormResult =
