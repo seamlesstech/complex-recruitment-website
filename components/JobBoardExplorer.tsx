@@ -90,25 +90,35 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { jobs } from "../lib/jobs";
+import {
+  EMPLOYMENT_TYPES,
+  EMPLOYMENT_TYPE_LABELS,
+  FILTERABLE_SECTORS,
+  type DbEmploymentType,
+  type PublicJob,
+} from "../lib/public-jobs";
 import { JobRow } from "./jobs/JobRow";
 import { ButtonLink } from "./ui/ButtonLink";
 
-const sectors = [
-  "Driving & Transport",
-  "Industrial & Warehouse",
-  "Construction & Engineering",
-  "Business & Operational Support",
-];
-
-const workTypes = ["Temporary", "Ad-hoc", "Temp-to-perm", "Permanent"];
+// Filters map onto real database values: the four canonical sectors and the
+// canonical employment types.
+const sectors = FILTERABLE_SECTORS.map((sector) => sector.label);
+const workTypes = EMPLOYMENT_TYPES;
 
 const inputClass =
   "min-h-12 w-full min-w-0 border border-line bg-white px-3 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand-red";
 
-export function JobBoardExplorer() {
+export function JobBoardExplorer({
+  jobs,
+  unavailable = false,
+}: {
+  jobs: PublicJob[];
+  unavailable?: boolean;
+}) {
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
-  const [selectedWorkTypes, setSelectedWorkTypes] = useState<string[]>([]);
+  const [selectedWorkTypes, setSelectedWorkTypes] = useState<DbEmploymentType[]>(
+    [],
+  );
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("");
 
@@ -116,15 +126,19 @@ export function JobBoardExplorer() {
     () =>
       jobs.filter(
         (job) =>
-          (!selectedSectors.length || selectedSectors.includes(job.sector)) &&
+          (!selectedSectors.length ||
+            (!!job.sectorLabel && selectedSectors.includes(job.sectorLabel))) &&
           (!selectedWorkTypes.length ||
-            selectedWorkTypes.includes(job.workType)) &&
-          `${job.title} ${job.sector} ${job.location}`
+            (!!job.employmentType &&
+              selectedWorkTypes.includes(job.employmentType))) &&
+          `${job.title} ${job.sectorLabel ?? ""} ${job.location ?? ""}`
             .toLowerCase()
             .includes(query.trim().toLowerCase()) &&
-          job.location.toLowerCase().includes(location.trim().toLowerCase()),
+          (job.location ?? "")
+            .toLowerCase()
+            .includes(location.trim().toLowerCase()),
       ),
-    [selectedSectors, selectedWorkTypes, query, location],
+    [jobs, selectedSectors, selectedWorkTypes, query, location],
   );
 
   const clearFilters = () => {
@@ -284,7 +298,7 @@ export function JobBoardExplorer() {
                         : "border-line bg-white text-ink hover:bg-surface"
                     }`}
                   >
-                    {item}
+                    {EMPLOYMENT_TYPE_LABELS[item]}
                   </button>
                 );
               })}
@@ -315,14 +329,30 @@ export function JobBoardExplorer() {
       {/* Job results */}
       <div className="mt-6 border-t border-line" role="list">
         {filtered.map((job, index) => (
-          <div role="listitem" key={job.slug}>
+          <div role="listitem" key={job.reference}>
             <JobRow job={job} index={index} />
           </div>
         ))}
       </div>
 
+      {/* Live data could not be loaded: never present this as "no vacancies" */}
+      {unavailable && (
+        <div role="status" className="border-b border-line bg-white p-7">
+          <h3 className="mt-0 text-2xl tracking-[-.03em]">
+            Vacancies are temporarily unavailable
+          </h3>
+          <p className="mb-6 text-sm text-muted">
+            We couldn&apos;t load current vacancies just now. Please try again
+            shortly, or register your interest and the team will be in touch.
+          </p>
+          <ButtonLink href="/register-interest" className="!text-white">
+            Register your interest
+          </ButtonLink>
+        </div>
+      )}
+
       {/* Empty state */}
-      {filtered.length === 0 && (
+      {!unavailable && filtered.length === 0 && (
         <div className="border-b border-line bg-white p-7">
           <h3 className="mt-0 text-2xl tracking-[-.03em]">
             No suitable role right now?

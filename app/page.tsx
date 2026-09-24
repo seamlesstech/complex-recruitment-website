@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Hero } from "../components/Hero";
 import { SectionLabel } from "../components/SectionLabel";
 import { Container } from "../components/layout/Container";
@@ -5,6 +6,7 @@ import { Footer } from "../components/layout/Footer";
 import { SectorDualCta } from "../components/sectors/SectorSections";
 import { HomeSectorGrid } from "../components/sectors/SectorShowcases";
 import { ButtonLink } from "../components/ui/ButtonLink";
+import { getPublicJobs } from "../lib/public-jobs.server";
 
 const heading =
   "section-heading m-0 text-[clamp(48px,5.2vw,84px)] leading-[.96] tracking-[-.05em] max-[640px]:text-5xl [&_em]:not-italic [&_em]:text-brand-red";
@@ -81,19 +83,13 @@ const trustedLogos: readonly TrustedLogo[] = [
     displayHeight: 48,
   },
 ];
-const jobs = [
-  ["HGV Class 1 Driver", "Enfield", "Driving", "Temporary", "£19–£22/hr"],
-  ["Warehouse Operative", "Croydon", "Industrial", "Temporary", "£12.50/hr"],
-  ["HGV Class 2 Driver", "Park Royal", "Driving", "Temp-to-perm", "£17–£20/hr"],
-  [
-    "CSCS Labourer",
-    "Greater London",
-    "Construction",
-    "Temporary",
-    "Competitive",
-  ],
-];
-export default function Home() {
+// Latest live vacancies from public_jobs, regenerated at most once a minute.
+export const revalidate = 60;
+
+export default async function Home() {
+  const { ok, jobs } = await getPublicJobs();
+  const latestJobs = jobs.slice(0, 4);
+
   return (
     <main id="top">
       <Hero />
@@ -347,25 +343,40 @@ export default function Home() {
               <span key={i}>{x}</span>
             ))}
           </div>
-          {jobs.map((job) => (
-            <a
+          {latestJobs.map((job) => (
+            <Link
               className="group grid min-h-[94px] grid-cols-[2fr_1fr_1fr_1fr_1fr_36px] items-center gap-[22px] border-t border-ink/20 transition hover:bg-white/40 hover:pl-3 max-[700px]:grid-cols-[1fr_auto] max-[700px]:gap-2 max-[700px]:py-5"
-              href="/jobs"
-              key={job[0]}
+              href={job.href}
+              key={job.reference}
             >
               <strong className="text-xl max-[700px]:col-span-2">
-                {job[0]}
+                {job.title}
               </strong>
-              {job.slice(1).map((x) => (
-                <span className="text-xs text-[#4f5a60]" key={x}>
-                  {x}
+              {[
+                job.location,
+                job.sectorLabel,
+                job.employmentTypeLabel,
+                job.pay,
+              ].map((x, i) => (
+                <span className="text-xs text-[#4f5a60]" key={i}>
+                  {x ?? "—"}
                 </span>
               ))}
               <i className="text-lg not-italic transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
                 ↗
               </i>
-            </a>
+            </Link>
           ))}
+          {latestJobs.length === 0 && (
+            <p
+              role="status"
+              className="border-t border-ink/20 py-8 text-sm text-[#4f5a60]"
+            >
+              {ok
+                ? "No live vacancies right now. Register your interest and we’ll contact you when something relevant comes up."
+                : "Current vacancies are temporarily unavailable. Please check back shortly."}
+            </p>
+          )}
         </Container>
         <Container gutter="wide" className="mt-[38px]">
           <ButtonLink href="/jobs" variant="accent">

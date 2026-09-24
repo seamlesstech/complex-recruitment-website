@@ -11,19 +11,31 @@ const boxedFieldClass =
 
 const labelClass = 'flex flex-col gap-[9px]';
 const labelTextClass = 'text-[9px] font-extrabold tracking-[.1em] text-[#626b70]';
+const errorClass = 'text-[11px] font-normal normal-case tracking-normal text-brand-red';
+
+/** Optional inline validation message + the matching aria wiring. */
+function errorProps(id: string, error?: string) {
+  return error ? { 'aria-invalid': true, 'aria-describedby': `${id}-error` } : {};
+}
+
+function FieldError({ id, error }: { id: string; error?: string }) {
+  return error ? <span id={`${id}-error`} className={errorClass}>{error}</span> : null;
+}
 
 type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   id: string;
   label: string;
   wrapperClassName?: string;
   variant?: 'underline' | 'boxed';
+  error?: string;
 };
 
-export function InputField({ id, label, wrapperClassName = '', className = '', variant = 'underline', ...props }: InputFieldProps) {
+export function InputField({ id, label, wrapperClassName = '', className = '', variant = 'underline', error, ...props }: InputFieldProps) {
   return (
     <label className={`${labelClass} ${wrapperClassName}`} htmlFor={id}>
       <span className={labelTextClass}>{label}</span>
-      <input id={id} name={props.name ?? id} className={`${variant === 'boxed' ? boxedFieldClass : underlineFieldClass} ${className}`} {...props} />
+      <input id={id} name={props.name ?? id} className={`${variant === 'boxed' ? boxedFieldClass : underlineFieldClass} ${className}`} {...errorProps(id, error)} {...props} />
+      <FieldError id={id} error={error} />
     </label>
   );
 }
@@ -34,15 +46,17 @@ type SelectFieldProps = SelectHTMLAttributes<HTMLSelectElement> & {
   children: React.ReactNode;
   wrapperClassName?: string;
   variant?: 'underline' | 'boxed';
+  error?: string;
 };
 
-export function SelectField({ id, label, children, wrapperClassName = '', className = '', variant = 'underline', ...props }: SelectFieldProps) {
+export function SelectField({ id, label, children, wrapperClassName = '', className = '', variant = 'underline', error, ...props }: SelectFieldProps) {
   return (
     <label className={`${labelClass} ${wrapperClassName}`} htmlFor={id}>
       <span className={labelTextClass}>{label}</span>
-      <select id={id} name={props.name ?? id} className={`${variant === 'boxed' ? boxedFieldClass : underlineFieldClass} ${className}`} {...props}>
+      <select id={id} name={props.name ?? id} className={`${variant === 'boxed' ? boxedFieldClass : underlineFieldClass} ${className}`} {...errorProps(id, error)} {...props}>
         {children}
       </select>
+      <FieldError id={id} error={error} />
     </label>
   );
 }
@@ -52,13 +66,15 @@ type TextAreaFieldProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label: string;
   wrapperClassName?: string;
   variant?: 'underline' | 'boxed';
+  error?: string;
 };
 
-export function TextAreaField({ id, label, wrapperClassName = '', className = '', variant = 'underline', ...props }: TextAreaFieldProps) {
+export function TextAreaField({ id, label, wrapperClassName = '', className = '', variant = 'underline', error, ...props }: TextAreaFieldProps) {
   return (
     <label className={`${labelClass} ${wrapperClassName}`} htmlFor={id}>
       <span className={labelTextClass}>{label}</span>
-      <textarea id={id} name={props.name ?? id} className={`${variant === 'boxed' ? boxedFieldClass : underlineFieldClass} resize-y ${className}`} {...props} />
+      <textarea id={id} name={props.name ?? id} className={`${variant === 'boxed' ? boxedFieldClass : underlineFieldClass} resize-y ${className}`} {...errorProps(id, error)} {...props} />
+      <FieldError id={id} error={error} />
     </label>
   );
 }

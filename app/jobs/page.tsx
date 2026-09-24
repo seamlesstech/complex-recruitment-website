@@ -5,6 +5,10 @@ import { Container } from '../../components/layout/Container';
 import { Footer } from '../../components/layout/Footer';
 import { SectionLabel } from '../../components/SectionLabel';
 import { ButtonLink } from '../../components/ui/ButtonLink';
+import { getPublicJobs } from '../../lib/public-jobs.server';
+
+// Live vacancies from public_jobs, regenerated at most once a minute.
+export const revalidate = 60;
 
 const supportItems = [
   ['01', 'Clear communication', 'Know what the role involves, where you need to be and what happens next.'],
@@ -13,7 +17,9 @@ const supportItems = [
   ['04', 'Ongoing support', 'Complex stays available after placement — not only before you start.'],
 ];
 
-export default function JobsPage() {
+export default async function JobsPage() {
+  const { ok, jobs } = await getPublicJobs();
+
   return (
     <main className="bg-white text-ink">
       <section className="grid grid-rows-[92px_auto] bg-brand-grey text-white max-[760px]:grid-rows-[76px_auto]">
@@ -26,7 +32,7 @@ export default function JobsPage() {
 
       <section className="bg-white pb-[72px] pt-6 max-[640px]:pb-[58px]">
         <Container>
-          <JobBoardExplorer />
+          <JobBoardExplorer jobs={jobs} unavailable={!ok} />
         </Container>
       </section>
 

@@ -1,4 +1,5 @@
 import { ContactPathCard } from "../../components/contact/ContactPathCard";
+import { GeneralEnquiryForm } from "../../components/contact/GeneralEnquiryForm";
 import { Header } from "../../components/Header";
 import { Container } from "../../components/layout/Container";
 import { Footer } from "../../components/layout/Footer";
@@ -11,12 +12,6 @@ const departments = [
   ["ACCOUNTS", "accounts@complexrecruitment.co.uk"],
   ["TIMESHEET SUBMISSIONS", "timesheets@complexrecruitment.co.uk"],
 ] as const;
-
-const fieldClass =
-  "w-full border-0 border-b border-ink/25 bg-transparent py-[13px] text-sm text-ink outline-none transition-colors focus:border-brand-red";
-
-const labelClass =
-  "flex flex-col gap-[9px] text-[9px] font-extrabold tracking-[.1em] text-[#626b70]";
 
 const locations = [
   {
@@ -285,63 +280,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <form className="grid grid-cols-2 gap-x-5 gap-y-6 max-[760px]:mt-[50px] max-[760px]:grid-cols-1">
-            <label className={labelClass}>
-              <span>Your name</span>
-              <input className={fieldClass} placeholder="Full name" />
-            </label>
-
-            <label className={labelClass}>
-              <span>Email</span>
-              <input
-                className={fieldClass}
-                type="email"
-                placeholder="name@email.com"
-              />
-            </label>
-
-            <label className={labelClass}>
-              <span>Phone</span>
-              <input
-                className={fieldClass}
-                type="tel"
-                placeholder="Phone number"
-              />
-            </label>
-
-            <label className={labelClass}>
-              <span>Enquiry type</span>
-              <select className={fieldClass} defaultValue="">
-                <option value="" disabled>
-                  Select
-                </option>
-                <option>General</option>
-                <option>Accounts</option>
-                <option>HR</option>
-                <option>Timesheets</option>
-              </select>
-            </label>
-
-            <label
-              className={`${labelClass} col-span-full max-[760px]:col-auto`}
-            >
-              <span>Message</span>
-
-              <textarea
-                className={fieldClass}
-                rows={6}
-                placeholder="How can we help?"
-              />
-            </label>
-
-            <button
-              className="group inline-flex min-h-12 items-center justify-between justify-self-start border-0 bg-brand-red px-5 text-[13px] font-bold tracking-[.02em] text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand-grey focus-visible:-translate-y-0.5 focus-visible:bg-brand-grey focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand-red"
-              type="button"
-            >
-              Send Enquiry
-              <ArrowIcon className="ml-6 text-lg transition-transform duration-300 group-hover:translate-x-[3px] group-hover:-translate-y-[3px]" />
-            </button>
-          </form>
+          <GeneralEnquiryForm />
         </Container>
       </section>
 

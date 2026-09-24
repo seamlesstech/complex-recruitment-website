@@ -90,7 +90,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,8,10,.88)_0%,rgba(8,8,10,.68)_44%,rgba(8,8,10,.28)_70%,rgba(8,8,10,.42)_100%),linear-gradient(180deg,rgba(7,7,9,.30),rgba(7,7,9,.10)_52%,rgba(7,7,9,.52)_100%)]" />
         <div className="absolute inset-0 opacity-55 mix-blend-screen bg-[linear-gradient(90deg,transparent_49.9%,rgba(255,255,255,.08)_50%,transparent_50.1%),linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px)] bg-[size:100%_100%,100%_130px]" />
       </div>
-      <Header />
+      <Header active="Home" />
       <Container
         gutter="wide"
         className="relative z-[2] grid min-h-0 grid-cols-[minmax(0,1fr)_220px] items-end gap-[70px] py-[54px] max-[900px]:grid-cols-1 max-[900px]:py-10 max-[760px]:items-center max-[760px]:py-14"
@@ -144,7 +144,7 @@ export function Hero() {
           </p>
         </aside>
       </Container>
-      <div className="relative z-[5] h-[108px] border-t border-white/25 bg-brand-grey text-white shadow-[0_-10px_32px_rgba(0,0,0,.045)] backdrop-blur-lg max-[760px]:h-auto">
+      <div className="relative z-[5] min-w-0 h-[108px] border-t border-white/25 bg-brand-grey text-white shadow-[0_-10px_32px_rgba(0,0,0,.045)] backdrop-blur-lg max-[760px]:h-auto">
         <Container
           gutter="wide"
           className="grid h-full grid-cols-[1fr_auto] items-center gap-10 max-[760px]:block max-[760px]:w-full"
@@ -159,15 +159,15 @@ export function Hero() {
             {slides.map((item, i) => (
               <button
                 key={item.label}
-                className={`relative min-w-[132px] cursor-pointer border-0 border-l border-white/25 bg-transparent px-[18px] text-left text-[9px] font-extrabold tracking-[.07em] text-white transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-1 after:origin-left after:bg-brand-red after:transition-transform max-[760px]:min-h-[76px] ${active === i ? "opacity-100 after:scale-x-100" : "opacity-50 after:scale-x-0"}`}
+                className={`relative min-w-[132px] cursor-pointer border-0 border-l border-white/25 bg-transparent px-[18px] text-left text-[12px] font-extrabold tracking-[.07em] text-white transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-1 after:origin-left after:bg-brand-red after:transition-transform max-[760px]:min-h-[76px] ${active === i ? "opacity-100 after:scale-x-100" : "opacity-50 after:scale-x-0"}`}
                 onClick={() => setActive(i)}
                 aria-label={`Show ${item.label.toLowerCase()} hero`}
                 aria-pressed={active === i}
               >
-                <span className="block min-h-[30px]">
-                  <span className="block leading-[14px]">{item.label}</span>
+                <span className="block min-h-[32px]">
+                  <span className="block leading-[18px]">{item.label}</span>
                   {i > 0 && (
-                    <span className="mt-1.5 block text-[12px] font-medium leading-[12px] tracking-normal text-white/75">
+                    <span className="mt-0.5 block text-[10px] font-medium leading-[12px] tracking-normal text-white/75">
                       Staff
                     </span>
                   )}

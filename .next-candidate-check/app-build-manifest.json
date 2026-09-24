@@ -35,6 +35,26 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/candidates/page.js"
+    ],
+    "/sectors/driving/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/sectors/driving/page.js"
+    ],
+    "/sectors/industrial/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/sectors/industrial/page.js"
+    ],
+    "/jobs/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/jobs/[slug]/page.js"
+    ],
+    "/sectors/business-operational-support/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/sectors/business-operational-support/page.js"
     ]
   }
 }

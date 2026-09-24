@@ -73,6 +73,7 @@ import { useEffect, useRef, useState } from "react";
 import { Container } from "./layout/Container";
 
 const navItems = [
+  ["Home", "/"],
   ["Employers", "/employers"],
   ["Candidates", "/candidates"],
   ["Jobs", "/jobs"],
@@ -225,7 +226,7 @@ function DesktopNavigation({
   };
 
   const linkClass = (label: string) =>
-    `relative flex h-full items-center px-2.5 opacity-80 outline-none
+    `relative flex h-full items-center whitespace-nowrap px-2.5 opacity-80 outline-none
     transition-[opacity,color,transform] duration-200 ease-complex
     after:absolute after:bottom-[3px] after:left-2.5 after:right-2.5
     after:h-[3px] after:origin-center after:scale-x-0
@@ -237,11 +238,11 @@ function DesktopNavigation({
 
   const navigationClass = pill
     ? `relative isolate flex h-[52px] w-fit items-center justify-center
-       justify-self-center gap-3 rounded-full px-[22px] text-[13px]
+       justify-self-center gap-3 max-[1350px]:gap-1 rounded-full px-[22px] text-[13px]
        transition-colors duration-200 ease-complex
        ${pillVisible ? "text-white" : ""}`
     : `relative flex h-[52px] w-fit items-center justify-center
-       justify-self-center gap-3 px-1.5 text-[13px] text-white`;
+       justify-self-center gap-3 max-[1350px]:gap-1 px-1.5 text-[13px] text-white`;
 
   return (
     <nav
@@ -270,7 +271,7 @@ function DesktopNavigation({
         />
       )}
 
-      {navItems.slice(0, 2).map(([label, href]) => (
+      {navItems.slice(0, 3).map(([label, href]) => (
         <a
           key={label}
           className={linkClass(label)}
@@ -348,7 +349,7 @@ function DesktopNavigation({
         </div>
       </div>
 
-      {navItems.slice(2).map(([label, href]) =>
+      {navItems.slice(3).map(([label, href]) =>
         label === "Compliance & Vetting" ? (
           <div
             key={label}
@@ -474,12 +475,12 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
       >
         <Container
           gutter="wide"
-          className={`grid h-full grid-cols-[225px_1fr_auto] items-center gap-7 border-b max-[1100px]:grid-cols-[1fr_auto_auto] max-[760px]:grid-cols-[1fr_auto] ${
+          className={`grid h-full grid-cols-[225px_1fr_auto] items-center gap-7 max-[1350px]:grid-cols-[178px_1fr_auto] max-[1350px]:gap-4 border-b max-[1101px]:grid-cols-[1fr_auto_auto] max-[760px]:grid-cols-[1fr_auto] ${
             isLight ? "border-ink/15" : "border-white/20"
           }`}
         >
           <a
-            className="block w-[178px] outline-none focus-visible:ring-2 focus-visible:ring-brand-red max-[1100px]:w-[158px] max-[760px]:w-[145px]"
+            className="block w-[178px] outline-none focus-visible:ring-2 focus-visible:ring-brand-red max-[1101px]:w-[158px] max-[760px]:w-[145px]"
             href="/"
             aria-label="Complex Recruitment home"
           >
@@ -490,7 +491,7 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
             />
           </a>
 
-          <div className="flex justify-center max-[1100px]:hidden">
+          <div className="flex justify-center max-[1101px]:hidden">
             <DesktopNavigation active={active} idPrefix="top" pill />
           </div>
 
@@ -516,7 +517,7 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
 
           <button
             type="button"
-            className="hidden h-11 w-11 place-items-center border-0 bg-transparent outline-none focus-visible:ring-2 focus-visible:ring-brand-red max-[1100px]:grid"
+            className="hidden h-11 w-11 place-items-center border-0 bg-transparent outline-none focus-visible:ring-2 focus-visible:ring-brand-red max-[1101px]:grid"
             aria-label={`${menuOpen ? "Close" : "Open"} menu`}
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
@@ -547,7 +548,7 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
             aria-label="Mobile navigation"
             className="absolute left-0 top-full w-full border-t border-white/10 bg-ink px-4 py-4 text-white shadow-[0_22px_45px_rgba(0,0,0,.3)] min-[1101px]:hidden"
           >
-            {navItems.slice(0, 2).map(([label, href]) => (
+            {navItems.slice(0, 3).map(([label, href]) => (
               <a
                 key={label}
                 href={href}
@@ -618,7 +619,7 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
               </div>
             </div>
 
-            {navItems.slice(2).map(([label, href]) =>
+            {navItems.slice(3).map(([label, href]) =>
               label === "Compliance & Vetting" ? (
                 <div key={label} className="border-b border-white/10">
                   <div className="grid grid-cols-[1fr_48px]">
@@ -763,7 +764,7 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
         >
           <Container
             gutter="wide"
-            className="grid h-full grid-cols-[225px_1fr_auto] items-center gap-7"
+            className="grid h-full grid-cols-[225px_1fr_auto] items-center gap-7 max-[1350px]:grid-cols-[178px_1fr_auto] max-[1350px]:gap-4"
           >
             <a
               className="block w-[158px] outline-none focus-visible:ring-2 focus-visible:ring-brand-red"

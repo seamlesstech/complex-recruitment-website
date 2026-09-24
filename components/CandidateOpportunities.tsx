@@ -5,62 +5,42 @@ import { Container } from "./layout/Container";
 import { SectionLabel } from "./SectionLabel";
 import { ButtonLink } from "./ui/ButtonLink";
 import { ArrowIcon } from "./ui/ArrowIcon";
+import Link from "next/link";
+import {
+  EMPLOYMENT_TYPES,
+  EMPLOYMENT_TYPE_LABELS,
+  FILTERABLE_SECTORS,
+  type DbEmploymentType,
+  type PublicJob,
+} from "../lib/public-jobs";
 
-const jobs = [
-  {
-    title: "HGV Class 1 Driver",
-    location: "Enfield",
-    sector: "Driving & Transport",
-    type: "Temporary",
-    pay: "£19–£22/hr",
-  },
-  {
-    title: "Warehouse Operative",
-    location: "Croydon",
-    sector: "Industrial & Warehouse",
-    type: "Temporary",
-    pay: "£12.50/hr",
-  },
-  {
-    title: "CSCS Labourer",
-    location: "Greater London",
-    sector: "Construction & Engineering",
-    type: "Temporary",
-    pay: "Competitive",
-  },
-  {
-    title: "Transport Administrator",
-    location: "London",
-    sector: "Business & Operational Support",
-    type: "Permanent",
-    pay: "Salary DOE",
-  },
-];
 const heading =
   "section-heading text-[clamp(52px,5vw,82px)] leading-[.95] tracking-[-.055em] max-[760px]:text-5xl";
 
-const sectors = [
-  "All sectors",
-  "Driving & Transport",
-  "Industrial & Warehouse",
-  "Construction & Engineering",
-  "Business & Operational Support",
-];
-const workTypes = ["Temporary", "Ad-hoc", "Temp-to-perm", "Permanent"];
+// Filters map onto real database values (see lib/public-jobs.ts).
+const sectors = ["All sectors", ...FILTERABLE_SECTORS.map((item) => item.label)];
+const workTypes = EMPLOYMENT_TYPES;
 const inputClass =
   "min-h-12 w-full min-w-0 border border-line bg-white px-3 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand-red";
 
-export function CandidateOpportunities() {
+export function CandidateOpportunities({
+  jobs,
+  unavailable = false,
+}: {
+  jobs: PublicJob[];
+  unavailable?: boolean;
+}) {
   const [sector, setSector] = useState("All sectors");
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("");
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedTypes, setSelectedTypes] = useState<DbEmploymentType[]>([]);
   const filtered = jobs.filter(
     (job) =>
-      (sector === "All sectors" || job.sector === sector) &&
-      (!selectedTypes.length || selectedTypes.includes(job.type)) &&
+      (sector === "All sectors" || job.sectorLabel === sector) &&
+      (!selectedTypes.length ||
+        (!!job.employmentType && selectedTypes.includes(job.employmentType))) &&
       job.title.toLowerCase().includes(keyword.trim().toLowerCase()) &&
-      job.location.toLowerCase().includes(location.trim().toLowerCase()),
+      (job.location ?? "").toLowerCase().includes(location.trim().toLowerCase()),
   );
   return (
     <section
@@ -153,7 +133,7 @@ export function CandidateOpportunities() {
                         : "border-line bg-white text-ink hover:bg-surface"
                     }`}
                   >
-                    {item}
+                    {EMPLOYMENT_TYPE_LABELS[item]}
                   </button>
                 ))}
               </div>
@@ -187,31 +167,37 @@ export function CandidateOpportunities() {
             ))}
           </div>
           {filtered.map((job) => (
-            <a
-              href="/jobs"
-              key={job.title}
+            <Link
+              href={job.href}
+              key={job.reference}
               className="group relative grid min-h-[86px] grid-cols-[1.5fr_.8fr_.7fr_.7fr_.75fr_36px] items-center gap-[18px] overflow-hidden border-t border-line px-5 outline-none before:absolute before:inset-0 before:-translate-x-full before:bg-white before:transition-transform before:duration-500 before:ease-complex hover:before:translate-x-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-red focus-visible:before:translate-x-0 max-[760px]:min-h-0 max-[760px]:grid-cols-[1fr_34px] max-[760px]:gap-[7px] max-[760px]:py-[22px]"
             >
               <strong className="relative z-[1] text-lg tracking-[-.02em] transition-transform duration-500 group-hover:translate-x-[14px] max-[760px]:col-start-1">
                 {job.title}
               </strong>
-              {[job.location, job.sector, job.type, job.pay].map((x) => (
+              {[
+                job.location,
+                job.sectorLabel,
+                job.employmentTypeLabel,
+                job.pay,
+              ].map((x, i) => (
                 <span
                   className="relative z-[1] text-[11px] text-[#59656b] transition-transform duration-500 group-hover:translate-x-2 max-[760px]:col-start-1"
-                  key={x}
+                  key={i}
                 >
-                  {x}
+                  {x ?? "—"}
                 </span>
               ))}
               <ArrowIcon className="relative z-[1] text-lg text-brand-red transition-transform group-hover:translate-x-[5px] group-hover:-translate-y-1.5 max-[760px]:col-start-2 max-[760px]:row-start-1 max-[760px]:row-end-6" />
-            </a>
+            </Link>
           ))}
         </div>
         {filtered.length === 0 && (
           <div className="mt-6 border border-line bg-white p-6">
-            <p className="mt-0 text-sm text-muted">
-              No matching roles right now. Try changing your filters or register
-              your interest.
+            <p role="status" className="mt-0 text-sm text-muted">
+              {unavailable
+                ? "Current vacancies are temporarily unavailable. Please check back shortly, or register your interest."
+                : "No matching roles right now. Try changing your filters or register your interest."}
             </p>
             <ButtonLink href="#register-interest">
               Register your interest

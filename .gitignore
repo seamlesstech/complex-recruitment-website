@@ -2,6 +2,8 @@ node_modules/
 .next/
 .next-dev/
 .next-build/
+.next-candidate-check/
+.next-e2e/
 out/
 dist/
 
@@ -9,6 +11,7 @@ dist/
 .env.local
 .env.*.local
 .env*.local
+!.env.example
 
 .DS_Store
 *.log
