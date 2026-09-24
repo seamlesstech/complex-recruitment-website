@@ -1,7 +1,0 @@
-{
-  "/sectors/industrial/page": "app/sectors/industrial/page.js",
-  "/sectors/driving/page": "app/sectors/driving/page.js",
-  "/candidates/page": "app/candidates/page.js",
-  "/sectors/business-operational-support/page": "app/sectors/business-operational-support/page.js",
-  "/sectors/construction/page": "app/sectors/construction/page.js"
-}
