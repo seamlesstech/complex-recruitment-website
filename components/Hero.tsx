@@ -5,11 +5,15 @@ import { Container } from "./layout/Container";
 import { ButtonLink } from "./ui/ButtonLink";
 import { TextLink } from "./ui/TextLink";
 
+// First slide is the general Complex media (shown as the white logo mark in the tab strip); the rest are the five recruitment sectors. Eyebrows use the full canonical sector names; `tab` is the compact tab label.
 const slides = [
   {
-    label: "STAFFING",
+    id: "general",
+    tab: null,
+    tabAriaLabel: "Complex Recruitment",
     src: "/complex-hero-new.mp4",
     //src: "https://videos.pexels.com/video-files/3254006/3254006-uhd_3840_2160_25fps.mp4",
+    position: "",
     eyebrow: "UK WORKFORCE SOLUTIONS",
     titleTop: "Looking for staff",
     titleBase: "or",
@@ -18,9 +22,12 @@ const slides = [
       "Reliable temporary and permanent staffing across Driving & Transport, Industrial & Warehousing, Construction & Engineering, Business & Operational Support and Waste Management.",
   },
   {
-    label: "DRIVING",
+    id: "driving",
+    tab: "Driving",
+    tabAriaLabel: undefined,
     src: "/home-driving-hero.jpg",
-    eyebrow: "DRIVING SECTOR",
+    position: "bg-[position:45%_center] max-[760px]:bg-[position:52%_center]",
+    eyebrow: "DRIVING & TRANSPORT",
     titleTop: "Drivers that keep",
     titleBase: "your business",
     titleAccent: "moving.",
@@ -28,10 +35,13 @@ const slides = [
       "Specialist driving recruitment for dependable HGV, multidrop and transport professionals.",
   },
   {
-    label: "INDUSTRIAL",
+    id: "industrial",
+    tab: "Industrial",
+    tabAriaLabel: undefined,
     //src: "https://images.pexels.com/photos/6169178/pexels-photo-6169178.jpeg?auto=compress&cs=tinysrgb&w=2000",
     src: "/home-industrial-hero.jpg",
-    eyebrow: "INDUSTRIAL SECTOR",
+    position: "bg-center",
+    eyebrow: "INDUSTRIAL & WAREHOUSING",
     titleTop: "Workforce built for",
     titleBase: "the pace of",
     titleAccent: "industry.",
@@ -39,22 +49,61 @@ const slides = [
       "Flexible staffing across warehousing, logistics, distribution and production environments.",
   },
   {
-    label: "CONSTRUCTION",
+    id: "construction",
+    tab: "Construction",
+    tabAriaLabel: undefined,
     src: "/home-construction-hero.jpg",
     // src: "https://images.pexels.com/photos/8138734/pexels-photo-8138734.jpeg?auto=compress&cs=tinysrgb&w=2000",
-    eyebrow: "CONSTRUCTION SECTOR",
+    position: "bg-center",
+    eyebrow: "CONSTRUCTION & ENGINEERING",
     titleTop: "Skilled people.",
     titleBase: "Ready for",
     titleAccent: "site.",
     intro:
       "Reliable temporary and permanent staffing for trades, plant and site operations.",
   },
+  {
+    id: "business",
+    tab: "Business Support",
+    tabAriaLabel: undefined,
+    src: "/home-business-hero.jpg",
+    position: "bg-center",
+    eyebrow: "BUSINESS & OPERATIONAL SUPPORT",
+    titleTop: "Support that keeps",
+    titleBase: "operations",
+    titleAccent: "connected.",
+    intro:
+      "Planners, administrators, coordinators and support teams for transport, logistics and operational businesses.",
+  },
+  {
+    id: "waste",
+    tab: "Waste Management",
+    tabAriaLabel: undefined,
+    src: "/waste-management-hero.jpg",
+    position: "bg-center",
+    eyebrow: "WASTE MANAGEMENT",
+    titleTop: "Crews that keep",
+    titleBase: "rounds on",
+    titleAccent: "time.",
+    intro:
+      "Collection crews, drivers and site operatives for waste, recycling and street cleansing operations.",
+  },
 ];
 
 export function Hero() {
   const [active, setActive] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const slide = slides[active];
+  // On narrow screens the strip scrolls horizontally; keep the active tab in view (horizontal only, never the page).
+  useEffect(() => {
+    const strip = stripRef.current;
+    const tab = tabRefs.current[active];
+    if (!strip || !tab || strip.scrollWidth <= strip.clientWidth) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    strip.scrollTo({ left: tab.offsetLeft - (strip.clientWidth - tab.offsetWidth) / 2, behavior: reduce ? "auto" : "smooth" });
+  }, [active]);
   useEffect(() => {
     const timer = window.setTimeout(
       () => setActive((active + 1) % slides.length),
@@ -81,8 +130,8 @@ export function Hero() {
         />
         {slides.slice(1).map((item, i) => (
           <div
-            key={item.label}
-            className={`heroMediaItem absolute -inset-[2%] h-[104%] w-[104%] bg-cover grayscale-[.55] ${i === 0 ? "bg-[position:45%_center] max-[760px]:bg-[position:52%_center]" : "bg-center"} ${active === i + 1 ? "active" : ""}`}
+            key={item.id}
+            className={`heroMediaItem absolute -inset-[2%] h-[104%] w-[104%] bg-cover grayscale-[.55] ${item.position} ${active === i + 1 ? "active" : ""}`}
             style={{ backgroundImage: `url(${item.src})` }}
           />
         ))}
@@ -147,33 +196,56 @@ export function Hero() {
       <div className="relative z-[5] min-w-0 h-[108px] border-t border-white/25 bg-brand-grey text-white shadow-[0_-10px_32px_rgba(0,0,0,.045)] backdrop-blur-lg max-[760px]:h-auto">
         <Container
           gutter="wide"
-          className="grid h-full grid-cols-[1fr_auto] items-center gap-10 max-[760px]:block max-[760px]:w-full"
+          className="flex h-full items-center gap-10 max-[760px]:block max-[760px]:w-full"
         >
-          <div className="flex flex-col items-start justify-center gap-[6px] text-[17px] tracking-[.02em] text-white max-[1100px]:text-[15px] max-[760px]:hidden">
+          {/* Shown wherever it fits beside the six tabs; one line from 1400px, otherwise a compact three-line stack; hidden below 1160px where it would not fit beside the tabs. */}
+          <div className="hidden shrink-0 flex-col items-start justify-center gap-[6px] text-[15px] leading-[1.3] tracking-[.02em] text-white min-[1160px]:flex">
             <span className="text-[8px] font-extrabold tracking-[.18em] text-white/65">
               AREAS WE COVER
             </span>
-            <span>London · Greater London · Essex · Surrey · Kent</span>
+            <span className="flex flex-col min-[1400px]:flex-row min-[1400px]:gap-x-2.5">
+              <span>West London</span>
+              <span aria-hidden="true" className="hidden text-white/45 min-[1400px]:inline">·</span>
+              <span>Northwest London</span>
+              <span aria-hidden="true" className="hidden text-white/45 min-[1400px]:inline">·</span>
+              <span>North London</span>
+            </span>
           </div>
-          <div className="flex h-full items-stretch max-[760px]:overflow-x-auto">
-            {slides.map((item, i) => (
-              <button
-                key={item.label}
-                className={`relative min-w-[132px] cursor-pointer border-0 border-l border-white/25 bg-transparent px-[18px] text-left text-[12px] font-extrabold tracking-[.07em] text-white transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-1 after:origin-left after:bg-brand-red after:transition-transform max-[760px]:min-h-[76px] ${active === i ? "opacity-100 after:scale-x-100" : "opacity-50 after:scale-x-0"}`}
-                onClick={() => setActive(i)}
-                aria-label={`Show ${item.label.toLowerCase()} hero`}
-                aria-pressed={active === i}
-              >
-                <span className="block min-h-[32px]">
-                  <span className="block leading-[18px]">{item.label}</span>
-                  {i > 0 && (
-                    <span className="mt-0.5 block text-[10px] font-medium leading-[12px] tracking-normal text-white/75">
-                      Staff
+          <div
+            ref={stripRef}
+            role="group"
+            aria-label="Choose hero media"
+            className="relative flex h-full min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            <div className="ml-auto flex h-full items-stretch">
+              {slides.map((item, i) => (
+                <button
+                  key={item.id}
+                  ref={(node) => {
+                    tabRefs.current[i] = node;
+                  }}
+                  type="button"
+                  className={`relative flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap border-0 border-l border-white/25 bg-transparent text-white outline-none transition-opacity after:absolute after:inset-x-0 after:bottom-0 after:h-1 after:origin-left after:bg-brand-red after:transition-transform focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white max-[760px]:min-h-[76px] ${i === 0 ? "min-w-[72px] px-[18px]" : "min-w-[92px] px-[16px] max-[760px]:min-w-[104px] max-[760px]:px-[20px]"} ${active === i ? "opacity-100 after:scale-x-100" : "opacity-50 after:scale-x-0"}`}
+                  onClick={() => setActive(i)}
+                  aria-label={item.tabAriaLabel}
+                  aria-pressed={active === i}
+                >
+                  {item.tab ? (
+                    <span className="text-[13px] font-medium uppercase leading-none tracking-[.05em]">
+                      {item.tab}
                     </span>
+                  ) : (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src="/complex-mark.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="h-8 w-auto brightness-0 invert"
+                    />
                   )}
-                </span>
-              </button>
-            ))}
+                </button>
+              ))}
+            </div>
           </div>
         </Container>
       </div>
