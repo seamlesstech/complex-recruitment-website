@@ -32,7 +32,7 @@ const records = ['Right to Work', 'PAYE', 'Licences', 'Role-specific vetting', '
 export default function CompliancePage() {
   return <main className="bg-white text-ink">
     <section className="grid min-h-[610px] grid-rows-[92px_minmax(0,1fr)] bg-white max-[640px]:min-h-0 max-[640px]:grid-rows-[76px_auto]">
-      <Header active="Compliance & Vetting" theme="light" />
+      <Header active="About" theme="light" />
       <Container gutter="wide" className="flex items-end py-[78px] max-[640px]:py-[58px]">
         <div className="max-w-[1100px]">
           <HeroEyebrow light detail="WORKFORCE ASSURANCE">COMPLIANCE &amp; VETTING</HeroEyebrow>

@@ -78,7 +78,7 @@ const navItems = [
   ["Employers", "/employers"],
   ["Candidates", "/candidates"],
   ["Jobs", "/jobs"],
-  ["Compliance & Vetting", "/compliance"],
+  ["Additional Services", "/additional-services"],
   ["About", "/about"],
   ["Contact", "/contact"],
 ] as const;
@@ -89,12 +89,6 @@ const sectorItems = [
   ["Construction & Engineering", "/sectors/construction"],
   ["Business & Operational Support", "/sectors/business-operational-support"],
   ["Waste Management", "/sectors/waste-management"],
-] as const;
-
-const complianceItems = [
-  ["Compliance & Vetting", "/compliance"],
-  ["Driver Assessments", "/training/driver-assessments"],
-  ["CPC Training", "/training/cpc"],
 ] as const;
 
 type HeaderProps = {
@@ -150,7 +144,6 @@ function DesktopNavigation({
   ariaLabel = "Primary navigation",
 }: DesktopNavigationProps) {
   const [sectorsOpen, setSectorsOpen] = useState(false);
-  const [complianceOpen, setComplianceOpen] = useState(false);
 
   const [pillVisible, setPillVisible] = useState(false);
   const [pillClip, setPillClip] = useState(
@@ -351,86 +344,18 @@ function DesktopNavigation({
         </div>
       </div>
 
-      {navItems.slice(3).map(([label, href]) =>
-        label === "Compliance & Vetting" ? (
-          <div
-            key={label}
-            className="relative inline-flex h-full items-center gap-0"
-            onMouseEnter={(event) => {
-              revealPillFrom(event.currentTarget);
-
-              setComplianceOpen(true);
-            }}
-            onMouseLeave={() => setComplianceOpen(false)}
-            onFocusCapture={(event) => {
-              revealPillFrom(event.currentTarget);
-            }}
-            onBlurCapture={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) {
-                setComplianceOpen(false);
-              }
-            }}
-            onKeyDown={(event) => {
-              if (event.key === "Escape") {
-                setComplianceOpen(false);
-              }
-            }}
-          >
-            <a
-              className={linkClass(label)}
-              href={href}
-              aria-current={active === label ? "page" : undefined}
-            >
-              {label}
-            </a>
-
-            <button
-              type="button"
-              className="inline-flex h-8 w-5 items-center justify-center border-0 bg-transparent text-current outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
-              aria-label="Toggle compliance and vetting menu"
-              aria-expanded={complianceOpen}
-              aria-controls={`${idPrefix}-compliance-menu`}
-              onClick={() => setComplianceOpen((open) => !open)}
-            >
-              <DropdownChevron open={complianceOpen} />
-            </button>
-
-            <div
-              id={`${idPrefix}-compliance-menu`}
-              className={`absolute left-1/2 top-[calc(100%-2px)] w-[220px]
-                  -translate-x-1/2 pt-3 transition duration-200
-                  ${
-                    complianceOpen
-                      ? "visible translate-y-0 opacity-100"
-                      : "invisible -translate-y-1 opacity-0"
-                  }`}
-            >
-              <div className="border border-white/10 bg-ink p-2 text-white shadow-[0_18px_42px_rgba(0,0,0,.28)]">
-                {complianceItems.map(([itemLabel, itemHref]) => (
-                  <a
-                    key={itemHref}
-                    href={itemHref}
-                    className="flex min-h-10 items-center border-b border-white/10 px-3 text-xs text-white/75 outline-none transition-colors last:border-b-0 hover:bg-white/[.06] hover:text-white focus-visible:bg-white/[.06] focus-visible:text-white"
-                  >
-                    {itemLabel}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <a
-            key={label}
-            className={linkClass(label)}
-            href={href}
-            aria-current={active === label ? "page" : undefined}
-            onMouseEnter={(event) => revealPillFrom(event.currentTarget)}
-            onFocus={(event) => revealPillFrom(event.currentTarget)}
-          >
-            {label}
-          </a>
-        ),
-      )}
+      {navItems.slice(3).map(([label, href]) => (
+        <a
+          key={label}
+          className={linkClass(label)}
+          href={href}
+          aria-current={active === label ? "page" : undefined}
+          onMouseEnter={(event) => revealPillFrom(event.currentTarget)}
+          onFocus={(event) => revealPillFrom(event.currentTarget)}
+        >
+          {label}
+        </a>
+      ))}
     </nav>
   );
 }
@@ -439,8 +364,6 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [mobileSectorsOpen, setMobileSectorsOpen] = useState(false);
-
-  const [mobileComplianceOpen, setMobileComplianceOpen] = useState(false);
 
   const [scrolled, setScrolled] = useState(false);
   const [floatingOpen, setFloatingOpen] = useState(false);
@@ -621,79 +544,23 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
               </div>
             </div>
 
-            {navItems.slice(3).map(([label, href]) =>
-              label === "Compliance & Vetting" ? (
-                <div key={label} className="border-b border-white/10">
-                  <div className="grid grid-cols-[1fr_48px]">
-                    <a
-                      href={href}
-                      aria-current={active === label ? "page" : undefined}
-                      className={`flex min-h-12 items-center px-2 text-sm outline-none focus-visible:bg-white/10 ${
-                        active === label ? "text-white" : "text-white/80"
-                      }`}
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {label}
-                    </a>
+            {navItems.slice(3).map(([label, href]) => (
+              <a
+                key={label}
+                href={href}
+                aria-current={active === label ? "page" : undefined}
+                className={`flex min-h-12 items-center justify-between border-b border-white/10 px-2 text-sm outline-none focus-visible:bg-white/10 ${
+                  active === label ? "text-white" : "text-white/80"
+                }`}
+                onClick={() => setMenuOpen(false)}
+              >
+                <span>{label}</span>
 
-                    <button
-                      type="button"
-                      className="grid min-h-12 place-items-center border-0 border-l border-white/10 bg-transparent text-white outline-none focus-visible:bg-white/10"
-                      aria-label="Toggle compliance and vetting submenu"
-                      aria-expanded={mobileComplianceOpen}
-                      aria-controls="mobile-compliance-menu"
-                      onClick={() => setMobileComplianceOpen((open) => !open)}
-                    >
-                      <span
-                        className={`transition-transform ${
-                          mobileComplianceOpen ? "rotate-180" : ""
-                        }`}
-                      >
-                        ⌄
-                      </span>
-                    </button>
-                  </div>
-
-                  <div
-                    id="mobile-compliance-menu"
-                    className={`grid overflow-hidden bg-white/[.04] transition-[grid-template-rows] duration-300 ${
-                      mobileComplianceOpen
-                        ? "grid-rows-[1fr]"
-                        : "grid-rows-[0fr]"
-                    }`}
-                  >
-                    <div className="min-h-0">
-                      {complianceItems.map(([itemLabel, itemHref]) => (
-                        <a
-                          key={itemHref}
-                          href={itemHref}
-                          className="flex min-h-11 items-center border-t border-white/10 pl-6 pr-2 text-[13px] text-white/70 outline-none focus-visible:bg-white/10 focus-visible:text-white"
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          {itemLabel}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <a
-                  key={label}
-                  href={href}
-                  aria-current={active === label ? "page" : undefined}
-                  className={`flex min-h-12 items-center justify-between border-b border-white/10 px-2 text-sm outline-none focus-visible:bg-white/10 ${
-                    active === label ? "text-white" : "text-white/80"
-                  }`}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <span>{label}</span>
-
-                  {active === label && (
-                    <i className="h-1.5 w-1.5 rounded-full bg-brand-red" />
-                  )}
-                </a>
-              ),
-            )}
+                {active === label && (
+                  <i className="h-1.5 w-1.5 rounded-full bg-brand-red" />
+                )}
+              </a>
+            ))}
 
             <a
               href="tel:02039237888"

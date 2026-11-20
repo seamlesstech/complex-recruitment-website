@@ -438,16 +438,18 @@ export default async function Home() {
                 "01",
                 "Driver Assessments",
                 "Practical and theoretical evaluation designed around safer, more capable driving.",
+                "/training/driver-assessments",
               ],
               [
                 "02",
                 "CPC Training",
                 "Professional driver training and development for a highly regulated sector.",
+                "/training/cpc",
               ],
-            ].map(([n, t, c]) => (
+            ].map(([n, t, c, href]) => (
               <a
                 className="group relative isolate h-[292px] min-h-[292px] flex-1 overflow-hidden border-t border-line transition-[flex,background-color,color,box-shadow] duration-700 ease-complex hover:bg-brand-red hover:text-white min-[1280px]:hover:flex-[1.08] max-[640px]:h-[210px] max-[640px]:min-h-[210px] max-[640px]:flex-none"
-                href="#"
+                href={href}
                 key={n}
               >
                 <span className="absolute left-6 top-[22px] text-[10px] text-brand-red max-[640px]:left-0">

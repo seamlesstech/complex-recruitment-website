@@ -111,7 +111,7 @@ export default function AboutPage() {
           ].map(([n, t]) => (
             <article
               className="flex min-h-[250px] flex-col justify-between border-b border-r border-line p-7 max-[640px]:min-h-[190px]"
-              key={n}
+              key={t}
             >
               <strong className="text-[64px] tracking-[-.06em]">{n}</strong>
               <span className="max-w-[190px] text-[11px] leading-normal text-[#626e74]">
@@ -178,6 +178,55 @@ export default function AboutPage() {
               </i>
             </article>
           ))}
+        </Container>
+      </section>
+
+      <section className="bg-surface py-[126px] max-[640px]:py-[88px]">
+        <Container className="grid grid-cols-[1fr_.85fr] items-start gap-[90px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[50px]">
+          <div>
+            <SectionLabel>COMPLIANCE &amp; VETTING</SectionLabel>
+            <h2 className="section-heading m-0 mt-[38px] text-[clamp(44px,4.3vw,70px)] leading-[.95] tracking-[-.055em] max-[640px]:text-5xl [&_em]:not-italic [&_em]:text-brand-red">
+              Checked for the work
+              <br />
+              <em>they are placed in.</em>
+            </h2>
+            <p className="my-7 max-w-[590px] text-[15px] leading-[1.72] text-[#626e74]">
+              Clients need people who are available and appropriately checked
+              for the role. Right to Work checks take place before placement,
+              and further checks depend on the role, the working environment
+              and the client requirement. Checks and supporting documents are
+              recorded so the team can respond to onboarding requirements,
+              queries and audits.
+            </p>
+            <ButtonLink href="/compliance" variant="dark">
+              Explore Compliance &amp; Vetting
+            </ButtonLink>
+          </div>
+          <div>
+            <span className="text-[9px] font-extrabold tracking-[.17em] text-[#7b858b]">
+              TYPICAL CHECKS
+            </span>
+            <div className="mt-5 border-t border-line">
+              {[
+                "Right to Work verification",
+                "Driving licence and entitlement",
+                "Role-specific qualifications",
+                "References and employment history where required",
+                "DBS where required",
+                "Client-specific onboarding",
+              ].map((item, index) => (
+                <div
+                  key={item}
+                  className="grid min-h-[67px] grid-cols-[46px_1fr] items-center border-b border-line py-3"
+                >
+                  <span className="text-[8px] text-brand-red">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <strong className="text-sm font-semibold">{item}</strong>
+                </div>
+              ))}
+            </div>
+          </div>
         </Container>
       </section>
 
