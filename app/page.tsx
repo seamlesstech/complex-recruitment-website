@@ -498,7 +498,7 @@ export default async function Home() {
           }}
         />
       </section>
-      <Footer variant="home" />
+      <Footer />
     </main>
   );
 }

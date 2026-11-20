@@ -85,7 +85,7 @@ export default function RequestStaffPage() {
         </Container>
       </section>
 
-      <Footer variant="simple" />
+      <Footer />
     </main>
   );
 }

@@ -44,7 +44,7 @@ export default function RegisterInterestPage() {
         </Container>
       </section>
 
-      <Footer variant="simple" />
+      <Footer />
     </main>
   );
 }

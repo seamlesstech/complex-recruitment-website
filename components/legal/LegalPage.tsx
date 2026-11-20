@@ -70,7 +70,7 @@ export function LegalPage({ kicker, title, intro, updated, sections }: LegalPage
         </Container>
       </section>
 
-      <Footer variant="compact" />
+      <Footer />
     </main>
   );
 }

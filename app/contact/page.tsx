@@ -284,7 +284,7 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      <Footer variant="simple" />
+      <Footer />
     </main>
   );
 }
@@ -500,7 +500,7 @@ export default function ContactPage() {
 //         </Container>
 //       </section>
 
-//       <Footer variant="simple" />
+//       <Footer />
 //     </main>
 //   );
 // }
