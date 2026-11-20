@@ -5,7 +5,7 @@
 // import { JobRow } from './jobs/JobRow';
 // import { ButtonLink } from './ui/ButtonLink';
 
-// const sectors = ['Driving & Transport', 'Industrial & Warehouse', 'Construction & Engineering', 'Business & Operational Support'];
+// const sectors = ['Driving & Transport', 'Industrial & Warehousing', 'Construction & Engineering', 'Business & Operational Support'];
 // const workTypes = ['Temporary', 'Ad-hoc', 'Temp-to-perm', 'Permanent'];
 // const controlClass = 'min-h-12 min-w-0 w-full border-0 border-b border-line bg-transparent px-1 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand-red';
 

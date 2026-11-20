@@ -54,7 +54,7 @@ const optionalDate = z
 // Option lists (mirror the public forms exactly)
 // ---------------------------------------------------------------------------
 
-const EMPLOYER_SECTORS = ['Driving & Transport', 'Industrial & Warehouse', 'Construction & Engineering', 'Business & Operational Support'] as const;
+const EMPLOYER_SECTORS = ['Driving & Transport', 'Industrial & Warehousing', 'Construction & Engineering', 'Business & Operational Support', 'Waste Management'] as const;
 const CANDIDATE_SECTORS = [...EMPLOYER_SECTORS, 'Open to anything'] as const;
 const AVAILABILITY = ['Immediately', 'Within 1 week', 'Within 1 month', 'Just exploring'] as const;
 const WORK_PREFERENCES = ['Temporary / ad-hoc', 'Permanent', 'Either'] as const;
@@ -64,9 +64,10 @@ export const CONTACT_CATEGORIES = ['General', 'Accounts', 'HR', 'Timesheets'] as
 /** Sector pages that host a SectorEnquiryForm, and the sector each one is for. */
 const SECTOR_PAGES = {
   '/sectors/driving': 'Driving & Transport',
-  '/sectors/industrial': 'Industrial & Warehouse',
+  '/sectors/industrial': 'Industrial & Warehousing',
   '/sectors/construction': 'Construction & Engineering',
   '/sectors/business-operational-support': 'Business & Operational Support',
+  '/sectors/waste-management': 'Waste Management',
 } as const;
 
 // ---------------------------------------------------------------------------

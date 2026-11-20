@@ -9,9 +9,10 @@ const heading = 'section-heading m-0 text-[clamp(50px,5.15vw,84px)] leading-[.94
 const considerations = ['Responsibilities', 'Salary & package', 'Working pattern', 'Relevant experience', 'Working environment', 'What success looks like'];
 const sectors = [
   ['01', 'Driving & Transport', '/sectors/driving'],
-  ['02', 'Industrial & Warehouse', '/sectors/industrial'],
+  ['02', 'Industrial & Warehousing', '/sectors/industrial'],
   ['03', 'Construction & Engineering', '/sectors/construction'],
   ['04', 'Business & Operational Support', '/sectors/business-operational-support'],
+  ['05', 'Waste Management', '/sectors/waste-management'],
 ] as const;
 
 export default function PermanentRecruitmentPage() {

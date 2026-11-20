@@ -8,7 +8,7 @@
 //   ['Compliance & Vetting', '/compliance'], ['About', '/about'], ['Contact', '/contact'],
 // ] as const;
 
-// const sectorItems = [['Driving & Transport', '/sectors/driving'], ['Industrial & Warehouse', '/sectors/industrial'], ['Construction & Engineering', '/sectors/construction'], ['Business & Operational Support', '/sectors/business-operational-support']] as const;
+// const sectorItems = [['Driving & Transport', '/sectors/driving'], ['Industrial & Warehousing', '/sectors/industrial'], ['Construction & Engineering', '/sectors/construction'], ['Business & Operational Support', '/sectors/business-operational-support']] as const;
 // const complianceItems = [['Compliance & Vetting', '/compliance'], ['Driver Assessments', '/training/driver-assessments'], ['CPC Training', '/training/cpc']] as const;
 
 // type HeaderProps = {
@@ -85,9 +85,10 @@ const navItems = [
 
 const sectorItems = [
   ["Driving & Transport", "/sectors/driving"],
-  ["Industrial & Warehouse", "/sectors/industrial"],
+  ["Industrial & Warehousing", "/sectors/industrial"],
   ["Construction & Engineering", "/sectors/construction"],
   ["Business & Operational Support", "/sectors/business-operational-support"],
+  ["Waste Management", "/sectors/waste-management"],
 ] as const;
 
 const complianceItems = [

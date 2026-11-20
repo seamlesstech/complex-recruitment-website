@@ -27,7 +27,7 @@ export default function RegisterInterestPage() {
             <h2 className="section-heading mb-[25px] mt-[34px] text-[clamp(48px,4.6vw,76px)] leading-[.95] tracking-[-.055em] max-[480px]:text-[46px]">Two steps.<br /><em className="not-italic text-brand-red">One useful introduction.</em></h2>
             <p className="max-w-[430px] text-sm leading-[1.72] text-[#657177]">This isn’t a full job application. It simply gives the recruitment team enough information to understand what might suit you.</p>
             <div className="mt-10 flex flex-col border-t border-line">
-              <span className="flex min-h-[58px] items-center gap-[14px] border-b border-line text-xs text-[#566167]">Four specialist operational sectors</span>
+              <span className="flex min-h-[58px] items-center gap-[14px] border-b border-line text-xs text-[#566167]">Five specialist operational sectors</span>
               <span className="flex min-h-[58px] items-center gap-[14px] border-b border-line text-xs text-[#566167]">Temporary or permanent work</span>
               <span className="flex min-h-[58px] items-center gap-[14px] border-b border-line text-xs text-[#566167]">Attach your CV when you apply for a specific job</span>
             </div>

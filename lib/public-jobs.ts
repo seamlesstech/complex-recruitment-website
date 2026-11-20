@@ -69,18 +69,21 @@ export type PublicJobsResult = { ok: true; jobs: PublicJob[] } | { ok: false; jo
 // Sector mapping (explicit)
 // ---------------------------------------------------------------------------
 
-export type WebsiteSectorKey = 'driving' | 'industrial' | 'construction' | 'business';
+export type WebsiteSectorKey = 'driving' | 'industrial' | 'construction' | 'business' | 'waste';
 
 /**
- * Website sector families -> canonical database sectors (`sectors.name`). All
- * four are real sectors. Only the website label differs for Construction, which
- * the site presents as "Construction & Engineering".
+ * Website sector families. The public label and the canonical database sector
+ * name (`sectors.name`, exposed by public_jobs as `sector`) are the same string
+ * for every sector, so there is no label-to-database mapping to keep in sync.
  */
+const sectorNamed = (name: string) => ({ label: name, dbSector: name });
+
 export const WEBSITE_SECTORS: Record<WebsiteSectorKey, { label: string; dbSector: string }> = {
-  driving: { label: 'Driving & Transport', dbSector: 'Driving & Transport' },
-  industrial: { label: 'Industrial & Warehouse', dbSector: 'Industrial & Warehouse' },
-  construction: { label: 'Construction & Engineering', dbSector: 'Construction' },
-  business: { label: 'Business & Operational Support', dbSector: 'Business & Operational Support' },
+  driving: sectorNamed('Driving & Transport'),
+  industrial: sectorNamed('Industrial & Warehousing'),
+  construction: sectorNamed('Construction & Engineering'),
+  business: sectorNamed('Business & Operational Support'),
+  waste: sectorNamed('Waste Management'),
 };
 
 /** Sector families offered as job-board filters. */
