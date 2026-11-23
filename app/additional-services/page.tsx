@@ -11,20 +11,20 @@ import { TextLink } from '../../components/ui/TextLink';
 
 export const metadata = pageMetadata('Additional Services | Complex Recruitment', "Onsite driver assessments, driver CPC training, client analysis and infringement management alongside Complex Recruitment’s recruitment services.");
 
-// Shared type scale: every feature section uses the same heading, body copy and numeral
+// Shared type scale: every feature section uses the same heading, body copy and eyebrow
 // treatment so the page changes rhythm (photo / reverse photo / light / dark / red)
-// without changing voice.
+// without changing voice. There is deliberately no service numbering anywhere.
 const heading = 'section-heading m-0 text-[clamp(38px,3.6vw,60px)] leading-[.98] tracking-[-.05em] [&_em]:not-italic [&_em]:text-brand-red';
 const body = 'm-0 max-w-[540px] text-[15px] leading-[1.72] text-[#626e74]';
-const numeral = 'block text-[clamp(46px,4.2vw,68px)] font-semibold leading-none tracking-[-.06em] text-brand-red';
-const eyebrow = 'mt-3 block text-[10px] font-extrabold uppercase tracking-[.2em] text-[#5f686e]';
+const eyebrowBase = 'flex items-center text-[10px] font-extrabold uppercase tracking-[.2em] before:mr-[13px] before:h-0.5 before:w-9 before:shrink-0 before:bg-brand-red before:content-[""]';
+const eyebrow = `${eyebrowBase} text-[#5f686e]`;
 const featureSection = 'scroll-mt-6 py-[112px] max-[1000px]:py-[84px] max-[640px]:py-[64px]';
 
 const services = [
-  { number: '01', title: 'Onsite Driver Assessments', copy: 'Theory, practical and load-security assessments, with clear feedback.', href: '/training/driver-assessments', route: true },
-  { number: '02', title: 'Driver Training & CPC', copy: 'Driver CPC training as a 35-hour course or in 7-hour sessions.', href: '/training/cpc', route: true },
-  { number: '03', title: 'Client Analysis', copy: 'Understanding what your operation needs, so the people supplied fit the work.', href: '#client-analysis', route: false },
-  { number: '04', title: 'Infringement Management', copy: 'Staying on top of the practical requirements, from licence to drivers’ hours.', href: '#infringement-management', route: false },
+  { title: 'Onsite Driver Assessments', copy: 'Theory, practical and load-security assessments, with clear feedback.', href: '/training/driver-assessments', route: true },
+  { title: 'Driver Training & CPC', copy: 'Driver CPC training as a 35-hour course or in 7-hour sessions.', href: '/training/cpc', route: true },
+  { title: 'Client Analysis', copy: 'Understanding what your operation needs, so the people supplied fit the work.', href: '#client-analysis', route: false },
+  { title: 'Infringement Management', copy: 'Staying on top of the practical requirements, from licence to drivers’ hours.', href: '#infringement-management', route: false },
 ] as const;
 
 const assessmentPoints = [
@@ -79,12 +79,11 @@ function FeatureImage({ src, alt, position, className = '' }: { src: string; alt
   );
 }
 
-function FeatureHeading({ number, label, children }: { number: string; label: string; children: ReactNode }) {
+function FeatureHeading({ label, children }: { label: string; children: ReactNode }) {
   return (
     <>
-      <span aria-hidden="true" className={numeral}>{number}</span>
       <span className={eyebrow}>{label}</span>
-      <h2 className={`${heading} mt-8`}>{children}</h2>
+      <h2 className={`${heading} mt-7`}>{children}</h2>
     </>
   );
 }
@@ -101,9 +100,6 @@ export default function AdditionalServicesPage() {
         </div>
         <div className="max-[900px]:mt-9">
           <p className="m-0 max-w-[460px] text-[16px] leading-[1.7] text-[#5e6a70]">Four practical services that sit alongside Complex’s recruitment: driver assessments, driver training, client analysis and infringement management.</p>
-          <div aria-hidden="true" className="mt-9 flex max-w-[460px] items-center gap-4 text-[10px] font-extrabold tracking-[.2em] text-brand-red">
-            01<span className="h-px flex-1 bg-ink/20" />04
-          </div>
         </div>
       </Container>
     </section>
@@ -114,16 +110,15 @@ export default function AdditionalServicesPage() {
         <nav aria-label="The four additional services">
           <h2 className="sr-only">Our four additional services</h2>
           <ul className="m-0 grid list-none grid-cols-2 gap-4 p-0 max-[640px]:grid-cols-1">
-            {services.map(({ number, title, copy, href, route }) => {
-              const classes = 'group relative flex h-full min-h-[280px] flex-col bg-surface p-9 transition-colors duration-300 hover:bg-surface-strong focus-visible:bg-surface-strong focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-red max-[1000px]:min-h-[240px] max-[1000px]:p-7 max-[640px]:min-h-0 max-[640px]:p-6';
+            {services.map(({ title, copy, href, route }) => {
+              const classes = 'group relative flex h-full min-h-[260px] flex-col justify-end bg-surface p-9 transition-colors duration-300 hover:bg-surface-strong focus-visible:bg-surface-strong focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-red max-[1000px]:min-h-[220px] max-[1000px]:p-7 max-[640px]:min-h-0 max-[640px]:p-6 max-[640px]:pt-14';
               const content = <>
                 <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-brand-red transition-transform duration-500 ease-complex group-hover:scale-x-100 group-focus-visible:scale-x-100" />
-                <span aria-hidden="true" className="text-[11px] font-extrabold tracking-[.2em] text-brand-red">{number}</span>
-                <span className="mt-auto block pt-12 text-[clamp(24px,2.3vw,34px)] font-semibold leading-[1.08] tracking-[-.035em] max-[640px]:pt-9">{title}</span>
+                <span className="block text-[clamp(24px,2.3vw,34px)] font-semibold leading-[1.08] tracking-[-.035em]">{title}</span>
                 <span className="mt-3 block max-w-[400px] pr-12 text-sm leading-[1.6] text-[#626e74]">{copy}</span>
                 <ArrowIcon direction={route ? 'up-right' : 'down-right'} className="absolute bottom-8 right-9 text-xl text-brand-red transition-transform duration-300 ease-complex group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-focus-visible:translate-x-[3px] group-focus-visible:-translate-y-[3px] max-[1000px]:bottom-7 max-[1000px]:right-7 max-[640px]:bottom-6 max-[640px]:right-6" />
               </>;
-              return <li key={number}>{route ? <Link href={href} className={classes}>{content}</Link> : <a href={href} className={classes}>{content}</a>}</li>;
+              return <li key={title}>{route ? <Link href={href} className={classes}>{content}</Link> : <a href={href} className={classes}>{content}</a>}</li>;
             })}
           </ul>
         </nav>
@@ -135,7 +130,7 @@ export default function AdditionalServicesPage() {
       <Container className="grid grid-cols-[1.05fr_.95fr] items-stretch gap-[96px] max-[1180px]:gap-[56px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[44px]">
         <FeatureImage src="/additional-services-assessments.jpg" alt="A driver’s hands on the steering wheel" position="55% 45%" />
         <div className="flex flex-col justify-center">
-          <FeatureHeading number="01" label="Onsite Driver Assessments">Understand how<br /><em>your drivers perform.</em></FeatureHeading>
+          <FeatureHeading label="Onsite Driver Assessments">Understand how<br /><em>your drivers perform.</em></FeatureHeading>
           <p className={`${body} my-7`}>Practical, theory-led and load-security assessments give employers useful insight into driver capability, safety and development needs. Findings come back as clear feedback and recommendations, with follow-up support where it helps.</p>
           <PointList items={assessmentPoints} />
           <div className="mt-9"><ButtonLink href="/training/driver-assessments" variant="dark">Explore Driver Assessments</ButtonLink></div>
@@ -147,7 +142,7 @@ export default function AdditionalServicesPage() {
     <section id="driver-training" className={`${featureSection} bg-white`}>
       <Container className="grid grid-cols-[.95fr_1.05fr] items-stretch gap-[96px] max-[1180px]:gap-[56px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[44px]">
         <div className="flex flex-col justify-center max-[1000px]:order-2">
-          <FeatureHeading number="02" label="Driver Training & CPC">Training grounded<br /><em>in the job.</em></FeatureHeading>
+          <FeatureHeading label="Driver Training & CPC">Training grounded<br /><em>in the job.</em></FeatureHeading>
           <p className={`${body} my-7`}>Driver CPC training designed around the practical realities of professional transport, delivered in partnership with AVTAV Ltd, a member of the RTITB consortium.</p>
           <PointList items={cpcPoints} />
           <div className="mt-9"><ButtonLink href="/training/cpc" variant="dark">Explore CPC Training</ButtonLink></div>
@@ -160,18 +155,17 @@ export default function AdditionalServicesPage() {
     <section id="client-analysis" className={`${featureSection} bg-surface`}>
       <Container className="grid grid-cols-[1.05fr_.95fr] items-start gap-[96px] max-[1180px]:gap-[56px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[44px]">
         <div>
-          <span aria-hidden="true" className={numeral}>03</span>
           <span className={eyebrow}>Client Analysis</span>
-          <h2 className="section-heading m-0 mt-8 text-[clamp(44px,4.8vw,78px)] leading-[.95] tracking-[-.055em] [&_em]:not-italic [&_em]:text-brand-red">Recruitment shaped<br /><em>around your operation.</em></h2>
+          <h2 className="section-heading m-0 mt-7 text-[clamp(44px,4.8vw,78px)] leading-[.95] tracking-[-.055em] [&_em]:not-italic [&_em]:text-brand-red">Recruitment shaped<br /><em>around your operation.</em></h2>
         </div>
         <div className="min-[1001px]:pt-[7px]">
           <p className={`${body} mb-5`}>Good recruitment starts with understanding the business. Complex looks at what your operation actually needs, so the people supplied fit the work as well as the job title.</p>
           <p className={`${body} mb-9`}>On ongoing assignments, regular management information and performance reviews give you a clearer view of how the workforce is performing and where your requirements may be changing.</p>
           <span className="text-[10px] font-extrabold uppercase tracking-[.2em] text-[#5f686e]">What we look at</span>
           <div className="mt-4 border-t border-line">
-            {analysisPoints.map((item, index) => (
-              <div key={item} className="grid grid-cols-[44px_1fr] items-baseline border-b border-line py-4">
-                <span aria-hidden="true" className="text-[10px] font-extrabold tracking-[.12em] text-brand-red">{String(index + 1).padStart(2, '0')}</span>
+            {analysisPoints.map(item => (
+              <div key={item} className="flex items-start gap-3 border-b border-line py-4">
+                <span aria-hidden="true" className="mt-[9px] h-0.5 w-3.5 shrink-0 bg-brand-red" />
                 <span className="text-sm font-semibold leading-[1.5]">{item}</span>
               </div>
             ))}
@@ -185,18 +179,17 @@ export default function AdditionalServicesPage() {
     <section id="infringement-management" className={`${featureSection} bg-ink text-white`}>
       <Container className="grid grid-cols-[.9fr_1.1fr] items-start gap-[96px] max-[1180px]:gap-[56px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[44px]">
         <div>
-          <span aria-hidden="true" className="block text-[clamp(120px,15vw,232px)] font-semibold leading-[.8] tracking-[-.08em] text-brand-red">04</span>
-          <span className="mt-8 block text-[10px] font-extrabold uppercase tracking-[.2em] text-white/60">Infringement Management</span>
-          <h2 className="section-heading m-0 mt-6 text-[clamp(38px,3.6vw,60px)] leading-[.98] tracking-[-.05em] text-white [&_em]:not-italic [&_em]:text-brand-red">Keep the practical<br /><em>side under control.</em></h2>
+          <span className={`${eyebrowBase} text-white/60`}>Infringement Management</span>
+          <h2 className="section-heading m-0 mt-7 text-[clamp(48px,5.6vw,92px)] leading-[.93] tracking-[-.06em] text-white [&_em]:not-italic [&_em]:text-brand-red">Keep the practical<br /><em>side under control.</em></h2>
         </div>
         <div className="min-[1001px]:pt-[7px]">
           <p className="mb-5 mt-0 max-w-[560px] text-[15px] leading-[1.72] text-white/70">Infringements affect drivers, operators and the businesses that depend on them. Complex helps clients stay on top of the practical requirements, from licence and entitlement to drivers’ hours and tachograph documentation.</p>
           <p className="mb-9 mt-0 max-w-[560px] text-[15px] leading-[1.72] text-white/70">Where there is a pattern to address, Driver Assessments and CPC training are there to support better driver habits.</p>
           <span className="text-[10px] font-extrabold uppercase tracking-[.2em] text-white/60">Where Complex can help</span>
           <div className="mt-4 border-t border-white/15">
-            {infringementPoints.map(([title, copy], index) => (
-              <div key={title} className="grid grid-cols-[44px_1fr] items-baseline border-b border-white/15 py-4">
-                <span aria-hidden="true" className="text-[10px] font-extrabold tracking-[.12em] text-brand-red">{String(index + 1).padStart(2, '0')}</span>
+            {infringementPoints.map(([title, copy]) => (
+              <div key={title} className="flex items-start gap-3 border-b border-white/15 py-4">
+                <span aria-hidden="true" className="mt-[9px] h-0.5 w-3.5 shrink-0 bg-brand-red" />
                 <div>
                   <strong className="block text-sm font-semibold">{title}</strong>
                   <span className="mt-1 block text-[13px] leading-[1.55] text-white/60">{copy}</span>
