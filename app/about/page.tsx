@@ -55,12 +55,11 @@ export default function AboutPage() {
           </div>
         </Container>
         <div className="overflow-x-auto bg-white/85 text-ink backdrop-blur-lg">
-          <Container className="grid h-24 grid-cols-4 border-l border-line max-[640px]:h-[78px] max-[640px]:w-[650px]">
+          <Container className="grid h-24 grid-cols-3 border-l border-line max-[640px]:h-[78px] max-[640px]:w-[570px]">
             {[
-              "Edmonton office",
-              "Park Royal office",
-              "London",
-              "Nationwide reach",
+              "West London",
+              "Northwest London",
+              "North London",
             ].map((x) => (
               <b
                 className="flex items-center border-r border-line px-5 text-[11px]"
@@ -92,8 +91,9 @@ export default function AboutPage() {
               requirements.
             </p>
             <p>
-              With teams in Edmonton and Park Royal, Complex supports clients
-              and candidates across London and nationwide. Its relationship with
+              With offices in North London and West London, Complex supports
+              clients and candidates across West London, Northwest London and
+              North London. Its relationship with
               AVTAV adds wider group knowledge and support while Complex retains
               its own specialist recruitment focus.
             </p>
@@ -107,7 +107,7 @@ export default function AboutPage() {
             ["05", "Specialist sectors"],
             ["24/7", "Operational support"],
             ["40+", "Years combined senior-management experience"],
-            ["05", "Core coverage areas"],
+            ["03", "Core coverage areas"],
           ].map(([n, t]) => (
             <article
               className="flex min-h-[250px] flex-col justify-between border-b border-r border-line p-7 max-[640px]:min-h-[190px]"

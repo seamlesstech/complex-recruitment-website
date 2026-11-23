@@ -2,8 +2,8 @@
  * Company and contact details shared across the site chrome.
  *
  * Company number and registered office are confirmed against Companies House
- * and the live Modern Slavery Statement. app/contact/page.tsx still lists
- * Unit 2 as the Head Office address — that is a separate, unchanged page.
+ * and the live Modern Slavery Statement. The registered office is also the
+ * North London office listed on the Contact page.
  */
 export const SITE = {
   brandName: 'Complex Recruitment',
