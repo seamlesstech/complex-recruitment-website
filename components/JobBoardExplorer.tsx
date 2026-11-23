@@ -118,7 +118,7 @@ const inputBase =
 const inputClass = `${inputBase} border-white/30`;
 const labelClass = "text-xs font-semibold text-[#c3cacf]";
 // Outlined secondary action used by the empty states and the work-type chips.
-const emptyPanel = "border-b border-white/20 px-1 py-12 max-[640px]:py-9";
+const emptyPanel = "border-b border-white/20 bg-white/[.03] px-8 py-12 max-[640px]:px-5 max-[640px]:py-9";
 const emptyRule = "mb-6 block h-0.5 w-9 bg-brand-red";
 const emptyHeading =
   "m-0 mb-3 text-[clamp(24px,2.4vw,32px)] font-semibold leading-[1.1] tracking-[-.03em] text-white";
