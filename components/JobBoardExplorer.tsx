@@ -282,7 +282,10 @@ export function JobBoardExplorer({
                 </span>
               </summary>
 
-              <div className="absolute inset-x-0 top-full z-20 mt-1 border border-white/30 bg-ink-soft p-3 text-white shadow-lg [color-scheme:dark]">
+              {/* Pressing inside the popover must not move focus off the <summary>: a label is not
+                  focusable, so the blur would report no related target and the onBlur above would
+                  close the list on mousedown, before the click that toggles the checkbox. */}
+              <div onMouseDown={(event) => event.preventDefault()} className="absolute inset-x-0 top-full z-20 mt-1 border border-white/30 bg-ink-soft p-3 text-white shadow-lg [color-scheme:dark]">
                 <fieldset className="m-0 min-w-0 border-0 p-0">
                   <legend className="sr-only">Select sectors</legend>
 
