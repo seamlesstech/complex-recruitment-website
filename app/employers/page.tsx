@@ -61,7 +61,7 @@ export default function EmployersPage() {
         id="top"
         className="relative isolate grid grid-rows-[92px_clamp(400px,40vh,480px)_106px] overflow-hidden bg-brand-grey text-white max-[900px]:grid-rows-[92px_auto_auto] max-[760px]:grid-rows-[76px_auto_auto]"
       >
-        <div className="absolute inset-y-0 right-0 -z-[2] w-[54%] [mask-image:linear-gradient(90deg,transparent_0%,rgba(0,0,0,.35)_18%,black_48%)] bg-[url('https://images.pexels.com/photos/4481259/pexels-photo-4481259.jpeg?auto=compress&cs=tinysrgb&w=1800')] bg-cover bg-center grayscale-[.55] max-[900px]:w-full max-[900px]:opacity-40" />
+        <div className="absolute inset-y-0 right-0 -z-[2] w-[54%] [mask-image:linear-gradient(90deg,transparent_0%,rgba(0,0,0,.35)_18%,black_48%)] bg-[url('/stock/warehouse-aerial-pallet-picker.jpg')] bg-cover bg-center grayscale-[.55] max-[900px]:w-full max-[900px]:opacity-40" />
         <div className="absolute inset-0 -z-[1] bg-[linear-gradient(90deg,rgba(121,127,132,.98)_0%,rgba(121,127,132,.94)_43%,rgba(121,127,132,.18)_74%,rgba(17,18,20,.25))]" />
         <Header active="Employers" theme="dark" />
         <Container
@@ -355,7 +355,7 @@ export default function EmployersPage() {
         </Container>
       </section>
       <section className="grid grid-cols-2 bg-brand-grey text-white max-[900px]:grid-cols-1">
-        <div className="min-h-[650px] bg-[url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1800')] bg-cover bg-center grayscale-[.3] max-[760px]:min-h-[390px]" />
+        <div className="min-h-[650px] bg-[url('/stock/team-hands-together.jpg')] bg-cover bg-center grayscale-[.3] max-[760px]:min-h-[390px]" />
         <div className="px-20 py-[110px] max-[760px]:px-6 max-[760px]:py-[70px]">
           <SectionLabel>ACCOUNT SUPPORT</SectionLabel>
           <h2 className={`${heading} mt-[38px]`}>

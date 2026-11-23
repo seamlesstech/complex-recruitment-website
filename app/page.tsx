@@ -386,7 +386,7 @@ export default async function Home() {
       </section>
 
       <section className="grid min-h-[720px] grid-cols-2 bg-ink text-white max-[900px]:grid-cols-1">
-        <div className="min-h-[420px] bg-[linear-gradient(rgba(16,24,32,.15),rgba(16,24,32,.4)),url('https://images.pexels.com/photos/6169178/pexels-photo-6169178.jpeg?auto=compress&cs=tinysrgb&w=1800')] bg-cover bg-center" />
+        <div className="min-h-[420px] bg-[linear-gradient(rgba(16,24,32,.15),rgba(16,24,32,.4)),url('/stock/delivery-van-loading-trolley.jpg')] bg-cover bg-center" />
         <div className="py-[110px] pl-20 pr-[max(70px,calc((100vw-1400px)/2))] max-[640px]:px-6 max-[640px]:py-[88px]">
           <SectionLabel>FOR CANDIDATES</SectionLabel>
           <h2 className={`${heading} my-[34px]`}>

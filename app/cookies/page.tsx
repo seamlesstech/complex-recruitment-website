@@ -1,19 +1,19 @@
 import type { Metadata } from 'next';
-import { LegalList, LegalPage, LegalParagraph, legalLinkClass, type LegalSection } from '../../components/legal/LegalPage';
+import { LegalPage, LegalParagraph, legalLinkClass, type LegalSection } from '../../components/legal/LegalPage';
 import { SITE } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'Cookie Policy | Complex Recruitment',
-  description: 'What the Complex Recruitment website stores in your browser, and which third-party services load on its pages.',
+  description: 'What the Complex Recruitment website stores in your browser, and the security service that loads on its form pages.',
   openGraph: {
     title: 'Cookie Policy | Complex Recruitment',
-    description: 'What the Complex Recruitment website stores in your browser, and which third-party services load on its pages.',
+    description: 'What the Complex Recruitment website stores in your browser, and the security service that loads on its form pages.',
   },
 };
 
 // Based on an audit of this website's code and of its pages in a browser. If
-// analytics, marketing tools or new third-party services are added, or the
-// Pexels-hosted images are moved onto this site, this page must be updated.
+// analytics, marketing tools, embedded media or any other third-party service
+// are added, this page must be updated.
 const sections: readonly LegalSection[] = [
   {
     title: 'What cookies are',
@@ -24,18 +24,14 @@ const sections: readonly LegalSection[] = [
   {
     title: 'Cookies set by this website',
     body: [
-      'This website does not set any cookies of its own, and does not use your browser’s local or session storage. There are no sign-in or preference cookies, because the website has no accounts or saved preferences.',
+      'This website does not set any cookies of its own, and does not use your browser’s local or session storage. It has no accounts or saved preferences. Its images, video and fonts are served from our own domain.',
     ],
   },
   {
-    title: 'Third-party services on our pages',
+    title: 'Security check on forms',
     body: [
-      'Two third-party services load content on our pages. We do not control the cookies they use.',
-      <LegalList key="third-party" items={[
-        <span key="turnstile"><strong className="font-semibold text-ink">Cloudflare Turnstile</strong> is a security check that runs on pages with a form, such as Contact, Request Staff, Register Interest, job applications and the sector enquiry forms. It helps us to tell people from automated spam. It loads from Cloudflare’s servers and may use cookies or similar technologies on Cloudflare’s own domain.</span>,
-        <span key="pexels"><strong className="font-semibold text-ink">Pexels images.</strong> Some images on our pages are loaded from images.pexels.com, which uses Cloudflare to deliver them. When your browser requests these images, the response sets two cookies named <code className="text-[13px]">__cf_bm</code> and <code className="text-[13px]">_cfuvid</code>.</span>,
-      ]} />,
-      'Cloudflare explains how it uses these technologies in its own privacy and cookie documentation.',
+      'Pages with a form load Cloudflare Turnstile, a security check that helps us tell people from automated spam and protects our forms from misuse. It loads from Cloudflare’s servers (challenges.cloudflare.com) and runs in your browser. It is the only third-party service that loads on this website.',
+      'We do not control the cookies or similar technologies that Cloudflare may use on its own domain as part of this check. Cloudflare explains how it uses them in its own documentation.',
     ],
   },
   {
@@ -66,7 +62,7 @@ export default function CookiesPage() {
     <LegalPage
       kicker="COOKIE POLICY"
       title="Cookie Policy"
-      intro="What this website stores in your browser, and which third-party services load on its pages."
+      intro="What this website stores in your browser, and the security service that loads on its form pages."
       meta="LAST UPDATED · 23 NOVEMBER 2026"
       sections={sections}
     />

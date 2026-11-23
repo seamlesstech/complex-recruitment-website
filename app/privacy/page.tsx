@@ -18,7 +18,16 @@ const sections: readonly LegalSection[] = [
   {
     title: 'Who we are',
     body: [
-      `This website is operated by ${SITE.legalName}, a company registered in ${SITE.jurisdiction} (company number ${SITE.companyNumber}). Our registered office is Unit 1, Georgiou Business Park, Second Avenue, London, N18 2PG.`,
+      `${SITE.legalName} is responsible for this website and for the personal information collected through it. We are registered in ${SITE.jurisdiction} under company number ${SITE.companyNumber}.`,
+      <address key="office" className="m-0 mb-4 max-w-[68ch] border-l-[3px] border-brand-red pl-5 text-[15px] not-italic leading-[1.8] text-[#4f5a60]">
+        Complex Recruitment Ltd<br />
+        Company No. 10980984<br />
+        Registered office:<br />
+        Unit 1, Georgiou Business Park<br />
+        Second Avenue<br />
+        London<br />
+        N18 2PG
+      </address>,
       'This policy explains what personal information we collect through this website, why we collect it and what we do with it.',
     ],
   },
@@ -52,7 +61,7 @@ const sections: readonly LegalSection[] = [
     ],
   },
   {
-    title: 'Who we share it with',
+    title: 'Service providers',
     body: [
       'We use the following service providers to run this website and the systems behind it. They handle information on our behalf in order to provide their service.',
       <LegalList key="providers" items={[
@@ -98,6 +107,15 @@ const sections: readonly LegalSection[] = [
         <span key="p">Phone: <a className={legalLinkClass} href={`tel:${SITE.phone.tel}`}>{SITE.phone.display}</a></span>,
         'Post: Complex Recruitment Ltd, Unit 1, Georgiou Business Park, Second Avenue, London, N18 2PG',
       ]} />,
+    ],
+  },
+  {
+    title: 'Complaints',
+    body: [
+      'If you have a concern about how we have handled your personal information, please contact us using the details above so that we can look into it.',
+      <LegalParagraph key="ico">
+        You also have the right to complain to the Information Commissioner’s Office (ICO), the UK’s supervisory authority for data protection. You can find out how to do this at <a className={legalLinkClass} href="https://ico.org.uk" rel="noopener noreferrer">ico.org.uk</a>.
+      </LegalParagraph>,
     ],
   },
 ];

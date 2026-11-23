@@ -123,7 +123,7 @@ export default function AboutPage() {
       </section>
 
       <section className="grid grid-cols-2 bg-white max-[1000px]:grid-cols-1">
-        <div className="min-h-[650px] bg-[linear-gradient(rgba(17,18,20,.05),rgba(17,18,20,.16)),url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1800')] bg-cover bg-center grayscale-[.25] max-[1000px]:min-h-[430px]" />
+        <div className="min-h-[650px] bg-[linear-gradient(rgba(17,18,20,.05),rgba(17,18,20,.16)),url('/stock/team-hands-together.jpg')] bg-cover bg-center grayscale-[.25] max-[1000px]:min-h-[430px]" />
         <div className="py-[110px] pl-20 pr-[max(60px,calc((100vw-1400px)/2))] max-[640px]:px-6 max-[640px]:py-[68px]">
           <SectionLabel>PEOPLE AT THE HEART</SectionLabel>
           <h2 className={`${heading} mt-[38px]`}>

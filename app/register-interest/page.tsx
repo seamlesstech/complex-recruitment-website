@@ -35,7 +35,7 @@ export default function RegisterInterestPage() {
         </Container>
       </section>
 
-      <div className="min-h-[300px] bg-[linear-gradient(90deg,rgba(17,18,20,.42),rgba(17,18,20,.08)),url('https://images.pexels.com/photos/6169056/pexels-photo-6169056.jpeg?auto=compress&cs=tinysrgb&w=2200')] bg-cover bg-[center_48%] grayscale-[.25] max-[760px]:min-h-60" aria-hidden="true" />
+      <div className="min-h-[300px] bg-[linear-gradient(90deg,rgba(17,18,20,.42),rgba(17,18,20,.08)),url('/stock/van-loading-parcels.jpg')] bg-cover bg-[center_48%] grayscale-[.25] max-[760px]:min-h-60" aria-hidden="true" />
 
       <section className="bg-white py-[120px] max-[760px]:py-[88px]">
         <Container className="grid grid-cols-[1fr_.7fr] items-end gap-[100px] max-[1100px]:grid-cols-[1fr_.8fr] max-[1100px]:gap-[60px] max-[760px]:block">

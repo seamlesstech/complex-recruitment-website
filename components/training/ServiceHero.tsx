@@ -17,8 +17,8 @@ type ServiceHeroProps = {
 };
 
 const images = {
-  assessment: "url('https://images.pexels.com/photos/4489734/pexels-photo-4489734.jpeg?auto=compress&cs=tinysrgb&w=2200')",
-  cpc: "url('https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=2200')",
+  assessment: "url('/stock/alloy-wheel-close-up.jpg')",
+  cpc: "url('/stock/hgv-trucks-on-open-road.jpg')",
 };
 
 export function ServiceHero({ kind, eyebrow, title, intro, actionHref, actionLabel, badgeLabel, badgeValue, badgeCopy, railItems }: ServiceHeroProps) {

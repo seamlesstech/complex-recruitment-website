@@ -38,7 +38,7 @@ const slides = [
     id: "industrial",
     tab: "Industrial",
     tabAriaLabel: undefined,
-    //src: "https://images.pexels.com/photos/6169178/pexels-photo-6169178.jpeg?auto=compress&cs=tinysrgb&w=2000",
+    //src: "/stock/delivery-van-loading-trolley.jpg",
     src: "/home-industrial-hero.jpg",
     position: "bg-center",
     eyebrow: "INDUSTRIAL & WAREHOUSING",
@@ -53,7 +53,7 @@ const slides = [
     tab: "Construction",
     tabAriaLabel: undefined,
     src: "/home-construction-hero.jpg",
-    // src: "https://images.pexels.com/photos/8138734/pexels-photo-8138734.jpeg?auto=compress&cs=tinysrgb&w=2000",
+    // src: "/stock/construction-site-scaffold-crane.jpg",
     position: "bg-center",
     eyebrow: "CONSTRUCTION & ENGINEERING",
     titleTop: "Skilled people.",
@@ -126,7 +126,7 @@ export function Hero() {
           muted
           playsInline
           preload="metadata"
-          poster="https://images.pexels.com/videos/3254006/free-video-3254006.jpg?auto=compress&dpr=1&h=750&w=1260"
+          poster="/stock/home-hero-poster.jpg"
         />
         {slides.slice(1).map((item, i) => (
           <div
