@@ -5,7 +5,7 @@ import { Container } from "./layout/Container";
 import { ButtonLink } from "./ui/ButtonLink";
 import { TextLink } from "./ui/TextLink";
 
-// First slide is the general Complex media (shown as the white logo mark in the tab strip); the rest are the five recruitment sectors. Eyebrows use the full canonical sector names; `tab` is the compact tab label.
+// First slide is the general Complex media (shown as the white logo mark in the tab strip); the rest are sector slides (the strip deliberately shows five of the six sectors for now; Drinks Logistics is not in it). Eyebrows use the full canonical sector names; `tab` is the compact tab label.
 const slides = [
   {
     id: "general",
@@ -19,7 +19,7 @@ const slides = [
     titleBase: "or",
     titleAccent: "work?",
     intro:
-      "Reliable temporary and permanent staffing across Driving & Transport, Industrial & Warehousing, Construction & Engineering, Business & Operational Support and Waste Management.",
+      "Reliable temporary and permanent staffing across six specialist operational sectors, from driving and warehousing to waste management and drinks logistics.",
   },
   {
     id: "driving",

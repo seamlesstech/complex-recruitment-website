@@ -41,11 +41,14 @@ export default async function DrivingPage() {
   const drivingJobs = jobsForSector(jobs, 'driving');
   return (
     <main className="bg-white text-ink">
-      <section className="relative isolate overflow-hidden bg-ink text-white">
+      <section className="relative isolate bg-ink text-white">
+        {/* Only the photo layers are clipped, so the open mobile menu can extend below the hero. */}
+        <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
         <div aria-hidden="true" className="absolute -inset-[2%] -z-[4] scale-[1.03] bg-cover bg-no-repeat grayscale-[.55] motion-reduce:animate-none" style={{ backgroundImage: "url('https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=2200')", backgroundPosition: 'center 58%', animation: 'drivingHeroTruckSwap 12s infinite' }} />
         <div aria-hidden="true" className="absolute -inset-[2%] -z-[4] scale-[1.035] bg-cover bg-no-repeat opacity-0 grayscale-[.55] motion-reduce:hidden" style={{ backgroundImage: "url('/driving-hero-driver-flipped.jpg')", backgroundPosition: 'center center', animation: 'drivingHeroDriverSwap 12s infinite' }} />
         <div aria-hidden="true" className="absolute inset-0 -z-[3] bg-brand-grey/30 mix-blend-color" />
         <div aria-hidden="true" className="absolute inset-0 -z-[2] bg-[linear-gradient(90deg,rgba(8,9,10,.9),rgba(8,9,10,.76)_42%,rgba(8,9,10,.2)_72%,rgba(8,9,10,.4)),linear-gradient(180deg,rgba(8,9,10,.16),rgba(8,9,10,.08)_55%,rgba(8,9,10,.58))]" />
+        </div>
         <Header active="Sectors" theme="dark" />
         <Container className="py-[64px] max-[760px]:py-10">
           <nav aria-label="Breadcrumb" className="mb-6 text-[11px] leading-relaxed text-white/75"><ol className="flex flex-wrap items-center gap-x-3 gap-y-1"><li><Link href="/" className="outline-none hover:text-white focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-ink">Home</Link></li><li aria-hidden="true" className="text-white/40">/</li><li><a href="/sectors" className="outline-none hover:text-white focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-ink">Sectors</a></li><li aria-hidden="true" className="text-white/40">/</li><li aria-current="page">Driving &amp; Transport</li></ol></nav>
