@@ -33,11 +33,11 @@ export const metadata = pageMetadata('About Us | Complex Recruitment', "Complex 
 export default function AboutPage() {
   return (
     <main>
-      <section className="relative isolate grid h-svh min-h-[760px] grid-rows-[92px_minmax(0,1fr)_96px] overflow-hidden bg-ink text-white max-[640px]:h-auto max-[640px]:min-h-0 max-[640px]:grid-rows-[76px_auto_auto]">
+      <section className="relative isolate grid h-svh min-h-[760px] grid-rows-[92px_minmax(0,1fr)] overflow-hidden bg-ink text-white max-[640px]:h-auto max-[640px]:min-h-0 max-[640px]:grid-rows-[76px_auto]">
         <Header active="About" theme="dark" />
         <div className="absolute -inset-[2%] -z-40 scale-[1.025] bg-[url('/about-hero-driver.jpg')] bg-cover bg-center grayscale-[.45]" />
         <div className="absolute inset-0 -z-30 bg-[linear-gradient(90deg,rgba(8,9,10,.92),rgba(8,9,10,.72)_43%,rgba(8,9,10,.24)_74%,rgba(8,9,10,.45))]" />
-        <Container className="grid grid-cols-[1fr_.55fr] items-end gap-[90px] py-[70px] pb-[54px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[46px] max-[640px]:py-[72px] max-[640px]:pb-[60px]">
+        <Container className="grid grid-cols-[1fr_.55fr] items-end gap-[90px] py-[70px] pb-[88px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[46px] max-[640px]:py-[72px] max-[640px]:pb-[72px]">
           <div>
             <HeroEyebrow detail="PEOPLE & OPERATIONS">
               ABOUT COMPLEX
@@ -57,22 +57,6 @@ export default function AboutPage() {
             <ButtonLink href="/contact">Talk to Complex</ButtonLink>
           </div>
         </Container>
-        <div className="overflow-x-auto bg-white/85 text-ink backdrop-blur-lg">
-          <Container className="grid h-24 grid-cols-3 border-l border-line max-[640px]:h-[78px] max-[640px]:w-[570px]">
-            {[
-              "West London",
-              "Northwest London",
-              "North London",
-            ].map((x) => (
-              <b
-                className="flex items-center border-r border-line px-5 text-[11px]"
-                key={x}
-              >
-                {x}
-              </b>
-            ))}
-          </Container>
-        </div>
       </section>
 
       <section className="bg-white py-[126px] max-[640px]:py-[88px]">
