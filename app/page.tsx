@@ -506,7 +506,7 @@ export default async function Home() {
       </section>
 
       <section id="request-staff">
-        <div className="bg-surface pb-[65px] pt-[120px] max-[640px]:pt-[90px]">
+        <div className="border-t border-line bg-surface pb-[65px] pt-[120px] max-[640px]:pt-[90px]">
           <Container gutter="wide">
             <SectionLabel>NEXT STEP</SectionLabel>
             <h2 className={`${heading} mt-[34px]`}>
