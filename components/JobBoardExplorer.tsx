@@ -110,8 +110,21 @@ import { ButtonLink } from "./ui/ButtonLink";
 const sectors = FILTERABLE_SECTORS.map((sector) => sector.label);
 const workTypes = EMPLOYMENT_TYPES;
 
-const inputClass =
-  "min-h-12 w-full min-w-0 border border-line bg-white px-3 text-sm text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand-red";
+// The board sits on the dark COMPLEX surface (`bg-ink`, set by the Jobs page), so every
+// control is styled for it: translucent-white fields with a fine light border, white text,
+// and a white border plus red ring on focus.
+const inputBase =
+  "min-h-12 w-full min-w-0 border bg-white/[.06] px-3 text-sm text-white outline-none [color-scheme:dark] placeholder:text-white/55 focus-visible:border-white focus-visible:ring-2 focus-visible:ring-brand-red";
+const inputClass = `${inputBase} border-white/30`;
+const labelClass = "text-xs font-semibold text-[#c3cacf]";
+// Outlined secondary action used by the empty states and the work-type chips.
+const emptyPanel = "border-b border-white/20 px-1 py-12 max-[640px]:py-9";
+const emptyRule = "mb-6 block h-0.5 w-9 bg-brand-red";
+const emptyHeading =
+  "m-0 mb-3 text-[clamp(24px,2.4vw,32px)] font-semibold leading-[1.1] tracking-[-.03em] text-white";
+const emptyCopy = "mb-7 mt-0 max-w-[560px] text-[15px] leading-[1.65] text-[#c3cacf]";
+const outlineAction =
+  "inline-flex min-h-12 cursor-pointer items-center border border-white/40 px-5 text-sm font-semibold text-white outline-none transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-ink";
 
 export function JobBoardExplorer({
   jobs,
@@ -207,7 +220,7 @@ export function JobBoardExplorer({
       >
         {/* Primary search controls */}
         <div className="grid grid-cols-3 gap-4 max-[760px]:grid-cols-1">
-          <label className="flex min-w-0 flex-col gap-2 text-xs font-semibold">
+          <label className={`flex min-w-0 flex-col gap-2 ${labelClass}`}>
             Keyword / job title
             <input
               name="job-keyword"
@@ -218,7 +231,7 @@ export function JobBoardExplorer({
             />
           </label>
 
-          <label className="flex min-w-0 flex-col gap-2 text-xs font-semibold">
+          <label className={`flex min-w-0 flex-col gap-2 ${labelClass}`}>
             Location
             <input
               name="job-location"
@@ -230,7 +243,7 @@ export function JobBoardExplorer({
           </label>
 
           <div className="flex min-w-0 flex-col gap-2">
-            <span id="job-sector-label" className="text-xs font-semibold">
+            <span id="job-sector-label" className={labelClass}>
               Sector
             </span>
 
@@ -250,7 +263,11 @@ export function JobBoardExplorer({
             >
               <summary
                 aria-labelledby="job-sector-label job-sector-selection"
-                className={`${inputClass} flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden`}
+                className={`${inputBase} flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden ${
+                  selectedSectors.length > 0
+                    ? "border-white border-l-[3px] border-l-brand-red font-semibold"
+                    : "border-white/30"
+                }`}
               >
                 <span id="job-sector-selection" className="truncate">
                   {selectedSectors.length === 0
@@ -260,19 +277,23 @@ export function JobBoardExplorer({
                       : `${selectedSectors.length} sectors selected`}
                 </span>
 
-                <span aria-hidden="true" className="shrink-0 text-muted">
+                <span aria-hidden="true" className="shrink-0 text-white/70">
                   ⌄
                 </span>
               </summary>
 
-              <div className="absolute inset-x-0 top-full z-20 mt-1 border border-line bg-white p-3 shadow-lg">
+              <div className="absolute inset-x-0 top-full z-20 mt-1 border border-white/30 bg-ink-soft p-3 text-white shadow-lg [color-scheme:dark]">
                 <fieldset className="m-0 min-w-0 border-0 p-0">
                   <legend className="sr-only">Select sectors</legend>
 
                   {sectors.map((item) => (
                     <label
                       key={item}
-                      className="flex min-h-12 cursor-pointer items-center gap-3 px-2 py-2 text-sm leading-[1.4] hover:bg-surface focus-within:bg-surface"
+                      className={`flex min-h-12 cursor-pointer items-center gap-3 px-2 py-2 text-sm leading-[1.4] hover:bg-white/10 focus-within:bg-white/10 ${
+                        selectedSectors.includes(item)
+                          ? "bg-white/[.08] font-semibold"
+                          : ""
+                      }`}
                     >
                       <input
                         type="checkbox"
@@ -298,7 +319,7 @@ export function JobBoardExplorer({
                   <button
                     type="button"
                     onClick={() => setSelectedSectors([])}
-                    className="mt-2 min-h-11 px-2 text-xs underline outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
+                    className="mt-2 min-h-11 px-2 text-xs text-white/80 underline outline-none hover:text-white focus-visible:ring-2 focus-visible:ring-brand-red"
                   >
                     Clear sectors
                   </button>
@@ -311,17 +332,17 @@ export function JobBoardExplorer({
         {/* Secondary work-type filters */}
         <div className="mt-5 flex items-end justify-between gap-5 max-[760px]:flex-col max-[760px]:items-stretch">
           <fieldset className="m-0 min-w-0 border-0 p-0">
-            <legend className="mb-3 text-xs font-semibold">Work type:</legend>
+            <legend className={`mb-3 ${labelClass}`}>Work type:</legend>
 
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
                 aria-pressed={selectedWorkTypes.length === 0}
                 onClick={() => setSelectedWorkTypes([])}
-                className={`min-h-11 cursor-pointer rounded-sm border px-4 py-2 text-xs font-semibold outline-none transition-colors focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 ${
+                className={`min-h-11 cursor-pointer rounded-sm border px-4 py-2 text-xs font-semibold outline-none transition-colors focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-ink ${
                   selectedWorkTypes.length === 0
-                    ? "border-ink bg-ink text-white"
-                    : "border-line bg-white text-ink hover:bg-surface"
+                    ? "border-white bg-white text-ink"
+                    : "border-white/30 text-white hover:bg-white/10"
                 }`}
               >
                 All
@@ -342,10 +363,10 @@ export function JobBoardExplorer({
                           : [...current, item],
                       )
                     }
-                    className={`min-h-11 cursor-pointer rounded-sm border px-4 py-2 text-xs font-semibold outline-none transition-colors focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 ${
+                    className={`min-h-11 cursor-pointer rounded-sm border px-4 py-2 text-xs font-semibold outline-none transition-colors focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-2 focus-visible:ring-offset-ink ${
                       selected
-                        ? "border-ink bg-ink text-white"
-                        : "border-line bg-white text-ink hover:bg-surface"
+                        ? "border-white bg-white text-ink"
+                        : "border-white/30 text-white hover:bg-white/10"
                     }`}
                   >
                     {EMPLOYMENT_TYPE_LABELS[item]}
@@ -358,7 +379,7 @@ export function JobBoardExplorer({
           <button
             type="button"
             onClick={clearFilters}
-            className="min-h-11 shrink-0 cursor-pointer self-end text-sm underline outline-none focus-visible:ring-2 focus-visible:ring-brand-red max-[760px]:self-start"
+            className="min-h-11 shrink-0 cursor-pointer self-end text-sm text-white/80 underline outline-none hover:text-white focus-visible:ring-2 focus-visible:ring-brand-red max-[760px]:self-start"
           >
             Clear filters
           </button>
@@ -366,32 +387,42 @@ export function JobBoardExplorer({
       </form>
 
       {/* Results heading */}
-      <div className="mt-9 flex items-center justify-between gap-4 border-t border-line pt-6">
-        <h2 className="m-0 text-[10px] font-extrabold tracking-[.16em]">
+      <div className="mt-9 flex items-center justify-between gap-4 border-t border-white/20 pt-6">
+        <h2 className="m-0 text-[10px] font-extrabold tracking-[.16em] text-white">
           JOB LISTINGS
+          {selectedSectors.length > 0 && (
+            <span className="ml-2">
+              <span className="sr-only">, filtered by </span>
+              <span aria-hidden="true" className="text-brand-red">
+                /{" "}
+              </span>
+              {sectorName
+                ? sectorName.toUpperCase()
+                : `${selectedSectors.length} SECTORS`}
+            </span>
+          )}
         </h2>
 
-        <span aria-live="polite" className="text-xs text-muted">
+        <span aria-live="polite" className="text-xs text-[#c3cacf]">
           {filtered.length} {filtered.length === 1 ? "vacancy" : "vacancies"}
         </span>
       </div>
 
       {/* Job results */}
-      <div className="mt-6 border-t border-line" role="list">
+      <div className="mt-6 border-t border-white/20" role="list">
         {filtered.map((job, index) => (
           <div role="listitem" key={job.reference}>
-            <JobRow job={job} index={index} />
+            <JobRow job={job} index={index} tone="dark" />
           </div>
         ))}
       </div>
 
       {/* Live data could not be loaded: never present this as "no vacancies" */}
       {unavailable && (
-        <div role="status" className="border-b border-line bg-white p-7">
-          <h3 className="mt-0 text-2xl tracking-[-.03em]">
-            Vacancies are temporarily unavailable
-          </h3>
-          <p className="mb-6 text-sm text-muted">
+        <div role="status" className={emptyPanel}>
+          <span aria-hidden="true" className={emptyRule} />
+          <h3 className={emptyHeading}>Vacancies are temporarily unavailable</h3>
+          <p className={emptyCopy}>
             We couldn’t load current vacancies just now. Please try again
             shortly, or register your interest and the team will be in touch.
           </p>
@@ -405,7 +436,7 @@ export function JobBoardExplorer({
       {!unavailable && filtered.length === 0 && (
         <div
           role="status"
-          className="border-b border-line bg-white p-7"
+          className={emptyPanel}
           data-empty-state={
             selectedSectors.length && sectorJobs.length === 0
               ? "sector"
@@ -416,13 +447,14 @@ export function JobBoardExplorer({
         >
           {selectedSectors.length > 0 && sectorJobs.length === 0 ? (
             <>
-              <h3 className="mt-0 text-2xl tracking-[-.03em]">
+              <span aria-hidden="true" className={emptyRule} />
+              <h3 className={emptyHeading}>
                 {sectorName
                   ? `No ${sectorName} jobs available right now.`
                   : "No jobs available in these sectors right now."}
               </h3>
 
-              <p className="mb-6 max-w-[560px] text-sm text-muted">
+              <p className={emptyCopy}>
                 We don’t currently have any live vacancies in{" "}
                 {sectorName ? "this sector" : "these sectors"}, but new
                 opportunities are added regularly.
@@ -436,7 +468,7 @@ export function JobBoardExplorer({
                 <Link
                   href="/jobs"
                   onClick={clearNonSectorFilters}
-                  className="inline-flex min-h-12 items-center border border-line bg-white px-5 text-sm font-semibold text-ink outline-none hover:bg-surface focus-visible:ring-2 focus-visible:ring-brand-red"
+                  className={outlineAction}
                 >
                   View All Jobs
                 </Link>
@@ -444,13 +476,14 @@ export function JobBoardExplorer({
             </>
           ) : (
             <>
-              <h3 className="mt-0 text-2xl tracking-[-.03em]">
+              <span aria-hidden="true" className={emptyRule} />
+              <h3 className={emptyHeading}>
                 {selectedSectors.length > 0
                   ? "No jobs match your current filters."
                   : "No suitable role right now?"}
               </h3>
 
-              <p className="mb-6 text-sm text-muted">
+              <p className={emptyCopy}>
                 {selectedSectors.length > 0
                   ? "There are live vacancies in this sector, but none match everything you have selected. Clear your other filters to see them."
                   : "Try adjusting or resetting your filters, or register your interest for future opportunities."}
@@ -464,7 +497,7 @@ export function JobBoardExplorer({
                       ? clearNonSectorFilters
                       : clearFilters
                   }
-                  className="min-h-12 border border-line bg-white px-5 text-sm font-semibold text-ink outline-none hover:bg-surface focus-visible:ring-2 focus-visible:ring-brand-red"
+                  className={outlineAction}
                 >
                   {selectedSectors.length > 0
                     ? "Clear other filters"
