@@ -33,11 +33,11 @@ export const metadata = pageMetadata('About Us | Complex Recruitment', "Complex 
 export default function AboutPage() {
   return (
     <main>
-      <section className="relative isolate grid h-svh min-h-[760px] grid-rows-[92px_minmax(0,1fr)] overflow-hidden bg-ink text-white max-[640px]:h-auto max-[640px]:min-h-0 max-[640px]:grid-rows-[76px_auto]">
+      <section className="relative isolate grid grid-rows-[92px_auto] overflow-hidden bg-ink text-white max-[640px]:grid-rows-[76px_auto]">
         <Header active="About" theme="dark" />
-        <div className="absolute -inset-[2%] -z-40 scale-[1.025] bg-[url('/about-hero-driver.jpg')] bg-cover bg-center grayscale-[.45]" />
+        <div className="absolute -inset-[2%] -z-40 scale-[1.025] bg-[url('/about-hero-driver.jpg')] bg-cover bg-[position:50%_20%] grayscale-[.45]" />
         <div className="absolute inset-0 -z-30 bg-[linear-gradient(90deg,rgba(8,9,10,.92),rgba(8,9,10,.72)_43%,rgba(8,9,10,.24)_74%,rgba(8,9,10,.45))]" />
-        <Container className="grid grid-cols-[1fr_.55fr] items-end gap-[90px] py-[70px] pb-[88px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[46px] max-[640px]:py-[72px] max-[640px]:pb-[72px]">
+        <Container className="grid grid-cols-[1fr_.55fr] items-end gap-[90px] pb-[72px] pt-[150px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[46px] max-[1000px]:pt-[120px] max-[640px]:pb-[56px] max-[640px]:pt-[64px]">
           <div>
             <HeroEyebrow detail="PEOPLE & OPERATIONS">
               ABOUT COMPLEX
@@ -88,19 +88,19 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bg-surface">
-        <Container className="grid grid-cols-4 border-l border-t border-line max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1">
+      <section className="bg-white pb-[88px] max-[640px]:pb-[64px]">
+        <Container className="grid grid-cols-4 max-[1000px]:grid-cols-2 max-[1000px]:gap-x-10 max-[640px]:grid-cols-1">
           {[
-            ["06", "Specialist sectors"],
+            ["6", "Specialist sectors"],
             ["24/7", "Operational support"],
             ["40+", "Years combined senior-management experience"],
             ["03", "Core coverage areas"],
           ].map(([n, t]) => (
             <article
-              className="flex min-h-[250px] flex-col justify-between border-b border-r border-line p-7 max-[640px]:min-h-[190px]"
+              className="flex flex-col gap-4 border-l border-line py-2 pl-8 pr-5 first:border-l-0 first:pl-0 max-[1000px]:border-l-0 max-[1000px]:border-t max-[1000px]:py-7 max-[1000px]:pl-0 max-[1000px]:pr-0 max-[640px]:gap-3 max-[640px]:py-6"
               key={t}
             >
-              <strong className="text-[64px] tracking-[-.06em]">{n}</strong>
+              <strong className="text-[64px] leading-none tracking-[-.06em]">{n}</strong>
               <span className="max-w-[190px] text-[11px] leading-normal text-[#626e74]">
                 {t}
               </span>
