@@ -54,7 +54,7 @@ const optionalDate = z
 // Option lists (mirror the public forms exactly)
 // ---------------------------------------------------------------------------
 
-const EMPLOYER_SECTORS = ['Driving & Transport', 'Industrial & Warehousing', 'Construction & Engineering', 'Business & Operational Support', 'Waste Management'] as const;
+const EMPLOYER_SECTORS = ['Driving & Transport', 'Industrial & Warehousing', 'Construction & Engineering', 'Business & Operational Support', 'Waste Management', 'Drinks Logistics'] as const;
 const CANDIDATE_SECTORS = [...EMPLOYER_SECTORS, 'Open to anything'] as const;
 const AVAILABILITY = ['Immediately', 'Within 1 week', 'Within 1 month', 'Just exploring'] as const;
 const WORK_PREFERENCES = ['Temporary / ad-hoc', 'Permanent', 'Either'] as const;
@@ -68,6 +68,7 @@ const SECTOR_PAGES = {
   '/sectors/construction': 'Construction & Engineering',
   '/sectors/business-operational-support': 'Business & Operational Support',
   '/sectors/waste-management': 'Waste Management',
+  '/sectors/drinks-logistics': 'Drinks Logistics',
 } as const;
 
 // ---------------------------------------------------------------------------

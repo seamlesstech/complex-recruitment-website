@@ -331,7 +331,7 @@ export default async function Home() {
             </h2>
           </div>
           <p className="max-w-[410px] text-base leading-[1.6] text-[#59646b]">
-            Browse current opportunities across our five specialist sectors.
+            Browse current opportunities across our six specialist sectors.
           </p>
         </Container>
         <Container

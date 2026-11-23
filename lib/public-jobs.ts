@@ -69,7 +69,7 @@ export type PublicJobsResult = { ok: true; jobs: PublicJob[] } | { ok: false; jo
 // Sector mapping (explicit)
 // ---------------------------------------------------------------------------
 
-export type WebsiteSectorKey = 'driving' | 'industrial' | 'construction' | 'business' | 'waste';
+export type WebsiteSectorKey = 'driving' | 'industrial' | 'construction' | 'business' | 'waste' | 'drinks';
 
 /**
  * Website sector families. The public label and the canonical database sector
@@ -84,6 +84,7 @@ export const WEBSITE_SECTORS: Record<WebsiteSectorKey, { label: string; dbSector
   construction: sectorNamed('Construction & Engineering'),
   business: sectorNamed('Business & Operational Support'),
   waste: sectorNamed('Waste Management'),
+  drinks: sectorNamed('Drinks Logistics'),
 };
 
 /** Sector families offered as job-board filters. */

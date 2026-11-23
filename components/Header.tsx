@@ -71,6 +71,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Container } from "./layout/Container";
 
 const navItems = [
@@ -88,8 +89,26 @@ const sectorItems = [
   ["Industrial & Warehousing", "/sectors/industrial"],
   ["Construction & Engineering", "/sectors/construction"],
   ["Business & Operational Support", "/sectors/business-operational-support"],
-  ["Waste Management", "/sectors/waste-management"],
 ] as const;
+
+/*
+ * Navigation grouping only: Waste Management and Drinks Logistics are two
+ * separate sectors with their own pages. The umbrella label is a disclosure
+ * button, never a link, so it can't navigate away while revealing its children.
+ */
+const sectorGroup = {
+  label: "Waste Management & Drinks Logistics",
+  items: [
+    ["Waste Management", "/sectors/waste-management"],
+    ["Drinks Logistics", "/sectors/drinks-logistics"],
+  ],
+} as const;
+
+const isGroupPath = (pathname: string | null) =>
+  sectorGroup.items.some(([, href]) => pathname === href);
+
+const sectorLinkClass =
+  "flex min-h-10 items-center border-b border-white/10 px-3 text-xs text-white/75 outline-none transition-colors last:border-b-0 hover:bg-white/[.06] hover:text-white focus-visible:bg-white/[.06] focus-visible:text-white aria-[current=page]:text-white";
 
 type HeaderProps = {
   active?: string;
@@ -144,6 +163,16 @@ function DesktopNavigation({
   ariaLabel = "Primary navigation",
 }: DesktopNavigationProps) {
   const [sectorsOpen, setSectorsOpen] = useState(false);
+  const pathname = usePathname();
+  const [groupOpen, setGroupOpen] = useState(false);
+  const [wasSectorsOpen, setWasSectorsOpen] = useState(false);
+
+  // Each time the Sectors menu opens, the grouped row starts collapsed, unless
+  // the visitor is already on one of its pages, so the current page is visible.
+  if (sectorsOpen !== wasSectorsOpen) {
+    setWasSectorsOpen(sectorsOpen);
+    if (sectorsOpen) setGroupOpen(isGroupPath(pathname));
+  }
 
   const [pillVisible, setPillVisible] = useState(false);
   const [pillClip, setPillClip] = useState(
@@ -322,7 +351,7 @@ function DesktopNavigation({
 
         <div
           id={`${idPrefix}-sectors-menu`}
-          className={`absolute left-1/2 top-[calc(100%-2px)] w-[250px]
+          className={`absolute left-1/2 top-[calc(100%-2px)] w-[290px]
             -translate-x-1/2 pt-3 transition duration-200
             ${
               sectorsOpen
@@ -335,11 +364,48 @@ function DesktopNavigation({
               <a
                 key={href}
                 href={href}
-                className="flex min-h-10 items-center border-b border-white/10 px-3 text-xs text-white/75 outline-none transition-colors last:border-b-0 hover:bg-white/[.06] hover:text-white focus-visible:bg-white/[.06] focus-visible:text-white"
+                aria-current={pathname === href ? "page" : undefined}
+                className={sectorLinkClass}
               >
                 {label}
               </a>
             ))}
+
+            <div>
+              <button
+                type="button"
+                className="flex min-h-10 w-full items-center justify-between gap-3 border-0 bg-transparent px-3 text-left text-white/75 outline-none transition-colors hover:bg-white/[.06] hover:text-white focus-visible:bg-white/[.06] focus-visible:text-white"
+                aria-expanded={groupOpen}
+                aria-controls={`${idPrefix}-sectors-group`}
+                onClick={() => setGroupOpen((open) => !open)}
+              >
+                <span
+                  className={`text-xs ${
+                    groupOpen || isGroupPath(pathname) ? "text-white" : ""
+                  }`}
+                >
+                  {sectorGroup.label}
+                </span>
+                <DropdownChevron open={groupOpen} />
+              </button>
+
+              <div
+                id={`${idPrefix}-sectors-group`}
+                hidden={!groupOpen}
+                className="mb-1 ml-3 border-l-2 border-brand-red"
+              >
+                {sectorGroup.items.map(([label, href]) => (
+                  <a
+                    key={href}
+                    href={href}
+                    aria-current={pathname === href ? "page" : undefined}
+                    className="flex min-h-9 items-center px-3 text-xs text-white/75 outline-none transition-colors hover:bg-white/[.06] hover:text-white focus-visible:bg-white/[.06] focus-visible:text-white aria-[current=page]:text-white"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -364,6 +430,11 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [mobileSectorsOpen, setMobileSectorsOpen] = useState(false);
+  const pathname = usePathname();
+  // Starts open on Waste Management / Drinks Logistics so the current page shows.
+  const [mobileGroupOpen, setMobileGroupOpen] = useState(() =>
+    isGroupPath(pathname),
+  );
 
   const [scrolled, setScrolled] = useState(false);
   const [floatingOpen, setFloatingOpen] = useState(false);
@@ -534,12 +605,52 @@ export function Header({ active, theme = "dark" }: HeaderProps) {
                     <a
                       key={href}
                       href={href}
-                      className="flex min-h-11 items-center border-t border-white/10 pl-6 pr-2 text-[13px] text-white/70 outline-none focus-visible:bg-white/10 focus-visible:text-white"
+                      aria-current={pathname === href ? "page" : undefined}
+                      className="flex min-h-11 items-center border-t border-white/10 pl-6 pr-2 text-[13px] text-white/70 outline-none focus-visible:bg-white/10 focus-visible:text-white aria-[current=page]:text-white"
                       onClick={() => setMenuOpen(false)}
                     >
                       {label}
                     </a>
                   ))}
+
+                  <div className="border-t border-white/10">
+                    <button
+                      type="button"
+                      className="flex min-h-11 w-full items-center justify-between gap-3 border-0 bg-transparent pl-6 pr-3 text-left text-white/70 outline-none focus-visible:bg-white/10 focus-visible:text-white"
+                      aria-expanded={mobileGroupOpen}
+                      aria-controls="mobile-sectors-group"
+                      onClick={() => setMobileGroupOpen((open) => !open)}
+                    >
+                      <span
+                        className={`text-[13px] ${
+                          mobileGroupOpen || isGroupPath(pathname)
+                            ? "text-white"
+                            : ""
+                        }`}
+                      >
+                        {sectorGroup.label}
+                      </span>
+                      <DropdownChevron open={mobileGroupOpen} />
+                    </button>
+
+                    <div
+                      id="mobile-sectors-group"
+                      hidden={!mobileGroupOpen}
+                      className="mb-2 ml-8 border-l-2 border-brand-red"
+                    >
+                      {sectorGroup.items.map(([label, href]) => (
+                        <a
+                          key={href}
+                          href={href}
+                          aria-current={pathname === href ? "page" : undefined}
+                          className="flex min-h-11 items-center pl-4 pr-2 text-[13px] text-white/70 outline-none focus-visible:bg-white/10 focus-visible:text-white aria-[current=page]:text-white"
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          {label}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

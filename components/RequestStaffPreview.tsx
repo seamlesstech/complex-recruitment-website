@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ButtonLink } from './ui/ButtonLink';
 
-const sectors = ['Driving & Transport','Industrial & Warehousing','Construction & Engineering','Business & Operational Support','Waste Management'];
+const sectors = ['Driving & Transport','Industrial & Warehousing','Construction & Engineering','Business & Operational Support','Waste Management','Drinks Logistics'];
 
 export function RequestStaffPreview(){
   const [step,setStep]=useState(0);

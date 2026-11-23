@@ -12,7 +12,7 @@ import { PublicTurnstile, type PublicTurnstileHandle } from './turnstile/PublicT
 import { isTurnstileConfigured } from '../lib/turnstile/config';
 import { HONEYPOT_FIELD, TURNSTILE_FIELD, submitPublicForm } from '../lib/forms/public-form';
 
-const sectors = ['Driving & Transport', 'Industrial & Warehousing', 'Construction & Engineering', 'Business & Operational Support', 'Waste Management'];
+const sectors = ['Driving & Transport', 'Industrial & Warehousing', 'Construction & Engineering', 'Business & Operational Support', 'Waste Management', 'Drinks Logistics'];
 const requirements = ['Temporary', 'Ad-hoc', 'Temp-to-perm', 'Permanent', 'High-volume', 'Not sure'];
 
 const formShellClass = 'relative min-h-[650px] overflow-hidden border border-ink/10 bg-surface shadow-[0_28px_70px_rgba(17,18,20,.07)]';

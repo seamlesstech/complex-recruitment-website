@@ -80,7 +80,7 @@ export default function EmployersPage() {
             </h1>
             <p className="my-7 max-w-[700px] text-base leading-[1.62] text-white/85">
               When demand changes, Complex helps you respond with the right
-              people across five specialist sectors — from urgent temporary
+              people across six specialist sectors — from urgent temporary
               cover to permanent hires.
             </p>
             <div className="flex items-center gap-7 max-[520px]:items-start max-[520px]:flex-col">
@@ -248,6 +248,12 @@ export default function EmployersPage() {
                 "Waste Management",
                 "waste-management",
                 "Collection crews, drivers and site operatives for waste and recycling operations.",
+              ],
+              [
+                "06",
+                "Drinks Logistics",
+                "drinks-logistics",
+                "Drivers, draymen and warehouse teams for breweries, wholesalers and drinks distributors.",
               ],
             ].map(([n, t, slug, c]) => (
               <a

@@ -47,7 +47,7 @@ export default function AboutPage() {
           </div>
           <div>
             <p className="mb-7 max-w-[520px] text-base leading-[1.7] text-[#d0d4d6]">
-              Specialist recruitment across five operational sectors, combining
+              Specialist recruitment across six operational sectors, combining
               experienced consultants, practical service models and a belief
               that the right people make operations work.
             </p>
@@ -85,7 +85,7 @@ export default function AboutPage() {
           <div className="[&_p]:mb-5 [&_p]:text-[15px] [&_p]:leading-[1.75] [&_p]:text-[#626e74]">
             <p>
               Complex Recruitment provides temporary, ad-hoc and permanent
-              staffing across five specialist operational sectors. The company
+              staffing across six specialist operational sectors. The company
               combines traditional and modern recruitment methods with dedicated
               sector consultants and compliance management tailored to industry
               requirements.
@@ -104,7 +104,7 @@ export default function AboutPage() {
       <section className="bg-surface">
         <Container className="grid grid-cols-4 border-l border-t border-line max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1">
           {[
-            ["05", "Specialist sectors"],
+            ["06", "Specialist sectors"],
             ["24/7", "Operational support"],
             ["40+", "Years combined senior-management experience"],
             ["03", "Core coverage areas"],
@@ -234,7 +234,7 @@ export default function AboutPage() {
         <Container className="mb-[70px] grid grid-cols-[.4fr_1fr] gap-[70px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[46px]">
           <SectionLabel>WHAT WE KNOW</SectionLabel>
           <h2 className={heading}>
-            Five specialist sectors.
+            Six specialist sectors.
             <br />
             <em>One Complex standard.</em>
           </h2>

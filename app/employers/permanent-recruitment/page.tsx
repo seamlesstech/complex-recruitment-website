@@ -13,6 +13,7 @@ const sectors = [
   ['03', 'Construction & Engineering', '/sectors/construction'],
   ['04', 'Business & Operational Support', '/sectors/business-operational-support'],
   ['05', 'Waste Management', '/sectors/waste-management'],
+  ['06', 'Drinks Logistics', '/sectors/drinks-logistics'],
 ] as const;
 
 export default function PermanentRecruitmentPage() {
