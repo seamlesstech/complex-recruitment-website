@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../../lib/seo';
 import { Header } from '../../../components/Header';
 import { SectionLabel } from '../../../components/SectionLabel';
 import { Container } from '../../../components/layout/Container';
@@ -16,13 +17,15 @@ const sectors = [
   ['06', 'Drinks Logistics', '/sectors/drinks-logistics'],
 ] as const;
 
+export const metadata = pageMetadata('Permanent Recruitment London | Complex Recruitment', "Permanent recruitment for operational and specialist roles, from the first brief through to interview, offer and onboarding.");
+
 export default function PermanentRecruitmentPage() {
   return <main className="bg-white text-ink">
     <section className="grid min-h-[720px] grid-rows-[92px_1fr] overflow-hidden bg-brand-grey text-white max-[760px]:min-h-[680px] max-[760px]:grid-rows-[76px_1fr]">
       <Header active="Employers" theme="dark" />
       <Container gutter="wide" className="grid grid-cols-[1.15fr_.65fr] items-end gap-20 py-[86px] max-[1000px]:grid-cols-1 max-[1000px]:gap-12 max-[760px]:py-[62px]">
         <div><SectionLabel>PERMANENT RECRUITMENT</SectionLabel><h1 className="mt-8 max-w-[980px] text-[clamp(60px,6.2vw,102px)] font-semibold leading-[.88] tracking-[-.064em]">Permanent people.<br/>Chosen for the operation<span className="text-brand-red">.</span></h1></div>
-        <div className="border-l border-white/35 pl-8 max-[1000px]:max-w-[650px] max-[760px]:border-l-0 max-[760px]:border-t max-[760px]:pt-7 max-[760px]:pl-0"><p className="mb-8 text-[16px] leading-[1.7] text-white/85">Complex helps employers find permanent people who fit the role, working environment and operational demands of the business — not simply another CV.</p><ButtonLink href="/request-staff">Start a Permanent Search</ButtonLink></div>
+        <div className="border-l border-white/35 pl-8 max-[1000px]:max-w-[650px] max-[760px]:border-l-0 max-[760px]:border-t max-[760px]:pt-7 max-[760px]:pl-0"><p className="mb-8 text-[16px] leading-[1.7] text-white/85">Complex helps employers find permanent people who fit the role, working environment and operational demands of the business, not simply another CV.</p><ButtonLink href="/request-staff">Start a Permanent Search</ButtonLink></div>
       </Container>
     </section>
 

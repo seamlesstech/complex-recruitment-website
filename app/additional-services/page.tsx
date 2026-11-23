@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from '../../lib/seo';
 import { HeroEyebrow } from '../../components/HeroEyebrow';
 import { Header } from '../../components/Header';
 import { SectionLabel } from '../../components/SectionLabel';
@@ -6,15 +6,6 @@ import { Container } from '../../components/layout/Container';
 import { Footer } from '../../components/layout/Footer';
 import { ButtonLink } from '../../components/ui/ButtonLink';
 import { TextLink } from '../../components/ui/TextLink';
-
-export const metadata: Metadata = {
-  title: 'Additional Services: Driver Assessments & CPC | Complex Recruitment',
-  description: 'Onsite driver assessments, driver CPC training, client analysis and infringement management from Complex Recruitment, alongside our recruitment services.',
-  openGraph: {
-    title: 'Additional Services: Driver Assessments & CPC | Complex Recruitment',
-    description: 'Onsite driver assessments, driver CPC training, client analysis and infringement management from Complex Recruitment, alongside our recruitment services.',
-  },
-};
 
 const heading = 'section-heading m-0 text-[clamp(52px,5.4vw,86px)] leading-[.92] tracking-[-.06em] [&_em]:not-italic [&_em]:text-brand-red';
 const subHeading = 'section-heading m-0 text-[clamp(38px,3.6vw,60px)] leading-[.98] tracking-[-.05em] [&_em]:not-italic [&_em]:text-brand-red';
@@ -41,6 +32,8 @@ const infringementPoints = [
   ['Driver CPC training', 'Includes reducing infringements and drivers’ hours.'],
   ['Driver Assessments', 'Highlight where development would make a difference.'],
 ] as const;
+
+export const metadata = pageMetadata('Additional Services | Complex Recruitment', "Onsite driver assessments, driver CPC training, client analysis and infringement management alongside Complex Recruitment’s recruitment services.");
 
 export default function AdditionalServicesPage() {
   return <main className="bg-white text-ink">

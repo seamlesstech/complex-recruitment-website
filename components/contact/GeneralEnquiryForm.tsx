@@ -56,8 +56,8 @@ export function GeneralEnquiryForm() {
     return (
       <div role="status" className="border-t border-line pt-8 max-[760px]:mt-[50px]">
         <span className="text-[9px] font-extrabold tracking-[.18em] text-brand-red">ENQUIRY SENT</span>
-        <p className="mb-0 mt-5 text-[clamp(28px,2.6vw,40px)] font-semibold leading-[1.05] tracking-[-.04em]">Thanks — your message is with the Complex team.</p>
-        <p className="mt-4 max-w-[520px] text-sm leading-[1.7] text-[#69747a]">We&apos;ll route it to the right team and reply using the details you provided.</p>
+        <p className="mb-0 mt-5 text-[clamp(28px,2.6vw,40px)] font-semibold leading-[1.05] tracking-[-.04em]">Thanks, your message is with the Complex team.</p>
+        <p className="mt-4 max-w-[520px] text-sm leading-[1.7] text-[#69747a]">We’ll route it to the right team and reply using the details you provided.</p>
       </div>
     );
   }

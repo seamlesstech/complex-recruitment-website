@@ -72,7 +72,7 @@ export default async function WasteManagementPage() {
     </section>
     <SectorOpportunities id="waste-management-jobs" shortName="Waste Management" jobs={sectorJobs} />
     <SectorService title={<>Staffing that keeps<br/><em>rounds running.</em></>} copy="Practical support from the first brief to ongoing cover, built around the shifts and sites you run." items={serviceItems} />
-    <SectorDualCta employer={{ label: 'FOR EMPLOYERS', title: 'I need waste staff.', copy: 'Tell us the role, shift, numbers and site. We’ll take it from there.', action: 'Request Staff', href: '/request-staff' }} candidate={{ label: 'FOR CANDIDATES', title: 'I’m looking for waste work.', copy: 'Explore collection, recycling and street cleansing roles.', action: 'Find Waste Jobs', href: '/jobs' }} />
+    <SectorDualCta employer={{ label: 'FOR EMPLOYERS', title: 'I need waste staff.', copy: 'Tell us the round, shift, numbers and site.', action: 'Request Staff', href: '/request-staff' }} candidate={{ label: 'FOR CANDIDATES', title: 'I’m looking for waste work.', copy: 'Explore collection, recycling and street cleansing roles.', action: 'Find Waste Jobs', href: '/jobs' }} />
     <Footer />
   </main>;
 }

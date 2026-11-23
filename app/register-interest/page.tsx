@@ -1,9 +1,12 @@
+import { pageMetadata } from '../../lib/seo';
 import { Header } from '../../components/Header';
 import { Container } from '../../components/layout/Container';
 import { Footer } from '../../components/layout/Footer';
 import { RegisterInterestForm } from '../../components/RegisterInterestForm';
 import { SectionLabel } from '../../components/SectionLabel';
 import { TextLink } from '../../components/ui/TextLink';
+
+export const metadata = pageMetadata('Register Your Interest | Complex Recruitment', "Tell us the work you are looking for and how to reach you, and the Complex team will contact you about relevant opportunities.");
 
 export default function RegisterInterestPage() {
   return (
@@ -40,7 +43,7 @@ export default function RegisterInterestPage() {
       <section className="bg-white py-[120px] max-[760px]:py-[88px]">
         <Container className="grid grid-cols-[1fr_.7fr] items-end gap-[100px] max-[1100px]:grid-cols-[1fr_.8fr] max-[1100px]:gap-[60px] max-[760px]:block">
           <div><SectionLabel>WHEN YOU REGISTER</SectionLabel><h2 className="section-heading mb-[25px] mt-[34px] text-[clamp(48px,4.6vw,76px)] leading-[.95] tracking-[-.055em] max-[480px]:text-[46px]">We keep the next<br /><em className="not-italic text-brand-red">step human.</em></h2></div>
-          <p className="max-w-[560px] text-sm leading-[1.72] text-[#637078] max-[760px]:mt-[30px]">Registering interest does not guarantee a placement. It simply creates a candidate profile that the recruitment team can use when relevant opportunities arise. Final data-retention and privacy wording will be confirmed before launch.</p>
+          <p className="max-w-[560px] text-sm leading-[1.72] text-[#637078] max-[760px]:mt-[30px]">Registering interest does not guarantee a placement. It simply creates a candidate profile that the recruitment team can use when relevant opportunities arise. Our <a href="/privacy" className="underline underline-offset-2">Privacy Policy</a> explains how we use your details.</p>
         </Container>
       </section>
 

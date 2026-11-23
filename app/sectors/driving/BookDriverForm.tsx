@@ -7,7 +7,7 @@ const config: SectorEnquiryConfig = {
   sector: 'Driving & Transport',
   intent: 'I need drivers',
   title: 'Book a driver',
-  support: 'Tell us the class, start time and site — we’ll confirm availability fast.',
+  support: 'Tell us the class, start time and site and we’ll confirm availability fast.',
   action: 'Request Drivers',
   pairedDrivingFields: true,
   fields: [

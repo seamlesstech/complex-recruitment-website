@@ -38,7 +38,7 @@ export function DrivingExpertise() {
       <Container>
         <SectionLabel>QUALIFIED IN-HOUSE TRANSPORT EXPERTISE</SectionLabel>
         <h2 className={heading}>Transport knowledge that goes beyond recruitment</h2>
-        <p className="mt-7 max-w-[800px] text-base leading-[1.75] text-white/80">Our Driving &amp; Transport division is supported by recognised transport-management and professional driver-training expertise, giving us a practical understanding of the standards and responsibilities our transport clients work with every day.</p>
+        <p className="mt-7 max-w-[800px] text-base leading-[1.75] text-white/80">Our Driving &amp; Transport sector is supported by recognised transport-management and professional driver-training expertise, giving us a practical understanding of the standards and responsibilities our transport clients work with every day.</p>
         <div className="mt-12 border-t border-white/20">
           {credentials.map(([title, copy], i) => <article key={title} className="grid grid-cols-[.85fr_1.15fr] gap-16 border-b border-white/20 py-10 max-[900px]:grid-cols-1 max-[900px]:gap-5">
             <div><span className="text-[10px] text-brand-red">0{i + 1} / QUALIFICATION</span><h3 className="mt-5 text-[clamp(26px,2.5vw,38px)] font-semibold leading-[1.1] tracking-[-.03em]">{title}</h3></div>

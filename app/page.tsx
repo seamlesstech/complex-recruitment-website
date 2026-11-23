@@ -96,7 +96,7 @@ export default async function Home() {
       <section className="overflow-hidden border-b border-line bg-surface py-[52px]">
         <Container gutter="wide">
           <h2 className="mx-auto max-w-[900px] text-center text-[clamp(18px,1.55vw,22px)] font-semibold leading-[1.35] tracking-[-.015em] text-[#626e74]">
-            Trusted by leading logistics, distribution, and retail operations
+            Trusted by leading logistics, distribution and retail operations
           </h2>
         </Container>
         <div
@@ -140,10 +140,7 @@ export default async function Home() {
               <em>A workforce partner.</em>
             </h2>
             <p className="max-w-[530px] text-lg leading-[1.6] text-[#526069]">
-              We help businesses respond to changing workforce requirements with
-              a PAYE temporary workforce alongside ad-hoc and permanent staffing
-              — supported by sector expertise, compliance and hands-on account
-              management.
+              We help businesses respond to changing workforce needs with a PAYE temporary workforce, plus ad-hoc and permanent staffing, supported by sector expertise, compliance and hands-on account management.
             </p>
           </div>
           <div className="mt-[100px] grid grid-cols-4 border-y border-line max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1">
@@ -188,10 +185,10 @@ export default async function Home() {
 
             {/* Specialist recruitment areas */}
             <article className="py-9 pl-9 max-[1000px]:pl-9 max-[640px]:px-0">
-              <strong className="text-[62px] tracking-[-.06em]">05</strong>
+              <strong className="text-[62px] tracking-[-.06em]">06</strong>
 
               <p className="max-w-60 text-xs leading-[1.45] text-muted">
-                Specialist recruitment areas supporting operational businesses
+                Specialist sectors supporting operational businesses
               </p>
             </article>
           </div>
@@ -233,7 +230,7 @@ export default async function Home() {
           </div>
           <div className="pt-16 max-[900px]:pt-0">
             <p className="mb-[34px] text-lg leading-[1.65] text-white/90">
-              Whether you&apos;re looking for one specialist worker or a high-volume
+              Whether you’re looking for one specialist worker or a high-volume
               temporary workforce, tell us what you need and the Complex team
               will take it from there.
             </p>
@@ -404,11 +401,11 @@ export default async function Home() {
               "Reliable payroll",
               "Flexible opportunities",
               "Training & upskilling",
-              "Temporary + permanent roles",
+              "Temporary and permanent roles",
               "Sector-focused support",
             ].map((x) => (
               <span className="text-xs text-[#d5dbde]" key={x}>
-                ↗ {x}
+                <span aria-hidden="true" className="mr-2 text-brand-red">•</span>{x}
               </span>
             ))}
           </div>
@@ -493,7 +490,7 @@ export default async function Home() {
           }}
           candidate={{
             label: "02 / CANDIDATES",
-            title: "I'm looking for work.",
+            title: "I’m looking for work.",
             copy: "Explore current opportunities across our specialist sectors.",
             action: "Find Jobs",
             href: "/jobs",

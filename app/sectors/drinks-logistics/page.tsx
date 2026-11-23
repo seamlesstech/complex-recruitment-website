@@ -64,7 +64,7 @@ const roleGroups = [
 const supportedOrganisations = [
   ['Breweries', 'Driving, delivery and warehouse support around getting product from site to customer.'],
   ['Wholesalers', 'Driving, warehouse and delivery support for wholesale drinks operations.'],
-  ['Drinks distributors', 'Teams supporting scheduled deliveries to hospitality customers.'],
+  ['Drinks distributors', 'Teams supporting deliveries to hospitality customers.'],
   ['Pubs, bars and restaurants', 'The customers drinks operations deliver to. Our focus is the delivery and warehouse teams that keep those supplies moving.'],
 ] as const;
 
@@ -104,7 +104,7 @@ export default async function DrinksLogisticsPage() {
       </Container>
     </section>
     <SectorOpportunities id="drinks-logistics-jobs" shortName="Drinks Logistics" jobs={sectorJobs} />
-    <SectorService title={<>Staffing that keeps<br/><em>deliveries moving.</em></>} copy="Practical support from the first brief to ongoing cover, built around the shifts and sites you run." items={serviceItems} />
+    <SectorService title={<>Staffing that keeps<br/><em>deliveries moving.</em></>} copy="Support from the first brief to ongoing cover, matched to your shifts, routes and sites." items={serviceItems} />
     <SectorDualCta employer={{ label: 'FOR EMPLOYERS', title: 'I need drinks logistics staff.', copy: 'Tell us the role, shift, numbers and site. We’ll take it from there.', action: 'Request Staff', href: '/request-staff' }} candidate={{ label: 'FOR CANDIDATES', title: 'I’m looking for drinks logistics work.', copy: 'Explore driving, warehouse and delivery roles.', action: 'Find Drinks Logistics Jobs', href: '/jobs' }} />
     <Footer />
   </main>;

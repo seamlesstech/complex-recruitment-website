@@ -76,7 +76,7 @@ export function RequestStaffForm() {
     return (
       <div className="flex min-h-[540px] flex-col justify-center border border-line bg-surface px-[60px] py-[70px] max-[760px]:px-6" role="status">
         <span className="text-[9px] font-extrabold tracking-[.18em] text-brand-red">REQUEST RECEIVED</span>
-        <h2 className="my-[18px] mt-6 text-[clamp(48px,5vw,78px)] leading-[.94] tracking-[-.055em]">Thanks — we’ve got it.</h2>
+        <h2 className="my-[18px] mt-6 text-[clamp(48px,5vw,78px)] leading-[.94] tracking-[-.055em]">Thanks, we’ve got it.</h2>
         <p className="max-w-[600px] text-sm leading-[1.7] text-[#637078]">A member of the Complex team can now review the requirement and follow up using the details supplied.</p>
         <div className="my-[30px] flex flex-col gap-[7px] border-t border-line pt-[18px]">
           <strong className="text-[9px] tracking-[.13em]">Next step</strong>

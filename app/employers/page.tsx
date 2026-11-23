@@ -1,8 +1,9 @@
+import { pageMetadata } from '../../lib/seo';
 import { HeroEyebrow } from "../../components/HeroEyebrow";
 import { Header } from "../../components/Header";
 import { SectionLabel } from "../../components/SectionLabel";
 import { EmployerServiceSwitcher } from "../../components/EmployerServiceSwitcher";
-import { RequestStaffPreview } from "../../components/RequestStaffPreview";
+import { RequestStaffSteps } from "../../components/RequestStaffSteps";
 import { Container } from "../../components/layout/Container";
 import { Footer } from "../../components/layout/Footer";
 import { ArrowIcon } from "../../components/ui/ArrowIcon";
@@ -54,6 +55,8 @@ const workTypes = [
 const heading =
   "section-heading text-[clamp(54px,5.1vw,86px)] leading-[.95] tracking-[-.055em] max-[760px]:text-5xl";
 
+export const metadata = pageMetadata('Staffing for Employers | Complex Recruitment', "Temporary, ad-hoc, temp-to-perm and permanent staffing for operational businesses across six specialist sectors.");
+
 export default function EmployersPage() {
   return (
     <main className="bg-white text-ink">
@@ -80,8 +83,7 @@ export default function EmployersPage() {
             </h1>
             <p className="my-7 max-w-[700px] text-base leading-[1.62] text-white/85">
               When demand changes, Complex helps you respond with the right
-              people across six specialist sectors — from urgent temporary
-              cover to permanent hires.
+              people across six specialist sectors, from urgent temporary cover to permanent hires.
             </p>
             <div className="flex items-center gap-7 max-[520px]:items-start max-[520px]:flex-col">
               <ButtonLink href="/request-staff">Request Staff</ButtonLink>
@@ -142,11 +144,11 @@ export default function EmployersPage() {
                 you need.
               </h2>
               <p className="mt-7 max-w-[470px] text-[15px] leading-[1.7] text-muted">
-                You don&apos;t need an account. Give us the essentials and the
+                You don’t need an account. Give us the essentials and the
                 Complex team can take the requirement from there.
               </p>
             </div>
-            <RequestStaffPreview />
+            <RequestStaffSteps />
           </div>
         </Container>
       </section>
@@ -165,7 +167,7 @@ export default function EmployersPage() {
               </h2>
             </div>
             <p className="mb-2 text-[15px] leading-[1.7] text-[#aeb7bc]">
-              Choose the model that suits the pressure you&apos;re dealing with now.
+              Choose the model that suits the pressure you’re dealing with now.
               Complex can support immediate temporary demand as well as more
               considered permanent recruitment.
             </p>
@@ -359,7 +361,7 @@ export default function EmployersPage() {
         <div className="px-20 py-[110px] max-[760px]:px-6 max-[760px]:py-[70px]">
           <SectionLabel>ACCOUNT SUPPORT</SectionLabel>
           <h2 className={`${heading} mt-[38px]`}>
-            The relationship doesn&apos;t end
+            The relationship doesn’t end
             <br />
             <em className="not-italic text-brand-red">
               when the shift starts.

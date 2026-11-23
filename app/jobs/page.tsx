@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../lib/seo';
 import { HeroEyebrow } from '../../components/HeroEyebrow';
 import { Header } from '../../components/Header';
 import { JobBoardExplorer } from '../../components/JobBoardExplorer';
@@ -14,8 +15,10 @@ const supportItems = [
   ['01', 'Clear communication', 'Know what the role involves, where you need to be and what happens next.'],
   ['02', 'Reliable payroll', 'A straightforward candidate experience supported by dependable processes.'],
   ['03', 'Sector knowledge', 'Recruiters who understand the environments and roles they are recruiting for.'],
-  ['04', 'Ongoing support', 'Complex stays available after placement — not only before you start.'],
+  ['04', 'Ongoing support', 'Complex stays available after placement, not only before you start.'],
 ];
+
+export const metadata = pageMetadata('Jobs | Complex Recruitment', "Browse current vacancies across six operational sectors and apply online.");
 
 export default async function JobsPage() {
   const { ok, jobs } = await getPublicJobs();

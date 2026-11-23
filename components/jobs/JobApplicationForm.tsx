@@ -32,7 +32,7 @@ export function JobApplicationForm({ jobReference, jobTitle }: { jobReference: s
   const turnstileReady = !isTurnstileConfigured || turnstileToken !== '';
 
   if (status.state === 'success') {
-    return <div role="status" className="border border-line bg-white p-8"><h3 className="mt-0 text-3xl tracking-[-.03em]">Application received</h3><p className="text-sm leading-[1.7] text-muted">Thank you — your application{cv ? ' and CV have' : ' has'} been sent to the Complex recruitment team for {jobTitle}. A recruiter will review it and contact you using the details you provided.</p><ButtonLink href="/jobs" className="mt-4 !text-white">View more jobs</ButtonLink></div>;
+    return <div role="status" className="border border-line bg-white p-8"><h3 className="mt-0 text-3xl tracking-[-.03em]">Application received</h3><p className="text-sm leading-[1.7] text-muted">Thank you. Your application{cv ? ' and CV have' : ' has'} been sent to the Complex recruitment team for {jobTitle}. A recruiter will review it and contact you using the details you provided.</p><ButtonLink href="/jobs" className="mt-4 !text-white">View more jobs</ButtonLink></div>;
   }
 
   function clearServerCvError() {

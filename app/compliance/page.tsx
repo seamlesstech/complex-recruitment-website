@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../lib/seo';
 import { HeroEyebrow } from '../../components/HeroEyebrow';
 import { Footer } from '../../components/layout/Footer';
 import { Header } from '../../components/Header';
@@ -29,6 +30,8 @@ const enhancedChecks = [
 
 const records = ['Right to Work', 'PAYE', 'Licences', 'Role-specific vetting', 'Records'] as const;
 
+export const metadata = pageMetadata('Compliance & Vetting | Complex Recruitment', "Right to Work, licence and role-specific checks completed before placement, with records kept to support client onboarding and audits.");
+
 export default function CompliancePage() {
   return <main className="bg-white text-ink">
     <section className="grid min-h-[610px] grid-rows-[92px_minmax(0,1fr)] bg-white max-[640px]:min-h-0 max-[640px]:grid-rows-[76px_auto]">
@@ -37,7 +40,7 @@ export default function CompliancePage() {
         <div className="max-w-[1100px]">
           <HeroEyebrow light detail="WORKFORCE ASSURANCE">COMPLIANCE &amp; VETTING</HeroEyebrow>
           <h1 className="m-0 text-[clamp(62px,5.8vw,98px)] font-semibold leading-[.89] tracking-[-.066em] max-[1180px]:text-[74px] max-[640px]:text-[50px] max-[640px]:text-balance">Compliance built into <br className="max-[640px]:hidden" /><em className="not-italic text-brand-grey">every placement<span className="text-brand-red">.</span></em></h1>
-          <p className="my-[30px] max-w-[760px] text-[17px] leading-[1.65] text-[#5e6a70]">Compliance is built into our recruitment process from the beginning — helping clients receive people who are not only available, but appropriately checked for the work they are being asked to do.</p>
+          <p className="my-[30px] max-w-[760px] text-[17px] leading-[1.65] text-[#5e6a70]">Compliance is built into our recruitment process from the beginning, so clients receive people who are not only available but appropriately checked for the work they are being asked to do.</p>
           <div className="flex items-center gap-7 max-[430px]:flex-col max-[430px]:items-start max-[430px]:gap-4"><ButtonLink href="#role-checks" arrowDirection="down-right">Explore Our Approach</ButtonLink><TextLink href="/contact">Discuss a Requirement</TextLink></div>
         </div>
       </Container>

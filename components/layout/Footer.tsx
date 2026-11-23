@@ -7,7 +7,7 @@ type FooterGroupData = { readonly title: string; readonly links: readonly Footer
 
 // Only routes that exist today. Client Analysis and Infringement Management are sections on /additional-services (linked by anchor); give them their own routes here if standalone pages are added.
 const groups: readonly FooterGroupData[] = [
-  { title: 'RECRUITMENT SECTORS', links: [['Driving & Transport', '/sectors/driving'], ['Industrial & Warehousing', '/sectors/industrial'], ['Construction & Engineering', '/sectors/construction'], ['Business & Operational Support', '/sectors/business-operational-support'], ['Waste Management', '/sectors/waste-management']] },
+  { title: 'RECRUITMENT SECTORS', links: [['Driving & Transport', '/sectors/driving'], ['Industrial & Warehousing', '/sectors/industrial'], ['Construction & Engineering', '/sectors/construction'], ['Business & Operational Support', '/sectors/business-operational-support'], ['Waste Management', '/sectors/waste-management'], ['Drinks Logistics', '/sectors/drinks-logistics']] },
   { title: 'ADDITIONAL SERVICES', links: [['Onsite Driver Assessments', '/training/driver-assessments'], ['Driver Training & CPC', '/training/cpc'], ['Client Analysis', '/additional-services#client-analysis'], ['Infringement Management', '/additional-services#infringement-management'], ['All Additional Services', '/additional-services']] },
   { title: 'EMPLOYERS & CANDIDATES', links: [['Employers', '/employers'], ['Permanent Recruitment', '/employers/permanent-recruitment'], ['Request Staff', '/request-staff'], ['Candidates', '/candidates'], ['Find Jobs', '/jobs'], ['Register Interest', '/register-interest']] },
   { title: 'COMPANY', links: [['About', '/about'], ['Contact', '/contact'], ['Compliance & Vetting', '/compliance']] },

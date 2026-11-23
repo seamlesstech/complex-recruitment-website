@@ -100,7 +100,7 @@ import {
 import { JobRow } from "./jobs/JobRow";
 import { ButtonLink } from "./ui/ButtonLink";
 
-// Filters map onto real database values: the four canonical sectors and the
+// Filters map onto real database values: the six canonical sectors and the
 // canonical employment types.
 const sectors = FILTERABLE_SECTORS.map((sector) => sector.label);
 const workTypes = EMPLOYMENT_TYPES;
@@ -342,7 +342,7 @@ export function JobBoardExplorer({
             Vacancies are temporarily unavailable
           </h3>
           <p className="mb-6 text-sm text-muted">
-            We couldn&apos;t load current vacancies just now. Please try again
+            We couldn’t load current vacancies just now. Please try again
             shortly, or register your interest and the team will be in touch.
           </p>
           <ButtonLink href="/register-interest" className="!text-white">

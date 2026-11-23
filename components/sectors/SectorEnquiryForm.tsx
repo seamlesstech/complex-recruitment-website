@@ -99,7 +99,7 @@ export function SectorEnquiryForm({ config, id = 'sector-enquiry' }: { config: S
     </div>
     {submission.state === 'success' ? <div className="p-8 max-[640px]:p-5" role="status">
       <span className="text-[9px] font-extrabold tracking-[.18em] text-brand-red">REQUEST RECEIVED</span>
-      <p className="mt-4 text-2xl font-semibold leading-tight tracking-[-.03em]">Thanks — we’ve got it.</p>
+      <p className="mt-4 text-2xl font-semibold leading-tight tracking-[-.03em]">Thanks, we’ve got it.</p>
       <p className="mt-3 text-sm leading-relaxed text-muted">A member of the Complex team will review your {config.sector} requirement and contact you using the details you supplied.</p>
     </div> : <div className="p-8 max-[640px]:p-5">
       <ol aria-label="Request progress" className="mb-6 grid grid-cols-2 gap-4 border-b border-line pb-4 text-[9px] font-extrabold uppercase tracking-[.1em]">

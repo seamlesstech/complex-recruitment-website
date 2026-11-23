@@ -7,12 +7,9 @@ import type { PublicJob } from '../../lib/public-jobs';
 
 const candidateBenefits = [
   ['Weekly PAYE pay', 'Temporary workers are engaged through PAYE, with dependable weekly pay.'],
-  ['Portal & timesheets', 'Use the candidate portal to access and manage relevant timesheet information.'],
   ['Flexible opportunities', 'Temporary work, ongoing assignments, temp-to-perm opportunities and permanent roles.'],
   ['Real communication', 'A recruitment team you can reach when you need an update or support.'],
-  ['Refer a friend', 'Introduce someone suitable through the Complex refer-a-friend scheme.'],
-  ['Sector-focused support', 'People who understand the operational environments they recruit for.'],
-];
+] as const;
 
 export function SectorOpportunities({ id, shortName, jobs }: { id: string; shortName: string; jobs: PublicJob[] }) {
  return (      <section id={id} className="scroll-mt-[92px] bg-white py-20 max-[760px]:py-12">
@@ -25,15 +22,18 @@ export function SectorOpportunities({ id, shortName, jobs }: { id: string; short
       </section>
 );
 }
-export function SectorCandidateValue() {
- return (      <section className="bg-surface py-16 max-[760px]:py-10">
-        <Container>
-          <SectionLabel>FOR CANDIDATES</SectionLabel>
-          <h2 className="mt-6 text-[clamp(36px,3.2vw,48px)] font-semibold leading-[1.04] tracking-[-.045em]">Working with Complex</h2>
-          <div className="mt-9 grid grid-cols-3 gap-x-9 gap-y-7 max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1">{candidateBenefits.map(([title, copy]) => <div key={title} className="border-t border-line pt-5"><h3 className="text-lg font-semibold tracking-[-.02em]">{title}</h3><p className="mt-3 text-sm leading-[1.7] text-muted">{copy}</p></div>)}</div>
-        </Container>
-      </section>
-);
+/** Short candidate summary for a sector page: three shared benefits plus one point specific to the sector. */
+export function SectorCandidateValue({ label = 'FOR CANDIDATES', focus }: { label?: string; focus: readonly [title: string, copy: string] }) {
+  const items = [...candidateBenefits, focus];
+  return (
+    <section className="bg-surface py-16 max-[760px]:py-10">
+      <Container>
+        <SectionLabel>{label}</SectionLabel>
+        <h2 className="mt-6 text-[clamp(36px,3.2vw,48px)] font-semibold leading-[1.04] tracking-[-.045em]">Working with Complex</h2>
+        <div className="mt-9 grid grid-cols-4 gap-x-9 gap-y-7 max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1">{items.map(([title, copy]) => <div key={title} className="border-t border-line pt-5"><h3 className="text-lg font-semibold tracking-[-.02em]">{title}</h3><p className="mt-3 text-sm leading-[1.7] text-muted">{copy}</p></div>)}</div>
+      </Container>
+    </section>
+  );
 }
 
 export function SectorReadiness({ label, points, details }: { label: string; points: string[][]; details: string[] }) {

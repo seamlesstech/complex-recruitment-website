@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../../lib/seo';
 import { BusinessOperationalRoleExplorer } from '../../../components/BusinessOperationalRoleExplorer';
 import { Footer } from '../../../components/layout/Footer';
 import { CompactSectorHero } from '../../../components/sectors/CompactSectorHero';
@@ -17,7 +18,7 @@ const employer: SectorEnquiryConfig = {
   sector: "Business & Operational Support",
   "intent": "I need staff",
   "title": "Find office staff",
-  "support": "Tell us the role and whether it's cover or a longer-term need.",
+  "support": "Tell us the role and whether it’s cover or a longer-term need.",
   "action": "Request a Shortlist",
   "fields": [
     {
@@ -49,6 +50,8 @@ const employer: SectorEnquiryConfig = {
 
 const serviceItems = ['Temporary & ad-hoc support', 'Temp-to-perm recruitment', 'Permanent recruitment', 'High-volume requirements', 'Targeted candidate sourcing', 'Role and shift matching'];
 
+export const metadata = pageMetadata('Business & Operational Support Recruitment | Complex Recruitment', "Planners, administrators, coordinators and support teams for transport, logistics and operational businesses.");
+
 export default async function BusinessOperationalSupportPage() {
   const { jobs } = await getPublicJobs();
   const sectorJobs = jobsForSector(jobs, 'business');
@@ -58,10 +61,10 @@ export default async function BusinessOperationalSupportPage() {
     <SectorCompliance image="/stock/team-reviewing-charts.jpg" label="WHAT WE LOOK FOR" title={<>Ready for the role.<br/><em>Right for the operation.</em></>} copy="The right match combines practical capability with an understanding of the environment in which the work happens." checks={['Relevant sector or operational experience','Familiarity with the systems used in the role','Flexibility around shifts and operating hours','Clear, confident communication','Understanding of operational priorities']} button="Request Support Staff" />
     <div id="job-categories" className="scroll-mt-[92px]"><SectorRoles label="SUPPORT JOB CATEGORIES" title={<>The roles that keep<br/><em>operations connected.</em></>} copy="Explore the planning, administration, customer service and leadership roles that support day-to-day operational performance."><BusinessOperationalRoleExplorer /></SectorRoles></div>
     <SectorOpportunities id="business-support-jobs" shortName="Support" jobs={sectorJobs} />
-    <SectorCandidateValue />
+    <SectorCandidateValue focus={['Role matching', 'Support from a team that understands planning, administration and coordination roles.']} />
     <SectorService title={<>Recruitment shaped around<br/><em>operational demand.</em></>} copy="From short-term coordination cover to permanent operational hires, the route is matched to the requirement." items={serviceItems} />
     <SectorProcess label="FROM BRIEF TO PLACEMENT" title={<>A focused route to<br/><em>the right support.</em></>} steps={[["01","Understand","Confirm the role, environment, systems, working pattern and priorities."],["02","Source","Reach suitable candidates through targeted search and existing networks."],["03","Assess","Review relevant experience, communication and operational understanding."],["04","Place & support","Coordinate the placement and keep communication clear after the start."]]} />
-    <SectorDualCta employer={{label:'FOR EMPLOYERS',title:'I need support staff.',copy:'Tell us the role, environment, working pattern and timing. We’ll take it from there.',action:'Request Staff',href:'/request-staff'}} candidate={{label:'FOR CANDIDATES',title:'I’m looking for support work.',copy:'Explore operational administration, planning, customer service and leadership roles.',action:'Find Support Jobs',href:'/jobs'}} />
+    <SectorDualCta employer={{label:'FOR EMPLOYERS',title:'I need support staff.',copy:'Tell us the role, environment, working pattern and timing, and the team will be in touch.',action:'Request Staff',href:'/request-staff'}} candidate={{label:'FOR CANDIDATES',title:'I’m looking for support work.',copy:'Explore operational administration, planning, customer service and leadership roles.',action:'Find Support Jobs',href:'/jobs'}} />
     <Footer />
   </main>;
 }

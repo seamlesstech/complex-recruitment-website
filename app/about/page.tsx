@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../lib/seo';
 import { HowComplexWorks } from "../../components/HowComplexWorks";
 import { HeroEyebrow } from "../../components/HeroEyebrow";
 import { Header } from "../../components/Header";
@@ -26,6 +27,8 @@ const values = [
   ["L", "Leading", "Setting the standard through the way the team works."],
   ["EX", "eXceed", "Aiming to go beyond the expected."],
 ];
+
+export const metadata = pageMetadata('About Us | Complex Recruitment', "Complex Recruitment provides specialist temporary, ad-hoc and permanent staffing across six operational sectors, with offices in North London and West London.");
 
 export default function AboutPage() {
   return (
@@ -132,11 +135,7 @@ export default function AboutPage() {
             <em>on relationships.</em>
           </h2>
           <p className="my-7 mb-[30px] max-w-[590px] text-[15px] leading-[1.72] text-[#626e74]">
-            Complex’s existing positioning speaks about collaboration, service,
-            ethics and community. For the new site, the story is less about
-            corporate slogans and more about what those principles look like in
-            practice: ownership of client requirements, communication with
-            workers and responsiveness when operations change.
+            Collaboration, service, ethics and community guide how we work. In practice that means ownership of client requirements, clear communication with workers and a quick response when operations change.
           </p>
           <TextLink href="/employers">How We Support Employers</TextLink>
         </div>
@@ -154,9 +153,7 @@ export default function AboutPage() {
               <em>meaning behind it.</em>
             </h2>
             <p className="mt-7 max-w-[600px] text-sm leading-[1.7] text-[#aab2b6]">
-              The current site builds its values around the letters in COMPLEX.
-              We can retain that recognisable idea while simplifying the
-              presentation and language.
+              Our values are built around the letters in COMPLEX.
             </p>
           </div>
         </Container>

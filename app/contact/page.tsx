@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../lib/seo';
 import { ContactPathCard } from "../../components/contact/ContactPathCard";
 import { GeneralEnquiryForm } from "../../components/contact/GeneralEnquiryForm";
 import { Header } from "../../components/Header";
@@ -52,6 +53,8 @@ const locations = [
   },
 ] as const;
 
+export const metadata = pageMetadata('Contact Us | Complex Recruitment', "Contact the Complex Recruitment offices in North London and West London, or send an enquiry to the right team.");
+
 export default function ContactPage() {
   return (
     <main className="contactPage">
@@ -79,8 +82,7 @@ export default function ContactPage() {
 
           <div className="pb-1 max-[760px]:mt-[30px]">
             <p className="mb-[27px] mt-0 max-w-[520px] text-[15px] leading-[1.7] text-[#606a70]">
-              Whether you need staff, you&apos;re looking for work, or you have
-              a general question, choose the route that gets you to the right
+              Whether you need staff, you’re looking for work or you have a general question, choose the route that gets you to the right
               team fastest.
             </p>
 
@@ -131,7 +133,7 @@ export default function ContactPage() {
             href="#general-contact"
             eyebrow="03 · GENERAL"
             title="I have a question."
-            body="Accounts, HR, timesheets or anything else — use the contact details below."
+            body="Accounts, HR, timesheets or anything else: use the contact details below."
             cta="Contact Complex"
             tone="grey"
             arrow="down-right"
@@ -171,7 +173,7 @@ export default function ContactPage() {
                   {location.number}
                 </span>
 
-                <ArrowIcon className="text-[20px] text-brand-red opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-1.5 group-hover:opacity-100" />
+                
               </div>
 
               <div className="mt-auto">
@@ -270,7 +272,7 @@ export default function ContactPage() {
             </h2>
 
             <p className="mt-7 max-w-[440px] text-sm leading-[1.7] text-[#69747a]">
-              Send a short message and we&apos;ll route it to the appropriate
+              Send a short message and we’ll route it to the appropriate
               team.
             </p>
           </div>

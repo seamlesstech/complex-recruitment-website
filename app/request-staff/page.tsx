@@ -1,3 +1,4 @@
+import { pageMetadata } from '../../lib/seo';
 import { Header } from "../../components/Header";
 import { Container } from "../../components/layout/Container";
 import { Footer } from "../../components/layout/Footer";
@@ -23,6 +24,8 @@ const nextSteps = [
     "Complex moves into sourcing, matching and relevant compliance checks.",
   ],
 ];
+
+export const metadata = pageMetadata('Request Staff | Complex Recruitment', "Tell us the sector, role, numbers and timing, and the Complex team will respond to your staffing requirement.");
 
 export default function RequestStaffPage() {
   return (

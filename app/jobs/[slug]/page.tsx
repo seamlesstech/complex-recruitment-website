@@ -38,7 +38,7 @@ export default async function JobDetailPage({ params }: { params: Params }) {
           <Header active="Jobs" theme="light" />
           <Container className="py-12">
             <TextLink href="/jobs">Back to jobs</TextLink>
-            <h1 className="mb-4 mt-7 text-[clamp(32px,3.5vw,48px)] font-semibold leading-[1.05] tracking-[-.045em]">This job can&apos;t be loaded right now.</h1>
+            <h1 className="mb-4 mt-7 text-[clamp(32px,3.5vw,48px)] font-semibold leading-[1.05] tracking-[-.045em]">This job can’t be loaded right now.</h1>
             <p role="status" className="max-w-[600px] text-sm leading-[1.7] text-muted">Please try again shortly. If the problem continues, call 0203 923 7888.</p>
           </Container>
         </section>
