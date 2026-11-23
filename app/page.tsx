@@ -83,6 +83,13 @@ const trustedLogos: readonly TrustedLogo[] = [
     displayHeight: 48,
   },
 ];
+// Why Complex stat panels: faint tonal blocks on the white section.
+const statPanel = "bg-panel p-9 max-[1100px]:p-7 max-[640px]:p-7";
+const statNumber = "block h-[74px] text-[62px] font-bold leading-[74px] tracking-[-.06em]";
+// The qualifier sits apart from the number: smaller, grey, medium weight, raised.
+const statQualifier = "ml-[.3em] inline-block -translate-y-[.55em] align-baseline text-[.4em] font-medium leading-none tracking-[.12em] text-stat-qualifier";
+const statCaption = "mt-3 max-w-60 text-xs leading-[1.45] text-muted";
+
 // Latest live vacancies from public_jobs, regenerated at most once a minute.
 export const revalidate = 60;
 
@@ -93,7 +100,7 @@ export default async function Home() {
   return (
     <main id="top">
       <Hero />
-      <section className="overflow-hidden border-b border-line bg-surface py-[52px]">
+      <section className="overflow-hidden border-b border-line bg-white py-[52px]">
         <Container gutter="wide">
           <h2 className="mx-auto max-w-[900px] text-center text-[clamp(18px,1.55vw,22px)] font-semibold leading-[1.35] tracking-[-.015em] text-[#626e74]">
             Trusted by leading logistics, distribution and retail operations
@@ -128,7 +135,7 @@ export default async function Home() {
       </section>
 
       <section
-        className="bg-surface py-[130px] max-[640px]:py-[88px]"
+        className="bg-white py-[130px] max-[640px]:py-[88px]"
         id="about"
       >
         <Container gutter="wide">
@@ -143,51 +150,51 @@ export default async function Home() {
               We help businesses respond to changing workforce needs with a PAYE temporary workforce, plus ad-hoc and permanent staffing, supported by sector expertise, compliance and hands-on account management.
             </p>
           </div>
-          <div className="mt-[100px] grid grid-cols-4 border-y border-line max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1">
+          <div className="mt-[100px] grid grid-cols-4 gap-4 max-[1000px]:grid-cols-2 max-[640px]:grid-cols-1 max-[640px]:gap-3">
             {/* 40+ */}
-            <article className="border-r border-line py-9 pr-9 max-[1000px]:border-b max-[640px]:border-r-0 max-[640px]:px-0">
-              <strong className="text-[62px] tracking-[-.06em]">
+            <article className={statPanel}>
+              <strong className={statNumber}>
                 40
-                <span className="text-[.45em]">+</span>
+                <span className={statQualifier}>+</span>
               </strong>
 
-              <p className="max-w-60 text-xs leading-[1.45] text-muted">
+              <p className={statCaption}>
                 Years of combined senior management experience
               </p>
             </article>
 
             {/* 24 / 7 */}
-            <article className="border-r border-line px-9 py-9 max-[1000px]:border-b max-[1000px]:border-r-0 max-[640px]:border-r-0 max-[640px]:px-0">
-              <strong className="text-[62px] tracking-[-.06em]">
+            <article className={statPanel}>
+              <strong className={statNumber}>
                 24
-                <span className="text-[.45em]"> / 7</span>
+                <span className={`${statQualifier} tracking-[.2em]`}>/ 7</span>
               </strong>
 
-              <p className="max-w-60 text-xs leading-[1.45] text-muted">
+              <p className={statCaption}>
                 Operational support when your business needs it
               </p>
             </article>
 
             {/* REC */}
-            <article className="border-r border-line px-9 py-9 max-[1000px]:border-r max-[640px]:border-r-0 max-[640px]:border-b max-[640px]:px-0">
+            <article className={statPanel}>
               <div className="flex h-[74px] items-center">
                 <img
                   src="/rec-logo.png"
                   alt="REC"
-                  className="block max-h-[58px] w-auto max-w-[200px] object-contain"
+                  className="block max-h-[58px] w-auto max-w-[min(200px,100%)] object-contain"
                 />
               </div>
 
-              <p className="max-w-60 text-xs leading-[1.45] text-muted">
+              <p className={statCaption}>
                 REC member with compliance-led recruitment processes
               </p>
             </article>
 
             {/* Specialist recruitment areas */}
-            <article className="py-9 pl-9 max-[1000px]:pl-9 max-[640px]:px-0">
-              <strong className="text-[62px] tracking-[-.06em]">06</strong>
+            <article className={statPanel}>
+              <strong className={statNumber}>06</strong>
 
-              <p className="max-w-60 text-xs leading-[1.45] text-muted">
+              <p className={statCaption}>
                 Specialist sectors supporting operational businesses
               </p>
             </article>
