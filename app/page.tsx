@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CandidateImageRotator } from "../components/CandidateImageRotator";
 import { Hero } from "../components/Hero";
 import { SectionLabel } from "../components/SectionLabel";
 import { Container } from "../components/layout/Container";
@@ -10,6 +11,11 @@ import { getPublicJobs } from "../lib/public-jobs.server";
 
 const heading =
   "section-heading m-0 text-[clamp(48px,5.2vw,84px)] leading-[.96] tracking-[-.05em] max-[640px]:text-5xl [&_em]:not-italic [&_em]:text-brand-red";
+// The candidates heading sits in a narrower column than a full-width section heading,
+// so it is set a little smaller to keep "Good work starts" on one line.
+const candidateHeading = heading
+  .replace("text-[clamp(48px,5.2vw,84px)]", "text-[clamp(40px,4.3vw,68px)]")
+  .replace("max-[640px]:text-5xl", "max-[640px]:text-[38px]");
 type TrustedLogo = {
   file: string;
   alt: string;
@@ -83,11 +89,23 @@ const trustedLogos: readonly TrustedLogo[] = [
     displayHeight: 48,
   },
 ];
+// One local photo per sector, in the order the sectors are listed. The first is the
+// image shown when reduced motion is on. Crops are set per photo to keep the subject in frame.
+const candidateImages = [
+  { src: "/stock/driver-hands-on-steering-wheel.jpg", position: "40% 45%" }, // Driving & Transport
+  { src: "/stock/warehouse-operatives-carrying-boxes.jpg", position: "50% 40%" }, // Industrial & Warehousing
+  { src: "/stock/construction-workers-reviewing-plans.jpg", position: "50% 45%" }, // Construction & Engineering
+  { src: "/stock/team-meeting-around-table.jpg", position: "50% 50%" }, // Business & Operational Support
+  { src: "/waste-management-operative.jpg", position: "38% 50%" }, // Waste Management
+  { src: "/drinks-logistics-brewery.jpg", position: "50% 32%" }, // Drinks Logistics
+] as const;
 // Why Complex stat panels: faint tonal blocks on the white section.
 const statPanel = "bg-panel p-9 max-[1100px]:p-7 max-[640px]:p-7";
-const statNumber = "block h-[74px] text-[62px] font-bold leading-[74px] tracking-[-.06em]";
-// The qualifier sits apart from the number: smaller, grey, medium weight, raised.
-const statQualifier = "ml-[.3em] inline-block -translate-y-[.55em] align-baseline text-[.4em] font-medium leading-none tracking-[.12em] text-stat-qualifier";
+const statNumber =
+  "block h-[74px] text-[62px] font-bold leading-[74px] tracking-[-.06em]";
+// The qualifier sits apart from the number: smaller, grey, medium weight, on the number’s baseline.
+const statQualifier =
+  "ml-[.3em] inline-block align-baseline text-[.4em] font-medium leading-none tracking-[.12em] text-stat-qualifier";
 const statCaption = "mt-3 max-w-60 text-xs leading-[1.45] text-muted";
 
 // Latest live vacancies from public_jobs, regenerated at most once a minute.
@@ -318,8 +336,50 @@ export default async function Home() {
         </Container>
       </section>
 
+      <section className="bg-white py-[130px] max-[640px]:py-[88px]">
+        <Container
+          gutter="wide"
+          className="grid grid-cols-[1.1fr_.9fr] items-center gap-[90px] max-[1100px]:gap-14 max-[900px]:grid-cols-1 max-[900px]:gap-10"
+        >
+          <CandidateImageRotator
+            images={candidateImages}
+            className="aspect-[5/4] max-[900px]:aspect-[4/3] max-[640px]:aspect-[5/4]"
+          />
+          <div>
+            <SectionLabel>FOR CANDIDATES</SectionLabel>
+            <h2 className={`${candidateHeading} my-[34px]`}>
+              Good work starts
+              <br />
+              <em>with being valued.</em>
+            </h2>
+            <p className="max-w-[520px] text-[17px] leading-[1.6] text-[#526069]">
+              Find opportunities with a recruitment team that values reliable
+              communication, competitive rates and ongoing support.
+            </p>
+            <div className="my-10 grid grid-cols-2 gap-x-6 gap-y-4 max-[540px]:grid-cols-1">
+              {[
+                "Competitive rates",
+                "Reliable payroll",
+                "Flexible opportunities",
+                "Training & upskilling",
+                "Temporary and permanent roles",
+                "Sector-focused support",
+              ].map((x) => (
+                <span className="text-xs text-[#3f4a51]" key={x}>
+                  <span aria-hidden="true" className="mr-2 text-brand-red">
+                    •
+                  </span>
+                  {x}
+                </span>
+              ))}
+            </div>
+            <ButtonLink href="/jobs">Find Work</ButtonLink>
+          </div>
+        </Container>
+      </section>
+
       <section
-        className="bg-surface-strong py-[130px] max-[640px]:py-[88px]"
+        className="bg-ink py-[130px] text-white max-[640px]:py-[88px]"
         id="jobs"
       >
         <Container
@@ -334,22 +394,22 @@ export default async function Home() {
               could be here.
             </h2>
           </div>
-          <p className="max-w-[410px] text-base leading-[1.6] text-[#59646b]">
+          <p className="max-w-[410px] text-base leading-[1.6] text-[#b5bec3]">
             Browse current opportunities across our six specialist sectors.
           </p>
         </Container>
         <Container
           gutter="wide"
-          className="mt-[70px] border-t border-[#9ca39c]"
+          className="mt-[70px] border-t border-white/25"
         >
-          <div className="grid h-[42px] grid-cols-[2fr_1fr_1fr_1fr_1fr_36px] items-center gap-[22px] text-[9px] tracking-[.14em] text-[#687168] max-[700px]:hidden">
+          <div className="grid h-[42px] grid-cols-[2fr_1fr_1fr_1fr_1fr_36px] items-center gap-[22px] text-[9px] tracking-[.14em] text-[#9aa4aa] max-[700px]:hidden">
             {["ROLE", "LOCATION", "SECTOR", "TYPE", "RATE", ""].map((x, i) => (
               <span key={i}>{x}</span>
             ))}
           </div>
           {latestJobs.map((job) => (
             <Link
-              className="group grid min-h-[94px] grid-cols-[2fr_1fr_1fr_1fr_1fr_36px] items-center gap-[22px] border-t border-ink/20 transition hover:bg-white/40 hover:pl-3 max-[700px]:grid-cols-[1fr_auto] max-[700px]:gap-2 max-[700px]:py-5"
+              className="group grid min-h-[94px] grid-cols-[2fr_1fr_1fr_1fr_1fr_36px] items-center gap-[22px] border-t border-white/20 transition hover:bg-white/[.06] hover:pl-3 focus-visible:bg-white/[.06] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand-red max-[700px]:grid-cols-[1fr_auto] max-[700px]:gap-2 max-[700px]:py-5"
               href={job.href}
               key={job.reference}
             >
@@ -362,11 +422,11 @@ export default async function Home() {
                 job.employmentTypeLabel,
                 job.pay,
               ].map((x, i) => (
-                <span className="text-xs text-[#4f5a60]" key={i}>
+                <span className="text-xs text-[#c3cacf]" key={i}>
                   {x ?? "—"}
                 </span>
               ))}
-              <i className="text-lg not-italic transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
+              <i className="text-lg not-italic text-brand-red transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
                 ↗
               </i>
             </Link>
@@ -374,7 +434,7 @@ export default async function Home() {
           {latestJobs.length === 0 && (
             <p
               role="status"
-              className="border-t border-ink/20 py-8 text-sm text-[#4f5a60]"
+              className="border-t border-white/20 py-8 text-sm text-[#c3cacf]"
             >
               {ok
                 ? "No live vacancies right now. Register your interest and we’ll contact you when something relevant comes up."
@@ -387,37 +447,6 @@ export default async function Home() {
             View All Jobs
           </ButtonLink>
         </Container>
-      </section>
-
-      <section className="grid min-h-[720px] grid-cols-2 bg-ink text-white max-[900px]:grid-cols-1">
-        <div className="min-h-[420px] bg-[linear-gradient(rgba(16,24,32,.15),rgba(16,24,32,.4)),url('/stock/delivery-van-loading-trolley.jpg')] bg-cover bg-center" />
-        <div className="py-[110px] pl-20 pr-[max(70px,calc((100vw-1400px)/2))] max-[640px]:px-6 max-[640px]:py-[88px]">
-          <SectionLabel>FOR CANDIDATES</SectionLabel>
-          <h2 className={`${heading} my-[34px]`}>
-            Good work starts
-            <br />
-            <em>with being valued.</em>
-          </h2>
-          <p className="max-w-[520px] text-[17px] leading-[1.6] text-[#b5bec3]">
-            Find opportunities with a recruitment team that values reliable
-            communication, competitive rates and ongoing support.
-          </p>
-          <div className="my-10 grid grid-cols-2 gap-x-6 gap-y-4 max-[540px]:grid-cols-1">
-            {[
-              "Competitive rates",
-              "Reliable payroll",
-              "Flexible opportunities",
-              "Training & upskilling",
-              "Temporary and permanent roles",
-              "Sector-focused support",
-            ].map((x) => (
-              <span className="text-xs text-[#d5dbde]" key={x}>
-                <span aria-hidden="true" className="mr-2 text-brand-red">•</span>{x}
-              </span>
-            ))}
-          </div>
-          <ButtonLink href="/jobs">Find Work</ButtonLink>
-        </div>
       </section>
 
       <section
