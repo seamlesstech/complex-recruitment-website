@@ -8,7 +8,7 @@ import { SectorIntentPanel } from '../../../components/sectors/SectorIntentPanel
 import type { SectorEnquiryConfig } from '../../../components/sectors/SectorEnquiryForm';
 import { SectorOpportunities } from '../../../components/sectors/SectorCandidateSections';
 import { SectorDualCta, SectorService } from '../../../components/sectors/SectorSections';
-import { jobsForSector } from '../../../lib/public-jobs';
+import { jobsForSector, jobsHrefForSector } from '../../../lib/public-jobs';
 import { getPublicJobs } from '../../../lib/public-jobs.server';
 
 const SUMMARY = 'Drivers, draymen and warehouse teams for breweries, wholesalers and drinks distributors supplying pubs, bars and restaurants.';
@@ -75,7 +75,7 @@ export default async function DrinksLogisticsPage() {
   const sectorJobs = jobsForSector(jobs, 'drinks');
   return <main className="bg-white text-ink">
     <CompactSectorHero sector="Drinks Logistics" description={SUMMARY} images={['/drinks-logistics-hero.jpg', '/drinks-logistics-brewery.jpg']} positions={['70% 55%', 'center 45%']} />
-    <SectorOverview title={overview.title} copy={overview.copy} roles={overview.roles} shortName="Drinks Logistics" jobsId="drinks-logistics-jobs"><SectorIntentPanel jobs={sectorJobs} sector="Drinks Logistics" shortName="Drinks Logistics" employer={employer} /></SectorOverview>
+    <SectorOverview title={overview.title} copy={overview.copy} roles={overview.roles} shortName="Drinks Logistics" jobsId="drinks-logistics-jobs"><SectorIntentPanel jobs={sectorJobs} sector="Drinks Logistics" shortName="Drinks Logistics" jobsHref={jobsHrefForSector('drinks')} employer={employer} /></SectorOverview>
     <section id="job-categories" className="scroll-mt-[92px] bg-surface py-16 max-[760px]:py-12">
       <Container>
         <SectionLabel>ROLES WE SUPPORT</SectionLabel>
@@ -103,9 +103,9 @@ export default async function DrinksLogisticsPage() {
         </div>
       </Container>
     </section>
-    <SectorOpportunities id="drinks-logistics-jobs" shortName="Drinks Logistics" jobs={sectorJobs} />
+    <SectorOpportunities id="drinks-logistics-jobs" shortName="Drinks Logistics" jobs={sectorJobs} jobsHref={jobsHrefForSector('drinks')} />
     <SectorService title={<>Staffing that keeps<br/><em>deliveries moving.</em></>} copy="Support from the first brief to ongoing cover, matched to your shifts, routes and sites." items={serviceItems} />
-    <SectorDualCta employer={{ label: 'FOR EMPLOYERS', title: 'I need drinks logistics staff.', copy: 'Tell us the role, shift, numbers and site. We’ll take it from there.', action: 'Request Staff', href: '/request-staff' }} candidate={{ label: 'FOR CANDIDATES', title: 'I’m looking for drinks logistics work.', copy: 'Explore driving, warehouse and delivery roles.', action: 'Find Drinks Logistics Jobs', href: '/jobs' }} />
+    <SectorDualCta employer={{ label: 'FOR EMPLOYERS', title: 'I need drinks logistics staff.', copy: 'Tell us the role, shift, numbers and site. We’ll take it from there.', action: 'Request Staff', href: '/request-staff' }} candidate={{ label: 'FOR CANDIDATES', title: 'I’m looking for drinks logistics work.', copy: 'Explore driving, warehouse and delivery roles.', action: 'Find Drinks Logistics Jobs', href: jobsHrefForSector('drinks') }} />
     <Footer />
   </main>;
 }

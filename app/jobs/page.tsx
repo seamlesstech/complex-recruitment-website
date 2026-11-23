@@ -1,3 +1,4 @@
+import { connection } from 'next/server';
 import { pageMetadata } from '../../lib/seo';
 import { HeroEyebrow } from '../../components/HeroEyebrow';
 import { Header } from '../../components/Header';
@@ -8,8 +9,8 @@ import { SectionLabel } from '../../components/SectionLabel';
 import { ButtonLink } from '../../components/ui/ButtonLink';
 import { getPublicJobs } from '../../lib/public-jobs.server';
 
-// Live vacancies from public_jobs, regenerated at most once a minute.
-export const revalidate = 60;
+// Rendered per request (see `connection()` below) so a filtered link such as
+// /jobs?sector=driving-transport arrives already filtered, with no flash of every job.
 
 const supportItems = [
   ['01', 'Clear communication', 'Know what the role involves, where you need to be and what happens next.'],
@@ -21,6 +22,7 @@ const supportItems = [
 export const metadata = pageMetadata('Jobs | Complex Recruitment', "Browse current vacancies across six operational sectors and apply online.");
 
 export default async function JobsPage() {
+  await connection();
   const { ok, jobs } = await getPublicJobs();
 
   return (

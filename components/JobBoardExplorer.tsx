@@ -89,11 +89,16 @@
 
 "use client";
 
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import {
   EMPLOYMENT_TYPES,
   EMPLOYMENT_TYPE_LABELS,
   FILTERABLE_SECTORS,
+  JOBS_SECTOR_PARAM,
+  sectorLabelsFromSlugs,
+  sectorSlugsFromLabels,
   type DbEmploymentType,
   type PublicJob,
 } from "../lib/public-jobs";
@@ -115,7 +120,31 @@ export function JobBoardExplorer({
   jobs: PublicJob[];
   unavailable?: boolean;
 }) {
-  const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
+  // The sector filter lives in the URL (`?sector=driving-transport`, repeated for more
+  // than one) so a filtered board can be shared, refreshed and navigated back to. It is
+  // read from the search params on every render, so the server-rendered HTML already
+  // matches and unknown values are simply ignored.
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const sectorKey = searchParams.getAll(JOBS_SECTOR_PARAM).join("|");
+  const selectedSectors = useMemo(
+    () => sectorLabelsFromSlugs(sectorKey ? sectorKey.split("|") : []),
+    [sectorKey],
+  );
+
+  // Writes the sector filter back to the URL without a page load or server round trip
+  // (Next.js keeps useSearchParams in sync with history.pushState). Each change is its
+  // own history entry, so the browser Back and Forward buttons step through filters.
+  const setSelectedSectors = (labels: string[]) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete(JOBS_SECTOR_PARAM);
+    sectorSlugsFromLabels(labels).forEach((slug) =>
+      params.append(JOBS_SECTOR_PARAM, slug),
+    );
+    const query = params.toString();
+    window.history.pushState(null, "", query ? `${pathname}?${query}` : pathname);
+  };
+
   const [selectedWorkTypes, setSelectedWorkTypes] = useState<DbEmploymentType[]>(
     [],
   );
@@ -141,12 +170,33 @@ export function JobBoardExplorer({
     [jobs, selectedSectors, selectedWorkTypes, query, location],
   );
 
+  const sectorJobs = useMemo(
+    () =>
+      selectedSectors.length
+        ? jobs.filter(
+            (job) =>
+              !!job.sectorLabel && selectedSectors.includes(job.sectorLabel),
+          )
+        : jobs,
+    [jobs, selectedSectors],
+  );
+
   const clearFilters = () => {
     setQuery("");
     setLocation("");
-    setSelectedSectors([]);
+    setSelectedWorkTypes([]);
+    if (selectedSectors.length) setSelectedSectors([]);
+  };
+
+  // Clears keyword, location and work type but leaves the sector alone.
+  const clearNonSectorFilters = () => {
+    setQuery("");
+    setLocation("");
     setSelectedWorkTypes([]);
   };
+
+  const sectorName =
+    selectedSectors.length === 1 ? selectedSectors[0] : null;
 
   return (
     <div className="min-w-0">
@@ -230,10 +280,10 @@ export function JobBoardExplorer({
                         value={item}
                         checked={selectedSectors.includes(item)}
                         onChange={() =>
-                          setSelectedSectors((current) =>
-                            current.includes(item)
-                              ? current.filter((value) => value !== item)
-                              : [...current, item],
+                          setSelectedSectors(
+                            selectedSectors.includes(item)
+                              ? selectedSectors.filter((value) => value !== item)
+                              : [...selectedSectors, item],
                           )
                         }
                         className="h-4 w-4 shrink-0 accent-brand-red focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-red"
@@ -351,31 +401,82 @@ export function JobBoardExplorer({
         </div>
       )}
 
-      {/* Empty state */}
+      {/* Empty states: tell "no vacancies in this sector" apart from "your other filters hide them" */}
       {!unavailable && filtered.length === 0 && (
-        <div className="border-b border-line bg-white p-7">
-          <h3 className="mt-0 text-2xl tracking-[-.03em]">
-            No suitable role right now?
-          </h3>
+        <div
+          role="status"
+          className="border-b border-line bg-white p-7"
+          data-empty-state={
+            selectedSectors.length && sectorJobs.length === 0
+              ? "sector"
+              : selectedSectors.length
+                ? "filters"
+                : "generic"
+          }
+        >
+          {selectedSectors.length > 0 && sectorJobs.length === 0 ? (
+            <>
+              <h3 className="mt-0 text-2xl tracking-[-.03em]">
+                {sectorName
+                  ? `No ${sectorName} jobs available right now.`
+                  : "No jobs available in these sectors right now."}
+              </h3>
 
-          <p className="mb-6 text-sm text-muted">
-            Try adjusting or resetting your filters, or register your interest
-            for future opportunities.
-          </p>
+              <p className="mb-6 max-w-[560px] text-sm text-muted">
+                We don’t currently have any live vacancies in{" "}
+                {sectorName ? "this sector" : "these sectors"}, but new
+                opportunities are added regularly.
+              </p>
 
-          <div className="flex flex-wrap gap-5">
-            <button
-              type="button"
-              onClick={clearFilters}
-              className="min-h-12 border border-line bg-white px-5 text-sm font-semibold text-ink outline-none hover:bg-surface focus-visible:ring-2 focus-visible:ring-brand-red"
-            >
-              Reset filters
-            </button>
+              <div className="flex flex-wrap items-center gap-5">
+                <ButtonLink href="/register-interest" className="!text-white">
+                  Register Your Interest
+                </ButtonLink>
 
-            <ButtonLink href="/register-interest" className="!text-white">
-              Register your interest
-            </ButtonLink>
-          </div>
+                <Link
+                  href="/jobs"
+                  onClick={clearNonSectorFilters}
+                  className="inline-flex min-h-12 items-center border border-line bg-white px-5 text-sm font-semibold text-ink outline-none hover:bg-surface focus-visible:ring-2 focus-visible:ring-brand-red"
+                >
+                  View All Jobs
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <h3 className="mt-0 text-2xl tracking-[-.03em]">
+                {selectedSectors.length > 0
+                  ? "No jobs match your current filters."
+                  : "No suitable role right now?"}
+              </h3>
+
+              <p className="mb-6 text-sm text-muted">
+                {selectedSectors.length > 0
+                  ? "There are live vacancies in this sector, but none match everything you have selected. Clear your other filters to see them."
+                  : "Try adjusting or resetting your filters, or register your interest for future opportunities."}
+              </p>
+
+              <div className="flex flex-wrap gap-5">
+                <button
+                  type="button"
+                  onClick={
+                    selectedSectors.length > 0
+                      ? clearNonSectorFilters
+                      : clearFilters
+                  }
+                  className="min-h-12 border border-line bg-white px-5 text-sm font-semibold text-ink outline-none hover:bg-surface focus-visible:ring-2 focus-visible:ring-brand-red"
+                >
+                  {selectedSectors.length > 0
+                    ? "Clear other filters"
+                    : "Reset filters"}
+                </button>
+
+                <ButtonLink href="/register-interest" className="!text-white">
+                  Register your interest
+                </ButtonLink>
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

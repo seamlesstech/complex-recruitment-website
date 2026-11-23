@@ -76,19 +76,42 @@ export type WebsiteSectorKey = 'driving' | 'industrial' | 'construction' | 'busi
  * name (`sectors.name`, exposed by public_jobs as `sector`) are the same string
  * for every sector, so there is no label-to-database mapping to keep in sync.
  */
-const sectorNamed = (name: string) => ({ label: name, dbSector: name });
+const sectorNamed = (name: string, slug: string) => ({ label: name, dbSector: name, slug });
 
-export const WEBSITE_SECTORS: Record<WebsiteSectorKey, { label: string; dbSector: string }> = {
-  driving: sectorNamed('Driving & Transport'),
-  industrial: sectorNamed('Industrial & Warehousing'),
-  construction: sectorNamed('Construction & Engineering'),
-  business: sectorNamed('Business & Operational Support'),
-  waste: sectorNamed('Waste Management'),
-  drinks: sectorNamed('Drinks Logistics'),
+/**
+ * `slug` is the canonical database sector slug (`sectors.slug`). It is what the Jobs
+ * page filter URL uses (`/jobs?sector=driving-transport`) and is deliberately NOT the
+ * marketing page route (`/sectors/driving`), which differs for two sectors.
+ */
+export const WEBSITE_SECTORS: Record<WebsiteSectorKey, { label: string; dbSector: string; slug: string }> = {
+  driving: sectorNamed('Driving & Transport', 'driving-transport'),
+  industrial: sectorNamed('Industrial & Warehousing', 'industrial-warehouse'),
+  construction: sectorNamed('Construction & Engineering', 'construction'),
+  business: sectorNamed('Business & Operational Support', 'business-operational-support'),
+  waste: sectorNamed('Waste Management', 'waste-management'),
+  drinks: sectorNamed('Drinks Logistics', 'drinks-logistics'),
 };
 
 /** Sector families offered as job-board filters. */
 export const FILTERABLE_SECTORS = Object.values(WEBSITE_SECTORS);
+
+/** Query parameter the Jobs page reads its sector filter from. */
+export const JOBS_SECTOR_PARAM = 'sector';
+
+/** Shareable Jobs URL pre-filtered to one sector, e.g. `/jobs?sector=waste-management`. */
+export function jobsHrefForSector(key: WebsiteSectorKey): string {
+  return `/jobs?${JOBS_SECTOR_PARAM}=${WEBSITE_SECTORS[key].slug}`;
+}
+
+/** Sector labels for the valid slugs in `slugs` (unknown values are ignored), in canonical order. */
+export function sectorLabelsFromSlugs(slugs: readonly string[]): string[] {
+  return FILTERABLE_SECTORS.filter(sector => slugs.includes(sector.slug)).map(sector => sector.label);
+}
+
+/** Canonical slugs for the given sector labels, in canonical order. */
+export function sectorSlugsFromLabels(labels: readonly string[]): string[] {
+  return FILTERABLE_SECTORS.filter(sector => labels.includes(sector.label)).map(sector => sector.slug);
+}
 
 function sectorLabelFor(dbSector: string | null): string | null {
   if (!dbSector) return null;

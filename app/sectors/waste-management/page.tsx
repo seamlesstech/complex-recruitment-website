@@ -8,7 +8,7 @@ import { SectorIntentPanel } from '../../../components/sectors/SectorIntentPanel
 import type { SectorEnquiryConfig } from '../../../components/sectors/SectorEnquiryForm';
 import { SectorOpportunities } from '../../../components/sectors/SectorCandidateSections';
 import { SectorDualCta, SectorService } from '../../../components/sectors/SectorSections';
-import { jobsForSector } from '../../../lib/public-jobs';
+import { jobsForSector, jobsHrefForSector } from '../../../lib/public-jobs';
 import { getPublicJobs } from '../../../lib/public-jobs.server';
 
 export const metadata: Metadata = {
@@ -56,7 +56,7 @@ export default async function WasteManagementPage() {
   const sectorJobs = jobsForSector(jobs, 'waste');
   return <main className="bg-white text-ink">
     <CompactSectorHero sector="Waste Management" description="Collection crews, drivers and site operatives for waste, recycling and street cleansing operations, from daily rounds to seasonal peaks." images={['/waste-management-hero.jpg', '/waste-management-operative.jpg']} positions={['center 42%', 'center 55%']} />
-    <SectorOverview title="Crews that turn up and keep rounds on time" copy="Waste and recycling operations run on early starts, fixed rounds and teams that can be relied on. We supply temporary, ad-hoc and permanent staff for collection, processing and street cleansing work, matched to the shift, the vehicle and the site." roles={['Refuse and recycling loaders', 'Waste collection operatives', 'HGV refuse drivers', 'Recycling operatives', 'Yard and transfer station operatives', 'Street cleansing operatives', 'Supervisors and team leaders', 'Operational support roles']} shortName="Waste Management" jobsId="waste-management-jobs"><SectorIntentPanel jobs={sectorJobs} sector="Waste Management" shortName="Waste Management" employer={employer} /></SectorOverview>
+    <SectorOverview title="Crews that turn up and keep rounds on time" copy="Waste and recycling operations run on early starts, fixed rounds and teams that can be relied on. We supply temporary, ad-hoc and permanent staff for collection, processing and street cleansing work, matched to the shift, the vehicle and the site." roles={['Refuse and recycling loaders', 'Waste collection operatives', 'HGV refuse drivers', 'Recycling operatives', 'Yard and transfer station operatives', 'Street cleansing operatives', 'Supervisors and team leaders', 'Operational support roles']} shortName="Waste Management" jobsId="waste-management-jobs"><SectorIntentPanel jobs={sectorJobs} sector="Waste Management" shortName="Waste Management" jobsHref={jobsHrefForSector('waste')} employer={employer} /></SectorOverview>
     <section id="job-categories" className="scroll-mt-[92px] bg-surface py-16 max-[760px]:py-12">
       <Container>
         <SectionLabel>WHERE WE SUPPORT</SectionLabel>
@@ -70,9 +70,9 @@ export default async function WasteManagementPage() {
         </div>
       </Container>
     </section>
-    <SectorOpportunities id="waste-management-jobs" shortName="Waste Management" jobs={sectorJobs} />
+    <SectorOpportunities id="waste-management-jobs" shortName="Waste Management" jobs={sectorJobs} jobsHref={jobsHrefForSector('waste')} />
     <SectorService title={<>Staffing that keeps<br/><em>rounds running.</em></>} copy="Practical support from the first brief to ongoing cover, built around the shifts and sites you run." items={serviceItems} />
-    <SectorDualCta employer={{ label: 'FOR EMPLOYERS', title: 'I need waste staff.', copy: 'Tell us the round, shift, numbers and site.', action: 'Request Staff', href: '/request-staff' }} candidate={{ label: 'FOR CANDIDATES', title: 'I’m looking for waste work.', copy: 'Explore collection, recycling and street cleansing roles.', action: 'Find Waste Jobs', href: '/jobs' }} />
+    <SectorDualCta employer={{ label: 'FOR EMPLOYERS', title: 'I need waste staff.', copy: 'Tell us the round, shift, numbers and site.', action: 'Request Staff', href: '/request-staff' }} candidate={{ label: 'FOR CANDIDATES', title: 'I’m looking for waste work.', copy: 'Explore collection, recycling and street cleansing roles.', action: 'Find Waste Jobs', href: jobsHrefForSector('waste') }} />
     <Footer />
   </main>;
 }

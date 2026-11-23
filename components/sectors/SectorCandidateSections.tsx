@@ -11,13 +11,13 @@ const candidateBenefits = [
   ['Real communication', 'A recruitment team you can reach when you need an update or support.'],
 ] as const;
 
-export function SectorOpportunities({ id, shortName, jobs }: { id: string; shortName: string; jobs: PublicJob[] }) {
+export function SectorOpportunities({ id, shortName, jobs, jobsHref }: { id: string; shortName: string; jobs: PublicJob[]; jobsHref: string }) {
  return (      <section id={id} className="scroll-mt-[92px] bg-white py-20 max-[760px]:py-12">
         <Container>
           <SectionLabel>CURRENT {shortName.toUpperCase()} OPPORTUNITIES</SectionLabel>
           <h2 className="mb-9 mt-7 text-[clamp(36px,4.5vw,60px)] font-semibold leading-[1.04] tracking-[-.045em]">{shortName} roles available now.</h2>
           <div className="border-t border-line">{!jobs.length && <p className="py-8 text-sm text-muted">No current vacancies in this sector. Register your interest below to stay in touch.</p>}{jobs.map((job, index) => <JobRow key={job.reference} job={job} index={index} />)}</div>
-          <div className="mt-8 flex flex-wrap items-center gap-6"><ButtonLink href="/jobs">View All {shortName} Jobs</ButtonLink><TextLink href="/register-interest" className="!text-brand-red">Register Your Interest</TextLink></div>
+          <div className="mt-8 flex flex-wrap items-center gap-6"><ButtonLink href={jobsHref}>View All {shortName} Jobs</ButtonLink><TextLink href="/register-interest" className="!text-brand-red">Register Your Interest</TextLink></div>
         </Container>
       </section>
 );

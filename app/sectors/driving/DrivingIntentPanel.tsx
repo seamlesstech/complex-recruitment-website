@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { EMPLOYMENT_TYPE_LABELS, EMPLOYMENT_TYPES, type PublicJob } from '../../../lib/public-jobs';
+import { EMPLOYMENT_TYPE_LABELS, EMPLOYMENT_TYPES, jobsHrefForSector, type PublicJob } from '../../../lib/public-jobs';
 import { BookDriverForm } from './BookDriverForm';
 import { ButtonLink } from '../../../components/ui/ButtonLink';
 import { TextLink } from '../../../components/ui/TextLink';
@@ -41,7 +41,7 @@ export function DrivingIntentPanel({ jobs }: { jobs: PublicJob[] }) {
             {matches.map(job => <Link key={job.reference} href={job.href} className="group block border-b border-line py-4 outline-none focus-visible:ring-2 focus-visible:ring-brand-red"><h3 className="text-base font-semibold tracking-[-.02em]">{job.title}<span aria-hidden="true" className="ml-2 text-brand-red">↗</span></h3><p className="mt-2 text-xs leading-relaxed text-muted">{[job.location, job.employmentTypeLabel].filter(Boolean).join(' · ')}{job.pay && <><br /><span className="text-ink">{job.pay}</span></>}</p></Link>)}
             {!matches.length && <p className="py-4 text-sm leading-relaxed text-muted">No matching driving roles. Try another location or work type, or register your interest below.</p>}
           </div>
-          <ButtonLink href="/jobs" className="mt-5 w-full">View All Driving Jobs</ButtonLink>
+          <ButtonLink href={jobsHrefForSector('driving')} className="mt-5 w-full">View All Driving Jobs</ButtonLink>
           <p className="mt-5 text-xs text-muted">Can’t see the right role?</p>
           <TextLink href="/register-interest" className="mt-2 !text-brand-red">Register your interest</TextLink>
         </div>

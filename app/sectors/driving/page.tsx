@@ -5,7 +5,7 @@ import { Container } from "../../../components/layout/Container";
 import { SectionLabel } from "../../../components/SectionLabel";
 import { Header } from "../../../components/Header";
 import { DrivingIntentPanel } from "./DrivingIntentPanel";
-import { jobsForSector } from "../../../lib/public-jobs";
+import { jobsForSector, jobsHrefForSector } from "../../../lib/public-jobs";
 import { getPublicJobs } from "../../../lib/public-jobs.server";
 import { JobRow } from "../../../components/jobs/JobRow";
 import { ButtonLink } from "../../../components/ui/ButtonLink";
@@ -72,7 +72,7 @@ export default async function DrivingPage() {
           <SectionLabel>CURRENT DRIVING OPPORTUNITIES</SectionLabel>
           <h2 className="mb-9 mt-7 text-[clamp(36px,4.5vw,60px)] font-semibold leading-[1.04] tracking-[-.045em]">Driving roles available now.</h2>
           <div className="border-t border-line">{!drivingJobs.length && <p className="py-8 text-sm text-muted">No current vacancies in this sector. Register your interest below to stay in touch.</p>}{drivingJobs.map((job, index) => <JobRow key={job.reference} job={job} index={index} />)}</div>
-          <div className="mt-8 flex flex-wrap items-center gap-6"><ButtonLink href="/jobs">View All Driving Jobs</ButtonLink><TextLink href="/register-interest" className="!text-brand-red">Register Your Interest</TextLink></div>
+          <div className="mt-8 flex flex-wrap items-center gap-6"><ButtonLink href={jobsHrefForSector('driving')}>View All Driving Jobs</ButtonLink><TextLink href="/register-interest" className="!text-brand-red">Register Your Interest</TextLink></div>
         </Container>
       </section>
       <SectorCandidateValue label="FOR DRIVERS" focus={['Driver support', 'A team that understands licences, drivers’ hours and tachograph requirements.']} />
@@ -96,7 +96,7 @@ export default async function DrivingPage() {
           title: "I’m looking for work.",
           copy: "Explore current driving and transport opportunities.",
           action: "Find Driving Jobs",
-          href: "/jobs",
+          href: jobsHrefForSector('driving'),
         }}
       />
       <Footer />

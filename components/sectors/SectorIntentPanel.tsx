@@ -7,7 +7,7 @@ import { SectorEnquiryForm, type SectorEnquiryConfig } from './SectorEnquiryForm
 import { ButtonLink } from '../ui/ButtonLink';
 import { TextLink } from '../ui/TextLink';
 
-export function SectorIntentPanel({ jobs, sector, shortName, employer }: { jobs: PublicJob[]; sector: string; shortName: string; employer: SectorEnquiryConfig }) {
+export function SectorIntentPanel({ jobs, sector, shortName, jobsHref, employer }: { jobs: PublicJob[]; sector: string; shortName: string; jobsHref: string; employer: SectorEnquiryConfig }) {
   const [intent, setIntent] = useState(0);
   const [location, setLocation] = useState('');
   const [workType, setWorkType] = useState('');
@@ -41,7 +41,7 @@ export function SectorIntentPanel({ jobs, sector, shortName, employer }: { jobs:
             {matches.map(job => <Link key={job.reference} href={job.href} className="group block border-b border-line py-4 outline-none focus-visible:ring-2 focus-visible:ring-brand-red"><h3 className="text-base font-semibold tracking-[-.02em]">{job.title}<span aria-hidden="true" className="ml-2 text-brand-red">↗</span></h3><p className="mt-2 text-xs leading-relaxed text-muted">{[job.location, job.employmentTypeLabel].filter(Boolean).join(' · ')}{job.pay && <><br /><span className="text-ink">{job.pay}</span></>}</p></Link>)}
             {!matches.length && <p className="py-4 text-sm leading-relaxed text-muted">No matching roles. Try another location or work type, or register your interest below.</p>}
           </div>
-          <ButtonLink href="/jobs" className="mt-5 w-full">View All {shortName} Jobs</ButtonLink>
+          <ButtonLink href={jobsHref} className="mt-5 w-full">View All {shortName} Jobs</ButtonLink>
           <p className="mt-5 text-xs text-muted">Can’t see the right role?</p>
           <TextLink href="/register-interest" className="mt-2 !text-brand-red">Register your interest</TextLink>
         </div>
