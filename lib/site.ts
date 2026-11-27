@@ -12,5 +12,5 @@ export const SITE = {
   companyNumber: '10980984',
   registeredOffice: 'Unit 1 Georgiou Business Park, Second Avenue, London, N18 2PG',
   phone: { display: '0203 923 7888', tel: '02039237888' },
-  email: 'info@complexrecruitment.co.uk',
+  email: 'operations@complexrecruitment.co.uk',
 } as const;

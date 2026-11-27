@@ -8,7 +8,7 @@ import { SectionLabel } from "../../components/SectionLabel";
 import { ArrowIcon } from "../../components/ui/ArrowIcon";
 
 const departments = [
-  ["GENERAL QUERIES", "info@complexrecruitment.co.uk"],
+  ["GENERAL QUERIES", "operations@complexrecruitment.co.uk"],
   ["HUMAN RESOURCES", "hr@complexrecruitment.co.uk"],
   ["ACCOUNTS", "accounts@complexrecruitment.co.uk"],
   ["TIMESHEET SUBMISSIONS", "timesheets@complexrecruitment.co.uk"],
@@ -203,10 +203,10 @@ export default function ContactPage() {
                     </a>
 
                     <a
-                      href="mailto:info@complexrecruitment.co.uk"
+                      href="mailto:operations@complexrecruitment.co.uk"
                       className="mt-2 block text-xs text-[#667177] transition-colors hover:text-brand-red"
                     >
-                      info@complexrecruitment.co.uk
+                      operations@complexrecruitment.co.uk
                     </a>
                   </div>
                 )}
