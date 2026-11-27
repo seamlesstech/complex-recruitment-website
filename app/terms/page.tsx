@@ -41,6 +41,31 @@ const sections: readonly LegalSection[] = [
       'We reserve the right to remove any information supplied by you from the Website at our sole discretion, at any time and for any reason without being required to give any explanation.',
     ],
   },
+  // Sections 04–07 were supplied verbatim by Complex Recruitment.
+  {
+    title: 'Intellectual Property',
+    body: [
+      'All content on this website, including text, images, graphics and logos, is owned by or licensed to Complex Recruitment Ltd. You may view and print pages for your own personal use, but you must not copy, reproduce or distribute any part of this website for commercial purposes without our written permission. All trade marks and logos of third parties shown on this website belong to their respective owners.',
+    ],
+  },
+  {
+    title: 'Links to Other Websites',
+    body: [
+      'This website may contain links to other websites for your convenience. We have no control over the content of those websites and accept no responsibility for them or for any loss or damage that may arise from your use of them.',
+    ],
+  },
+  {
+    title: 'Changes to These Terms',
+    body: [
+      'We may update these terms from time to time. The date at the top of this page shows when they were last updated. By continuing to use the website after any changes, you accept the updated terms.',
+    ],
+  },
+  {
+    title: 'Governing Law',
+    body: [
+      'These terms are governed by the laws of England and Wales. Any dispute arising from them or from your use of this website will be subject to the exclusive jurisdiction of the courts of England and Wales.',
+    ],
+  },
 ];
 
 export default function TermsPage() {
