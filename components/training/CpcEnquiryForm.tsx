@@ -83,10 +83,6 @@ export function CpcEnquiryForm() {
   return (
     <form ref={form} aria-busy={pending} className="relative overflow-hidden border border-ink/10 bg-white shadow-[0_28px_70px_rgba(17,18,20,.07)]" onSubmit={(event) => { event.preventDefault(); void submit(); }}>
       <HoneypotField />
-      <div className="flex items-start justify-between border-b border-line bg-white px-[34px] pb-[22px] pt-[30px] max-[760px]:px-6 max-[760px]:pb-[18px] max-[760px]:pt-6">
-        <div className="flex flex-col gap-[7px]"><span className="text-[9px] font-extrabold tracking-[.16em]">CPC TRAINING</span><small className="text-[10px] text-[#8a9398]">Driver CPC course enquiry</small></div>
-      </div>
-
       <section className="px-14 pb-11 pt-[52px] max-[760px]:px-6 max-[760px]:pb-[34px] max-[760px]:pt-10" aria-labelledby="cpc-enquiry-heading">
         <span className="text-[8px] font-extrabold tracking-[.17em] text-brand-red">CPC TRAINING ENQUIRY</span>
         <h2 id="cpc-enquiry-heading" className="mb-4 mt-[22px] max-w-[720px] text-[clamp(38px,3.5vw,58px)] leading-[.96] tracking-[-.045em]">Tell us about your training.</h2>

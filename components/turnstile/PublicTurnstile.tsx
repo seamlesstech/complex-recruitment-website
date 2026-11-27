@@ -13,6 +13,12 @@ import { TURNSTILE_SITE_KEY as SITE_KEY } from '../../lib/turnstile/config';
  * server-side in `lib/server/turnstile.ts`, so a token from one form can't be
  * replayed against another.
  *
+ * The widget renders with `appearance: 'interaction-only'`: Cloudflare keeps it
+ * invisible unless a visitor actually has to interact with a challenge. The
+ * wrapper takes no space (no margin, out of the layout flow) until Cloudflare
+ * asks for interaction or there's an expired/error message to show; the token
+ * and its server-side Siteverify check are unchanged.
+ *
  * If `NEXT_PUBLIC_TURNSTILE_SITE_KEY` isn't set, the widget renders nothing and
  * reports an empty token immediately — this is the local/preview development
  * fallback. The server independently refuses to skip verification in
@@ -36,6 +42,8 @@ type TurnstileRenderOptions = {
   'error-callback': () => void;
   'expired-callback': () => void;
   'timeout-callback': () => void;
+  'before-interactive-callback': () => void;
+  appearance?: 'always' | 'execute' | 'interaction-only';
   theme?: 'light' | 'dark' | 'auto';
 };
 
@@ -58,6 +66,9 @@ export const PublicTurnstile = forwardRef<PublicTurnstileHandle, Props>(function
   const widgetId = useRef<string | null>(null);
   const [scriptReady, setScriptReady] = useState(false);
   const [state, setState] = useState<'idle' | 'ready' | 'expired' | 'error'>('idle');
+  // True once Cloudflare needs the visitor to interact; stays true until reset so
+  // the widget (and the button beneath it) doesn't jump when the challenge ends.
+  const [interactive, setInteractive] = useState(false);
   const onTokenRef = useRef(onToken);
   onTokenRef.current = onToken;
 
@@ -66,6 +77,7 @@ export const PublicTurnstile = forwardRef<PublicTurnstileHandle, Props>(function
       if (widgetId.current && window.turnstile) window.turnstile.reset(widgetId.current);
       onTokenRef.current('');
       setState('idle');
+      setInteractive(false);
     },
   }));
 
@@ -80,6 +92,7 @@ export const PublicTurnstile = forwardRef<PublicTurnstileHandle, Props>(function
     widgetId.current = window.turnstile.render(containerRef.current, {
       sitekey: SITE_KEY,
       action,
+      appearance: 'interaction-only',
       callback: token => {
         setState('ready');
         onTokenRef.current(token);
@@ -96,6 +109,7 @@ export const PublicTurnstile = forwardRef<PublicTurnstileHandle, Props>(function
         setState('expired');
         onTokenRef.current('');
       },
+      'before-interactive-callback': () => setInteractive(true),
     });
 
     return () => {
@@ -108,8 +122,12 @@ export const PublicTurnstile = forwardRef<PublicTurnstileHandle, Props>(function
 
   if (!SITE_KEY) return null;
 
+  // Nothing visible: keep the (still rendered) widget container out of the
+  // layout so forms don't reserve a margin or grid row for it.
+  const visible = interactive || state === 'expired' || state === 'error';
+
   return (
-    <div className={className}>
+    <div className={visible ? className : 'absolute'}>
       <Script id="cf-turnstile-script" src={SCRIPT_SRC} strategy="afterInteractive" onReady={() => setScriptReady(true)} />
       <div ref={containerRef} />
       <p role="status" aria-live="polite" className="sr-only">
