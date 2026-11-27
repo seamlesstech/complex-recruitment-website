@@ -10,7 +10,7 @@ const checks = [
 ];
 const credentials = [
   ['SEG Awards Transport Manager CPC', 'Our team includes a qualified Transport Manager holding the SEG Awards Level 3 Certificate of Professional Competence for Transport Managers (Road Haulage). This brings knowledge of operator licensing, drivers’ hours and Working Time, tachograph compliance, road safety and the wider responsibilities involved in running a compliant transport operation. It means we understand transport requirements from an operator’s perspective, not simply from a recruitment perspective.'],
-  ['NRI Registered LGV Instructor', 'We also have an NRI Registered LGV Instructor within the team, adding practical expertise in professional LGV driving standards, driver competence and assessment. This strengthens the way we evaluate driving experience and helps us understand what clients should expect from professional HGV drivers beyond the licence itself.'],
+  ['NRI Registered LGV Instructors', 'We also have NRI Registered LGV Instructors within the team, adding practical expertise in professional LGV driving standards, driver competence and assessment. This strengthens the way we evaluate driving experience and helps us understand what clients should expect from professional HGV drivers beyond the licence itself.'],
 ];
 const training = [
   ['Driver CPC support', 'Periodic CPC training can be coordinated through our wider group and training partners, subject to course and location availability.', '/training/cpc', 'Explore CPC Training'],
