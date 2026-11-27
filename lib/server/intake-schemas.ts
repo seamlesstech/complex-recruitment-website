@@ -60,6 +60,8 @@ const AVAILABILITY = ['Immediately', 'Within 1 week', 'Within 1 month', 'Just ex
 const WORK_PREFERENCES = ['Temporary / ad-hoc', 'Permanent', 'Either'] as const;
 const ASSIGNMENT_TYPES = ['Temporary', 'Ad-hoc', 'Temp-to-perm', 'Permanent', 'High-volume', 'Not sure'] as const;
 export const CONTACT_CATEGORIES = ['General', 'Accounts', 'HR', 'Timesheets'] as const;
+const CPC_ENQUIRER_TYPES = ['Driver', 'Employer'] as const;
+const CPC_COURSE_FORMATS = ['Full course (35 hours)', 'Split sessions (7 hours)', 'Not sure yet'] as const;
 
 /** Sector pages that host a SectorEnquiryForm, and the sector each one is for. */
 const SECTOR_PAGES = {
@@ -133,6 +135,28 @@ const staffingRequestSchema = z.strictObject({
   consent,
 });
 
+const cpcTrainingSchema = z
+  .strictObject({
+    kind: z.literal('cpc_training'),
+    enquirerType: z.enum(CPC_ENQUIRER_TYPES, { error: 'Select whether you are a driver or an employer.' }),
+    courseFormat: optionalChoice(CPC_COURSE_FORMATS),
+    drivers: z
+      .union([z.literal(''), z.coerce.number({ error: 'Enter a number.' }).int('Enter a whole number.').min(1, 'Enter at least 1.').max(1000, 'Enter a number up to 1,000.')])
+      .optional()
+      .default(''),
+    preferredTiming: optionalText('Preferred timing', 200),
+    fullName,
+    company: optionalText('Company', 160),
+    email,
+    phone: requiredPhone,
+    message: optionalText('Message', 2000),
+    consent,
+  })
+  .refine(value => value.enquirerType !== 'Employer' || value.company.trim() !== '', {
+    message: 'Company is required for employer enquiries.',
+    path: ['company'],
+  });
+
 const REQUIREMENT_KEY = /^[a-zA-Z][a-zA-Z0-9]{0,40}$/;
 const requirementValue = z.union([z.string().trim().max(2000, 'This answer is too long.'), z.number().int().min(1).max(10000)]);
 
@@ -172,6 +196,7 @@ export const enquirySchema = z.discriminatedUnion('kind', [
   candidateInterestSchema,
   staffingRequestSchema,
   sectorStaffingSchema,
+  cpcTrainingSchema,
 ]);
 
 export type EnquiryInput = z.infer<typeof enquirySchema>;
@@ -272,6 +297,28 @@ export function toEnquiryDraft(input: EnquiryInput): EnquiryDraft {
           ['Duration', input.duration],
           ['Additional notes', input.notes],
           ['Submitted from', 'Website Request Staff form (/request-staff)'],
+        ]),
+      };
+
+    case 'cpc_training':
+      // Stored as a `general` Enquiry (the enquiry_type enum has no training value);
+      // the "CPC Training" subject is what identifies these in the Enquiries list.
+      return {
+        type: 'general',
+        contact_name: input.fullName,
+        email: input.email,
+        phone: nullIfBlank(input.phone),
+        company_free_text: nullIfBlank(input.company),
+        subject: `CPC Training enquiry (${input.enquirerType})`,
+        message: sections([
+          ['Enquiry type', 'CPC Training'],
+          ['Enquiring as', input.enquirerType],
+          ['Company', input.company],
+          ['Number of drivers', input.drivers],
+          ['Preferred course format', input.courseFormat],
+          ['Preferred timing', input.preferredTiming],
+          ['Message', input.message],
+          ['Submitted from', 'Website CPC Training form (/training/cpc/enquiry)'],
         ]),
       };
 
