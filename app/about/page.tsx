@@ -80,9 +80,7 @@ export default function AboutPage() {
             <p>
               With offices in North London and West London, Complex supports
               clients and candidates across West London, Northwest London and
-              North London. Its relationship with
-              AVTAV adds wider group knowledge and support while Complex retains
-              its own specialist recruitment focus.
+              North London.
             </p>
           </div>
         </Container>
