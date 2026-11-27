@@ -92,7 +92,7 @@ const trustedLogos: readonly TrustedLogo[] = [
 // One local photo per sector, in the order the sectors are listed. The first is the
 // image shown when reduced motion is on. Crops are set per photo to keep the subject in frame.
 const candidateImages = [
-  { src: "/stock/driver-hands-on-steering-wheel.jpg", position: "40% 45%" }, // Driving & Transport
+  { src: "/stock/van-driver-at-the-wheel.jpg", position: "66% 40%" }, // Driving & Transport
   { src: "/stock/warehouse-operatives-carrying-boxes.jpg", position: "50% 40%" }, // Industrial & Warehousing
   { src: "/stock/construction-workers-reviewing-plans.jpg", position: "50% 45%" }, // Construction & Engineering
   { src: "/stock/team-meeting-around-table.jpg", position: "50% 50%" }, // Business & Operational Support

@@ -17,14 +17,20 @@ type ServiceHeroProps = {
 };
 
 const images = {
-  assessment: "url('/stock/alloy-wheel-close-up.jpg')",
-  cpc: "url('/stock/hgv-trucks-on-open-road.jpg')",
+  assessment: "url('/stock/hgv-wheel-check-clipboard.jpg')",
+  cpc: "url('/stock/hgv-driver-walking-by-cab.jpg')",
+};
+
+// Where the subject sits in each photo, so narrow (tall) crops keep the person in frame.
+const imagePositions = {
+  assessment: 'bg-center max-[1000px]:bg-[position:68%_center]',
+  cpc: 'bg-center max-[1000px]:bg-[position:62%_center]',
 };
 
 export function ServiceHero({ kind, eyebrow, title, intro, actionHref, actionLabel, badgeLabel, badgeValue, badgeCopy, railItems }: ServiceHeroProps) {
   return <section className="relative isolate grid h-svh min-h-[760px] grid-rows-[92px_minmax(0,1fr)_96px] overflow-hidden bg-ink text-white max-[1000px]:h-auto max-[1000px]:min-h-0 max-[640px]:grid-rows-[76px_auto_auto]">
     <Header active="Additional Services" theme="dark" />
-    <div className="absolute inset-[-2%] -z-[4] scale-[1.025] bg-cover bg-center grayscale-[.2] contrast-105" style={{ backgroundImage: images[kind] }} aria-hidden="true" />
+    <div className={`absolute inset-[-2%] -z-[4] scale-[1.025] bg-cover ${imagePositions[kind]} grayscale-[.2] contrast-105`} style={{ backgroundImage: images[kind] }} aria-hidden="true" />
     <div className="absolute inset-0 -z-[3] bg-[linear-gradient(90deg,rgba(8,9,10,.92),rgba(8,9,10,.74)_43%,rgba(8,9,10,.26)_75%,rgba(8,9,10,.48)),linear-gradient(180deg,rgba(8,9,10,.08),rgba(8,9,10,.52))]" aria-hidden="true" />
     <Container className="grid grid-cols-[1fr_240px] items-end gap-[70px] pb-[54px] pt-[72px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[46px] max-[1000px]:py-[70px] max-[1000px]:pt-[90px] max-[640px]:py-[52px] max-[640px]:pb-11">
       <div className="max-w-[900px]"><div className="mb-[30px] text-[10px] font-extrabold tracking-[.2em] text-white before:mr-[13px] before:mb-[3px] before:inline-block before:h-0.5 before:w-9 before:bg-brand-red"><span className="text-white/60">ADDITIONAL SERVICES / </span>{eyebrow}</div><h1 className="m-0 max-w-[900px] text-[clamp(62px,6vw,102px)] font-semibold leading-[.88] tracking-[-.065em] max-[640px]:text-[50px] [&_em]:not-italic [&_em]:text-brand-red">{title}</h1><p className="my-[30px] max-w-[600px] text-[17px] leading-[1.6] text-[#d5d7d8] max-[640px]:text-[15px]">{intro}</p><div className="flex items-center gap-8 max-[430px]:flex-col max-[430px]:items-start max-[430px]:gap-4"><ButtonLink href={actionHref}>{actionLabel}</ButtonLink><TextLink href="/additional-services" variant="light" arrowDirection="right">All Additional Services</TextLink></div></div>

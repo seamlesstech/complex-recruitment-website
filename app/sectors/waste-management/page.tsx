@@ -55,7 +55,7 @@ export default async function WasteManagementPage() {
   const { jobs } = await getPublicJobs();
   const sectorJobs = jobsForSector(jobs, 'waste');
   return <main className="bg-white text-ink">
-    <CompactSectorHero sector="Waste Management" description="Collection crews, drivers and site operatives for waste, recycling and street cleansing operations, from daily rounds to seasonal peaks." images={['/waste-management-hero.jpg', '/waste-management-operative.jpg']} positions={['center 42%', 'center 55%']} />
+    <CompactSectorHero sector="Waste Management" description="Collection crews, drivers and site operatives for waste, recycling and street cleansing operations, from daily rounds to seasonal peaks." images={['/stock/refuse-collection-operative-dusk.jpg', '/waste-management-operative.jpg']} positions={['center 42%', 'center 55%']} />
     <SectorOverview title="Crews that turn up and keep rounds on time" copy="Waste and recycling operations run on early starts, fixed rounds and teams that can be relied on. We supply temporary, ad-hoc and permanent staff for collection, processing and street cleansing work, matched to the shift, the vehicle and the site." roles={['Refuse and recycling loaders', 'Waste collection operatives', 'HGV refuse drivers', 'Recycling operatives', 'Yard and transfer station operatives', 'Street cleansing operatives', 'Supervisors and team leaders', 'Operational support roles']} shortName="Waste Management" jobsId="waste-management-jobs"><SectorIntentPanel jobs={sectorJobs} sector="Waste Management" shortName="Waste Management" jobsHref={jobsHrefForSector('waste')} employer={employer} /></SectorOverview>
     <section id="job-categories" className="scroll-mt-[92px] bg-surface py-16 max-[760px]:py-12">
       <Container>

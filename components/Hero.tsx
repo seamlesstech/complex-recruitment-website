@@ -79,7 +79,7 @@ const slides = [
     id: "waste",
     tab: "Waste Management",
     tabAriaLabel: undefined,
-    src: "/waste-management-hero.jpg",
+    src: "/stock/refuse-collection-operative-dusk.jpg",
     position: "bg-center",
     eyebrow: "WASTE MANAGEMENT",
     titleTop: "Crews that keep",

@@ -128,7 +128,7 @@ export default function AdditionalServicesPage() {
     {/* 3. Driver Assessments: image left, copy right */}
     <section id="onsite-driver-assessments" className={`${featureSection} bg-surface`}>
       <Container className="grid grid-cols-[1.05fr_.95fr] items-stretch gap-[96px] max-[1180px]:gap-[56px] max-[1000px]:grid-cols-1 max-[1000px]:gap-[44px]">
-        <FeatureImage src="/additional-services-assessments.jpg" alt="A driver’s hands on the steering wheel" position="55% 45%" />
+        <FeatureImage src="/stock/van-driver-at-the-wheel.jpg" alt="A driver at the wheel of a right-hand-drive van" position="66% 45%" />
         <div className="flex flex-col justify-center">
           <FeatureHeading label="Onsite Driver Assessments">Understand how<br /><em>your drivers perform.</em></FeatureHeading>
           <p className={`${body} my-7`}>Practical, theory-led and load-security assessments give employers useful insight into driver capability, safety and development needs. Findings come back as clear feedback and recommendations, with follow-up support where it helps.</p>
@@ -147,7 +147,7 @@ export default function AdditionalServicesPage() {
           <PointList items={cpcPoints} />
           <div className="mt-9"><ButtonLink href="/training/cpc" variant="dark">Explore CPC Training</ButtonLink></div>
         </div>
-        <FeatureImage src="/additional-services-cpc.jpg" alt="Lorries on a road at sunset" position="40% 55%" className="max-[1000px]:order-1" />
+        <FeatureImage src="/stock/hgv-driver-at-trailer-depot.jpg" alt="A lorry driver in hi-vis at the cab of an articulated lorry in a depot yard" position="40% 50%" className="max-[1000px]:order-1" />
       </Container>
     </section>
 

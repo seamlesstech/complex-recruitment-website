@@ -10,7 +10,7 @@ import { ButtonLink } from '../../components/ui/ButtonLink';
 import { TextLink } from '../../components/ui/TextLink';
 
 const sectors = [
-  {slug:'driving',n:'01',name:'Driving & Transport',image:'/stock/hgv-trucks-on-open-road.jpg',short:'Qualified drivers and transport professionals for operations that cannot afford to stand still.',roles:'HGV Class 1 · HGV Class 2 · 7.5t · 3.5t · ADR · HIAB · Transport'},
+  {slug:'driving',n:'01',name:'Driving & Transport',image:'/stock/daf-hgv-cab-front.jpg',position:'center 40%',short:'Qualified drivers and transport professionals for operations that cannot afford to stand still.',roles:'HGV Class 1 · HGV Class 2 · 7.5t · 3.5t · ADR · HIAB · Transport'},
   {slug:'industrial',n:'02',name:'Industrial & Warehousing',image:'/stock/forklift-warehouse-loading-bay.jpg',short:'Flexible workforce solutions across warehousing, logistics, distribution and production.',roles:'Warehouse · FLT · Picking · Loading · Production · Supervisory'},
   {slug:'construction',n:'03',name:'Construction & Engineering',image:'/stock/construction-workers-reviewing-plans.jpg',short:'Reliable skilled and general labour for active sites, projects and changing programme demands.',roles:'Trades · Plant · Site Operatives · Labour · Supervisory'},
   {slug:'business-operational-support',n:'04',name:'Business & Operational Support',image:'/stock/handshake-agreement.jpg',short:'Planners, administrators, coordinators and support teams for operational businesses.',roles:'Planning · Administration · Coordination · Customer Service · Payroll · Supervisory'},

@@ -16,7 +16,7 @@ export const revalidate = 60;
 
 const benefits=[['01','Weekly PAYE pay','Temporary workers are engaged through PAYE, with dependable weekly pay.'],['02','Timesheet support','Send your timesheets to the team by email and get help if you have a question.'],['03','Flexible opportunities','Temporary work, ongoing assignments, temp-to-perm opportunities and permanent roles.'],['04','Real communication','A recruitment team you can reach when you need an update or support.'],['05','Refer a friend','Introduce someone suitable through the Complex refer-a-friend scheme.'],['06','Sector specialists','People who understand the operational environments they recruit for.']];
 const sectorCards=[
-  {n:'01',title:'Driving & Transport',slug:'driving',copy:'HGV Class 1 and 2, 7.5t, 3.5t, ADR, HIAB and transport roles.',image:'/stock/aerial-truck-parking-lot.jpg'},
+  {n:'01',title:'Driving & Transport',slug:'driving',copy:'HGV Class 1 and 2, 7.5t, 3.5t, ADR, HIAB and transport roles.',image:'/stock/aerial-european-hgv-park.jpg'},
   {n:'02',title:'Industrial & Warehousing',slug:'industrial',copy:'Warehouse, FLT, picking, loading, production and supervisory opportunities.',image:'/stock/delivery-van-loading-trolley.jpg'},
   {n:'03',title:'Construction & Engineering',slug:'construction',copy:'Trades, plant, site operations, labour and project-based opportunities.',image:'/stock/construction-site-scaffold-crane.jpg'},
   {n:'04',title:'Business & Operational Support',slug:'business-operational-support',copy:'Planning, administration, coordination, customer service and supervisory opportunities.',image:'/stock/handshake-agreement.jpg'},
