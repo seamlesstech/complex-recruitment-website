@@ -17,7 +17,7 @@ import {
  *   candidate_interest   Register Interest            candidate
  *   staffing_request     /request-staff               employer
  *   sector_staffing      sector page enquiry panels   employer
- *   cpc_training         /training/cpc/enquiry        general (subject "CPC Training enquiry")
+ *   cpc_training         /training/cpc/enquiry        cpc_training
  *
  * `kind` is server mapping logic only. Status ('new'), owner (Unassigned),
  * source ('Website') are always set here; the ENQ- reference comes from Postgres.

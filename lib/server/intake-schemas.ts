@@ -205,7 +205,10 @@ export type EnquiryInput = z.infer<typeof enquirySchema>;
 // Enquiry row mapping (server-controlled; see route handler)
 // ---------------------------------------------------------------------------
 
-export type EnquiryType = 'employer' | 'candidate' | 'general';
+// The website only ever writes these values of the Postgres enquiry_type enum
+// (`partnership` is set in Admin). `cpc_training` needs the Admin migration
+// 20261127120000_enquiry_type_cpc_training.sql applied first.
+export type EnquiryType = 'employer' | 'candidate' | 'general' | 'cpc_training';
 
 export type EnquiryDraft = {
   type: EnquiryType;
@@ -301,10 +304,9 @@ export function toEnquiryDraft(input: EnquiryInput): EnquiryDraft {
       };
 
     case 'cpc_training':
-      // Stored as a `general` Enquiry (the enquiry_type enum has no training value);
-      // the "CPC Training" subject is what identifies these in the Enquiries list.
+      // Stored as its own `cpc_training` Enquiry type, shown as "CPC Training" in Admin.
       return {
-        type: 'general',
+        type: 'cpc_training',
         contact_name: input.fullName,
         email: input.email,
         phone: nullIfBlank(input.phone),
